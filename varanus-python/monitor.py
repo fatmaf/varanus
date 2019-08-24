@@ -9,3 +9,5 @@ fdr = FDRInterface()
 fdr.load_model("model/mascot-safety-system.csp")
 
 print fdr.check_trace(["system_init"])
+
+fdr.close()
