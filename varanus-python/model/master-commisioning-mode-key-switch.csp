@@ -1,0 +1,28 @@
+-- 5.4 Master Commissioning Mode Key Switch
+
+mcmAlpha = {| master_commissioning_switch, reset, enter_master_commissioning_state, leave_master_commissioning_state, system_init|} --, enter_safe_state, leave_safe_state |}
+
+MCM_MASTER_COMMISSIONING_STATE =
+  master_commissioning_switch.MCM_Off -> leave_master_commissioning_state -> MCM_ENABLED_STATE
+  []
+  master_commissioning_switch.MCM_On -> enter_master_commissioning_state -> MCM_MASTER_COMMISSIONING_STATE
+--  []
+--  enter_safe_state -> MCM_SAFE_STATE
+
+MCM_ENABLED_STATE =
+  --Becasue of 5.4.1:2
+  reset -> master_commissioning_switch.MCM_On -> enter_master_commissioning_state -> MCM_MASTER_COMMISSIONING_STATE
+  []
+  master_commissioning_switch.MCM_On -> MCM_ENABLED_STATE
+  --[]
+--  enter_safe_state -> MCM_SAFE_STATE
+
+MCM_SAFE_STATE =
+   MCM_ENABLED_STATE
+
+MASTER_COMMISSIONING_MODE =
+  system_init -> MCM_ENABLED_STATE
+
+assert MASTER_COMMISSIONING_MODE :[deadlock free]
+assert MASTER_COMMISSIONING_MODE :[divergence free]
+assert MASTER_COMMISSIONING_MODE :[deterministic]

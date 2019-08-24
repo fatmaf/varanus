@@ -1,0 +1,67 @@
+--5.6 Master Safe Speed Monitoring
+
+AutonomousSafeSpeed = 500
+HandsOnSafeSpeed = 1000
+
+AutonomousSafeSpeeds = { s | s  <- Speed, s<=AutonomousSafeSpeed}
+AutonomousUnSafeSpeeds = { s | s <- Speed, s > AutonomousSafeSpeed}
+
+HandsOnSafeSpeeds = {s | s <- Speed, s <= HandsOnSafeSpeed }
+HandsOnUnSafeSpeeds = {s | s <- Speed, s > HandsOnSafeSpeed}
+
+ssmAlpha = {| enter_hands_on_mode, enter_autonomous_mode, speed,
+              enter_master_commissioning_state, leave_master_commissioning_state,
+              protective_stop, speed_ok, leave_safe_state, system_init, enter_safe_state|}
+
+SSM_AUTONOMOUS_MODE =
+  enter_hands_on_mode -> SSM_HANDS_ON_MODE
+  []
+  -- Becasue of 5.4.1:4.a
+  enter_master_commissioning_state -> SSM_UNMONITORED_MODE(AM)
+  []
+  speed?s:AutonomousSafeSpeeds -> speed_ok -> SSM_AUTONOMOUS_MODE
+  []
+  speed?s:AutonomousUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE
+  []
+  enter_safe_state -> SSM_SAFE_STATE
+  -- assumes that we don't monitor speed in the safe state
+
+
+
+SSM_HANDS_ON_MODE =
+  enter_autonomous_mode -> SSM_AUTONOMOUS_MODE
+  []
+  -- Becasue of 5.4.1:4.a
+  enter_master_commissioning_state -> speed_ok -> SSM_UNMONITORED_MODE(HOM)
+  []
+  speed?s:HandsOnSafeSpeeds -> speed_ok -> SSM_HANDS_ON_MODE
+  []
+  speed?s:HandsOnUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE
+  []
+  enter_safe_state -> SSM_SAFE_STATE
+  -- assumes that we don't monitor speed in the safe state
+
+-- Becasue of 5.4.1:4.az
+SSM_UNMONITORED_MODE(lastMode) =
+  speed?_ -> speed_ok -> SSM_UNMONITORED_MODE(lastMode)
+  []
+  (
+  if lastMode == HOM then
+    leave_master_commissioning_state -> SSM_HANDS_ON_MODE
+  else if lastMode == AM then
+    leave_master_commissioning_state -> SSM_AUTONOMOUS_MODE
+  else
+    SKIP
+  )
+
+
+SSM_SAFE_STATE =
+  leave_safe_state -> SSM_AUTONOMOUS_MODE
+
+SAFE_SPEED_MONITOR =
+  system_init ->  SSM_AUTONOMOUS_MODE
+
+
+  assert SAFE_SPEED_MONITOR :[deadlock free]
+  assert SAFE_SPEED_MONITOR :[divergence free]
+  assert SAFE_SPEED_MONITOR :[deterministic]

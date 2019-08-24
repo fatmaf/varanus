@@ -1,0 +1,219 @@
+--5.2 Emergency and Protective stop
+
+-- 5.2.1:1
+EPS1 =
+  safe_state_key.PresentOn -> safe_stop_cat1 -> EPS1
+  |~|
+  safe_stop_cat1 -> EPS1
+  |~|
+  protective_stop -> safe_stop_cat1  -> EPS1
+
+assert EPS1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_state_key.PresentOn, protective_stop, safe_stop_cat1|}) )
+
+
+-- 5.2.1:2
+--EPS should:  "Take precedence over all other system functions"
+
+-- This just says that the system can do this, not that there aren't other options.
+assert MASCOT_SAFETY_SYSTEM :[has trace]: <system_init, speed.1250, protective_stop>
+
+
+EPS2A =
+system_init -> EPS2A'
+
+EPS2A'=
+(
+  ([] e : diff(Events, {|system_init,  speed, protective_stop, speed_ok|})  @ e->EPS2A')
+  []
+  speed?s -> (protective_stop -> EPS2A' [] speed_ok -> EPS2A' )
+)
+
+-- This says that after system_init, events can happen, but when speed happens it will eventually do protective_stop or speed_ok.
+assert EPS2A [T= MASCOT_SAFETY_SYSTEM
+
+EPS2B =
+system_init -> EPS2B_AM
+
+EPS2B_AM =
+(
+speed?s:AutonomousSafeSpeeds -> speed_ok -> EPS2B_AM
+[]
+speed?s:AutonomousUnSafeSpeeds -> protective_stop -> EPS2B_AM
+[]
+foot_pedal_pressed.True -> EPS2B_HOM
+)
+
+EPS2B_HOM =
+(
+  speed?s:HandsOnSafeSpeeds -> speed_ok -> EPS2B_HOM
+  []
+  speed?s:HandsOnUnSafeSpeeds -> protective_stop -> EPS2B_HOM
+  []
+  foot_pedal_pressed.False -> EPS2B_AM
+)
+
+-- This says that when speed happens, speed_ok or protective_stop (as appropriate) will not be refused.
+assert EPS2B [F= MASCOT_SAFETY_SYSTEM\(diff(Events, {|system_init, speed, protective_stop, speed_ok, foot_pedal_pressed |}))
+
+
+-- 5.2.1:4 and 5
+EPS3 = safe_state_key.PresentOn -> safeStateIs.Enabled -> EPS3
+assert EPS3 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_state_key.PresentOn, safeStateIs|}) )
+
+assert not MASCOT_SAFETY_SYSTEM
+[|Events|]
+(safe_state_key.PresentOn -> emergency_stop ->
+safe_stop_cat1-> enter_safe_state -> reset ->
+|~| e:Events @ e -> restart -> SKIP)
+:[deadlock free]
+
+-- 5.2.1:6
+EPS4 =  safe_state_key.PresentOn -> safeStateIs.Enabled -> EPS4
+assert EPS4 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_state_key.PresentOn, safeStateIs|}) )
+
+-- 5.3 Safe State Key Switch
+KEY_SWITCH1 = safe_state_key.PresentOn -> emergency_stop -> KEY_SWITCH1
+assert KEY_SWITCH1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_state_key.PresentOn, emergency_stop|}) )
+
+KEY_SWITCH2 =
+  safe_state_key.PresentOn -> enter_safe_state ->
+  (
+    reset -> KEY_SWITCH2
+    |~|
+    safe_state_key.Removed -> KEY_SWITCH2
+    |~|
+    safeStateIs.Enabled -> KEY_SWITCH2
+    |~|
+    safe_state_key.Removed -> safe_state_key.PresentOff -> reset -> KEY_SWITCH2
+  )
+  |~|
+  enter_safe_state -> reset -> KEY_SWITCH2
+
+assert KEY_SWITCH2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {| safe_state_key.PresentOn, enter_safe_state, reset |}) )
+
+--
+
+
+-- 5.4 Master Commissioning Mode Key Switch
+
+-- 5.4.1:2
+MCM_SWITCH1 =
+  reset -> master_commissioning_switch.MCM_On -> enter_master_commissioning_state -> MCM_SWITCH1
+  |~|
+  master_commissioning_switch.MCM_On -> MCM_SWITCH1
+assert MCM_SWITCH1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|reset, master_commissioning_switch.MCM_On, enter_master_commissioning_state |}) )
+
+-- 5.4.1:3
+MCM_SWITCH2 = enter_safe_state -> leave_master_commissioning_state -> MCM_SWITCH2
+assert MCM_SWITCH2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|enter_safe_state, leave_master_commissioning_state|}) )
+
+-- 5.4.1:4
+MCM_SWITCH3a =
+  enter_master_commissioning_state ->
+  leave_master_commissioning_state -> protective_stop -> MCM_SWITCH3a
+
+  |~|
+  protective_stop ->  MCM_SWITCH3a
+assert MCM_SWITCH3a [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|enter_master_commissioning_state, leave_master_commissioning_state, protective_stop|}) )
+
+MCM_SWITCH3b =
+  safe_state_key.PresentOn -> emergency_stop -> safe_stop_cat1 -> enter_safe_state -> reset -> master_commissioning_switch.MCM_On ->
+  enter_master_commissioning_state -> protective_stop -> MCM_SWITCH3b
+
+assert not MCM_SWITCH3b
+  [| Events |]
+  MASCOT_SAFETY_SYSTEM\( diff(Events, {|enter_master_commissioning_state, leave_master_commissioning_state, protective_stop, safe_state_key.PresentOn, emergency_stop, enter_safe_state, reset,master_commissioning_switch.MCM_On |}) ) :[deadlock free]
+
+-- 5.5 Slave Commissioning Mode Key switch
+
+-- 5.5.1:1
+SCM_SWITCH1=
+ slave_commissioning_switch.SCM_On -> safe_stop_cat1 -> enter_slave_commissioning_state -> SCM_SWITCH1
+assert SCM_SWITCH1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_On, enter_slave_commissioning_state|}) )
+
+-- 5.5.1:2.c
+SCM_SWITCH2 =
+ slave_commissioning_switch.SCM_On -> safeStateIs.Enabled -> SCM_SWITCH2
+assert SCM_SWITCH2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_On, safeStateIs|}) )
+
+
+--5.5.1:3
+SCM_SWITCH3 =
+  slave_commissioning_switch.SCM_Off -> enter_autonomous_mode -> SCM_SWITCH3
+  |~|
+  enter_autonomous_mode -> SCM_SWITCH3
+
+assert SCM_SWITCH3 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_Off, enter_autonomous_mode|}) )
+
+
+-- 5.6 Master Safe Speed Monitoring
+
+-- 5.6.1:5 and 7 and 5.6.1:5
+channel get_monitoring : Bool
+channel get_limit : Speed
+
+SSM1 =
+system_init ->
+(
+SSM1_SPEED
+[|{| get_monitoring, get_limit, speed, protective_stop, speed_ok |}|]
+SSM1_STATE(True, AutonomousSafeSpeed)
+)
+
+ssm1_stateAlpha =
+  {|enter_master_commissioning_state, leave_master_commissioning_state, system_init,
+  foot_pedal_pressed, get_monitoring, get_limit |}
+
+SSM1_STATE(monitoring, limit) =
+enter_master_commissioning_state -> SSM1_STATE(False, limit)
+[]
+leave_master_commissioning_state -> SSM1_STATE(True, limit)
+[]
+system_init -> SSM1_STATE(monitoring, AutonomousSafeSpeed)
+[]
+foot_pedal_pressed.True -> SSM1_STATE(monitoring,HandsOnSafeSpeed )
+[]
+foot_pedal_pressed.False -> SSM1_STATE(monitoring,AutonomousSafeSpeed )
+[]
+speed?_ -> get_monitoring!monitoring -> get_limit!limit -> (protective_stop -> SSM1_STATE(monitoring, limit) [] speed_ok -> SSM1_STATE(monitoring, limit) )
+
+SSM1_SPEED =
+speed?s ->
+get_monitoring?m -> get_limit?limit ->
+if m == True and s > limit then
+  protective_stop -> SSM1_SPEED
+else
+  speed_ok -> SSM1_SPEED
+
+
+
+assert SSM1\{|get_limit, get_monitoring|} [F= MASCOT_SAFETY_SYSTEM\( diff(Events,
+  {|system_init, foot_pedal_pressed, speed, protective_stop, speed_ok,
+     leave_master_commissioning_state, enter_master_commissioning_state |}) )
+
+
+
+--5.7 Hands on Mode Monitoring
+
+--5.7.1:6
+HMM1 = foot_pedal_pressed.True -> enter_hands_on_mode -> HMM1
+
+assert HMM1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|foot_pedal_pressed.True, enter_hands_on_mode |}) )
+
+-- 5.7.1:7
+
+HMM2 =
+  foot_pedal_pressed.False -> enter_autonomous_mode -> HMM2
+  |~|
+  enter_autonomous_mode -> HMM2
+
+assert HMM2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|foot_pedal_pressed.False, enter_autonomous_mode |}) )
+
+-- 5.7.1:8
+
+HMM3 =
+  enter_safe_state -> enter_autonomous_mode -> HMM3
+  |~|
+  enter_autonomous_mode -> HMM3
+
+assert HMM3 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|enter_safe_state, enter_autonomous_mode |}) )
