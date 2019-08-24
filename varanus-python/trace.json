@@ -1,0 +1,4 @@
+["system_init"]
+["system_init", "speed.1250"]
+["system_init", "speed.1250", "protective_stop"]
+["system_init", "speed.1250", "speed_ok"]
