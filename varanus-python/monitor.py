@@ -1,4 +1,5 @@
 from fdr_interface import FDRInterface
+from system_interface import *
 import json
 
 #"MASCOT_SAFETY_SYSTEM :[has trace]: <system_init>"
@@ -12,8 +13,10 @@ class Monitor(object):
         self.model_path = model_path
         self.fdr.load_model(self.model_path)
 
-    def run_offline(self, log_path):
-        trace_file = open("trace.json")
+    def _run_offline_traces(self, log_path):
+        system = OfflineInterface(log_path)
+
+        trace_file = system.connect()
 
         for json_line in trace_file:
             trace = json.loads(json_line)
@@ -22,11 +25,27 @@ class Monitor(object):
             print result
 
             if not result:
-                trace_file.close()
+                system.close()
                 return result
 
         return result
 
+    def run_online(self, ip, port):
+
+        ##connect to the system
+        system = TCPInterface(ip, port)
+        conn = system.connect()
+
+        # How to terminate? What is the end program signal?
+        while 1:
+
+            #get the data from the system
+            data = conn.recv(1024)
+            # break if it's empty
+            if not data: break
+
+            print "received data:", data
+            conn.send(data)  # echo
 
 
     def close(self):
@@ -35,4 +54,6 @@ class Monitor(object):
 
 
 mon = Monitor("model/mascot-safety-system.csp")
-mon.run_offline("trace.json")
+#mon._run_offline_traces("trace.json")
+mon.run_online('127.0.0.1', 5005)
+mon.close()
