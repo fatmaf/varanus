@@ -25,9 +25,9 @@ elif platform.system() == "Darwin":
         if os.path.exists(os.path.join(app_dir, "FDR4.app")):
             sys.path.append(os.path.join(app_dir, "FDR4.app", "Contents", "Frameworks"))
             break
-
-
 import fdr
+from command_line import *
+
 
 class FDRInterface(object):
     """Interfaces the monitor with FDR"""
@@ -50,7 +50,7 @@ class FDRInterface(object):
 
     def _make_assertion(self, trace):
         #generate assert and dump it into the model
-        assert_start = "MASCOT_SAFETY_SYSTEM :[has trace]: <"
+        assert_start = "MASCOT_SAFETY_SYSTEM  :[has trace]: <"
         assert_end = ">"
 
         assert_check = assert_start
@@ -78,7 +78,7 @@ class FDRInterface(object):
         assert(self.session != None)
 
         assertionString = self._make_assertion(trace)
-        
+
         parsedAssert = self.session.parse_assertion(assertionString)
 
         assertion = parsedAssert.result()
@@ -90,6 +90,10 @@ class FDRInterface(object):
             return True
         else:
             print assertion.to_string() + " Failed"
+
+            for counterexample in assertion.counterexamples():
+                describe_counterexample(self.session, counterexample)
+
             return False
 
 

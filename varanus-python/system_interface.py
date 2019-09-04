@@ -1,11 +1,5 @@
 import socket
 
-class EventAbstractor(object):
-
-    def __init__(self, event_map):
-        self.event_map = event_map
-
-
 
 class SystemInterface(object):
 

@@ -1,5 +1,6 @@
 from fdr_interface import FDRInterface
 from system_interface import *
+from event_abstractor import *
 import json
 
 #"MASCOT_SAFETY_SYSTEM :[has trace]: <system_init>"
@@ -32,6 +33,8 @@ class Monitor(object):
 
     def run_online(self, ip, port):
 
+        eventMapper = EventAbstractor("event_map.json")
+
         ##connect to the system
         system = TCPInterface(ip, port)
         conn = system.connect()
@@ -46,6 +49,19 @@ class Monitor(object):
 
             print "received data:", data
             conn.send(data)  # echo
+
+            new_trace = eventMapper.new_trace(json.loads(data))
+
+            result = self.fdr.check_trace(new_trace)
+
+            print result
+
+            if not result:
+                
+                system.close()
+                return result
+
+        return result
 
 
     def close(self):
