@@ -22,7 +22,7 @@ class EventAbstractor(object):
             # becomes an event
 
             new_event = self.event_map["velocity"]
-            new_event = str(new_event) + "." + str(curr_velocity)
+            new_event = str(new_event) + "." + str(curr_velocity) + ", speed_ok"
 
             self.last_values["velocity"] = curr_velocity
 
@@ -31,6 +31,10 @@ class EventAbstractor(object):
             # becomes an event
             new_event = self.event_map["footswitch"]
             new_event = str(new_event) + "." + str(curr_footswitch)
+            if curr_footswitch:
+                new_event = new_event + ", enter_hands_on_mode"
+            else:
+                new_event = new_event + ", enter_autonomous_mode"
 
             self.last_values["footswitch"] = curr_footswitch
 

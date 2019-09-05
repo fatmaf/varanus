@@ -92,7 +92,7 @@ class FDRInterface(object):
             print assertion.to_string() + " Failed"
 
             for counterexample in assertion.counterexamples():
-                describe_counterexample(self.session, counterexample)
+                describe_counterexample(self.session, counterexample, children=False)
 
             return False
 

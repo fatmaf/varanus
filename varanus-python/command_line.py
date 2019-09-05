@@ -74,8 +74,10 @@ def real_main():
 
 """
 Pretty prints the specified counterexample to out.
+
+Children switch added by Matt Luckcuck 5th Sept 2019
 """
-def describe_counterexample(session, counterexample):
+def describe_counterexample(session, counterexample, children=True):
     # Firstly, just print a simple description of the counterexample
     if isinstance(counterexample, fdr.DeadlockCounterexample):
         t = "deadlock"
@@ -95,16 +97,17 @@ def describe_counterexample(session, counterexample):
         t = "unknown"
 
     print "Counterexample type: "+t
-    print "Children:"
+    if children:
+        print "Children:"
 
-    # In order to print the children we use a DebugContext. This allows for
-    # division of behaviours into their component behaviours, and also ensures
-    # proper alignment amongst the child components.
-    debug_context = fdr.DebugContext(counterexample, False)
-    debug_context.initialise(None)
+        # In order to print the children we use a DebugContext. This allows for
+        # division of behaviours into their component behaviours, and also ensures
+        # proper alignment amongst the child components.
+        debug_context = fdr.DebugContext(counterexample, False)
+        debug_context.initialise(None)
 
-    for behaviour in debug_context.root_behaviours():
-        describe_behaviour(session, debug_context, behaviour, 2, True)
+        for behaviour in debug_context.root_behaviours():
+            describe_behaviour(session, debug_context, behaviour, 2, True)
 
 """
 Prints a vaguely human readable description of the given behaviour to out.
