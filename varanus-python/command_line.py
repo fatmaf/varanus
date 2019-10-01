@@ -2,6 +2,8 @@ import os
 import platform
 import sys
 
+""" Another bit of FDR API that I've resued."""
+
 if platform.system() == "Linux":
     for bin_dir in os.environ.get("PATH", "").split(":"):
 

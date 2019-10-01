@@ -2,6 +2,8 @@ import os
 import platform
 import sys
 
+""" Interface to FDR. Based on: https://www.cs.ox.ac.uk/projects/fdr/manual/api/api.html#getting-started-with-python"""
+
 if platform.system() == "Linux":
     for bin_dir in os.environ.get("PATH", "").split(":"):
 

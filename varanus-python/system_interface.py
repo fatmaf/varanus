@@ -1,7 +1,12 @@
 import socket
 
+"""Communicates with the system being monitored and passes back its handle.
+This should provide a common interface to the Monitor class, regardless of the
+system's underlying connection  """
+
 
 class SystemInterface(object):
+    """Interface for all system interfaces"""
 
     def __init__(self):
         pass
@@ -14,6 +19,7 @@ class SystemInterface(object):
 
 
 class OfflineInterface(SystemInterface):
+    """ Interface to a file of traces."""
 
     def __init__(self, trace_file_path, event_map = None):
         self.trace_file_path = trace_file_path
@@ -30,6 +36,7 @@ class OfflineInterface(SystemInterface):
 
 
 class TCPInterface(SystemInterface):
+    """Interface to a TCP connection."""
 
     def __init__(self, IP, port, event_map = None):
         self.IP = IP

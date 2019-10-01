@@ -8,6 +8,7 @@ import json
 
 
 class Monitor(object):
+    """The main class of the program, controls the process """
 
     def __init__(self, model_path):
         self.fdr = FDRInterface()
@@ -57,7 +58,7 @@ class Monitor(object):
             print result
 
             if not result:
-                
+
                 system.close()
                 return result
 

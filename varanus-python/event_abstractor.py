@@ -2,6 +2,7 @@ import json
 
 
 class EventAbstractor(object):
+    """Decodes JSON representation of system's status to produce a trace of events."""
 
     def __init__(self, event_map_path):
         # event_map should be a json map path
