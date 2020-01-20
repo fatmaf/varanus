@@ -46,6 +46,7 @@ class EventAbstractor(object):
 
         new_events = None
 
+        # This is hard-coded, needs to be extracted.
         if curr_velocity != self.last_values["velocity"] and curr_footswitch != self.last_values["footswitch"]:
             first_trace_fragment = self._decode_velocity(curr_velocity) + ", " + self._decode_footswitch(curr_footswitch)
 
