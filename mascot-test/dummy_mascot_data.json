@@ -1,5 +1,4 @@
 {"velocity":100, "footswitch": false }
-{"velocity":100, "footswitch": true }
-{"velocity":500, "footswitch": true }
+{"velocity":500, "footswitch": false }
 {"velocity":750, "footswitch": true }
 {"velocity":1250, "footswitch": true }

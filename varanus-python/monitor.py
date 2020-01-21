@@ -51,16 +51,28 @@ class Monitor(object):
             print "received data:", data
             conn.send(data)  # echo
 
-            new_trace = eventMapper.new_trace(json.loads(data))
 
-            result = self.fdr.check_trace(new_trace)
+            new_traces = eventMapper.new_traces(json.loads(data))
 
-            print result
+            results = []
+            for new_trace in new_traces:
+                result = self.fdr.check_trace(new_trace)
 
-            if not result:
+                #print result
+                results.append(result)
 
-                system.close()
-                return result
+            num_of_results = len(results)
+            num_of_t = 0
+            for r in results:
+                if r: #is true
+                    num_of_t = num_of_t + 1
+
+            percentage_true = (float(num_of_t) / num_of_results) * 100
+
+            if percentage_true == 0 :
+                print "False (100%)"
+            else:
+                print "True (" + str(percentage_true) + "%)"
 
         return result
 
