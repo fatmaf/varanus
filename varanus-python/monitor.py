@@ -56,9 +56,10 @@ class Monitor(object):
 
             results = []
             for new_trace in new_traces:
+                print new_trace
                 result = self.fdr.check_trace(new_trace)
 
-                #print result
+                print result
                 results.append(result)
 
             num_of_results = len(results)

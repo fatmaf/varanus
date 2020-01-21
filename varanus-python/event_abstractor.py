@@ -61,12 +61,16 @@ class EventAbstractor(object):
         elif curr_footswitch != self.last_values["footswitch"]:
             # becomes an event
             new_events = self._decode_footswitch(curr_footswitch)
+        else:
+            # Assume this is just a speed update
+            new_events = self._decode_velocity(curr_velocity)
 
         return new_events
 
     def new_traces(self, update):
 
         new_events = self.decode(update)
+        print new_events
 
         if isinstance(new_events, tuple):
             #first split
