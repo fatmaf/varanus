@@ -55,12 +55,16 @@ class FDRInterface(object):
         assert_start = "MASCOT_SAFETY_SYSTEM  :[has trace]: <"
         assert_end = ">"
 
+        print type(trace)
+
         assert_check = assert_start
 
         for i in range(len(trace)):
             # the str is key here. My editor produced unicode which became
             # a unicode object, not a str object so the assertion parsing broke.
             event = str(trace[i])
+            print event
+            print type(event)
             assert_check = assert_check + event
             if i < len(trace)-1:
                 assert_check = assert_check + ", "
@@ -80,6 +84,7 @@ class FDRInterface(object):
         assert(self.session != None)
 
         assertionString = self._make_assertion(trace)
+        print assertionString
 
         parsedAssert = self.session.parse_assertion(assertionString)
 
