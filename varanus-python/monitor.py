@@ -22,6 +22,8 @@ class Monitor(object):
 
         for json_line in trace_file:
             trace = json.loads(json_line)
+            print trace
+            print type(trace)
 
             result = self.fdr.check_trace(trace)
             print result
@@ -31,6 +33,41 @@ class Monitor(object):
                 return result
 
         return result
+
+    def run_offline_rosmon(self, log_path):
+        system = OfflineInterface(log_path)
+        eventMapper = EventAbstractor("event_map.json")
+
+        # get the trace file
+        trace_file = system.connect()
+
+
+
+        # check the traces
+        for json_line in trace_file:
+            trace = eventMapper.new_traces(json.loads(json_line))
+            print trace
+            print type(trace)
+            # TODO Extract to a new component
+            #    {"topic": "velocity", "data": 100, "time" : 1}
+            tmp = [str(trace["topic"])+"."+str(trace["data"])]
+            print tmp
+            print type(tmp)
+            trace = tmp
+
+            new_traces = eventMapper.new_traces(trace)
+
+            ###############
+
+            result = self.fdr.check_trace(trace)
+            print result
+
+            if not result:
+                system.close()
+                return result
+
+        return result
+
 
     def run_online(self, ip, port):
 
@@ -84,6 +121,7 @@ class Monitor(object):
 
 
 mon = Monitor("model/mascot-safety-system.csp")
+mon.run_offline_rosmon("../rosmon-test/rosmon-mascot-pass.json")
 #mon._run_offline_traces("trace.json")
-mon.run_online('127.0.0.1', 5005)
+#mon.run_online('127.0.0.1', 5005)
 mon.close()

@@ -108,7 +108,7 @@ class EventAbstractor(object):
 if __name__ == "__main__":
     ea = EventAbstractor("event_map.json")
 
-    data = (open("../test/dummy_mascot_data.json"))
+    data = (open("../mascot-test/dummy_mascot_data.json"))
 
     for update in data:
         update_map = json.loads(update)
