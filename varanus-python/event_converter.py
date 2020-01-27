@@ -9,10 +9,16 @@ class EventConverter(object):
             # Initialised assuiming we're desling with CSP
             self.event_traces = [ ["system_init"]  ]
 
+        def convert_to_internal(self, input_map):
+            """Converts a map of an input event (from the monitored system)
+                into the internal representation of CSP events """
+            pass
+
         def _decode(self, update):
             pass
 
         def new_traces(self, update):
+            """ Returns the new trace(s) of the system after the update """
 
             new_events = self._decode(update)
             # This will be a list if we're sure of the order of events or a tuple if we're not

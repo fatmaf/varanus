@@ -3,16 +3,30 @@ from event_converter import EventConverter
 
 """ Abstracts the Mascot's status updates to a trace of events """
 
-class MascotEventAbstractor(EventConverter):
+class ROSMonMascotEventAbstractor(EventConverter):
     """Decodes JSON representation of system's status to produce a trace of events."""
 
     def __init__(self, event_map_path):
-        super(MascotEventAbstractor, self).__init__()
+        super(ROSMonMascotEventAbstractor, self).__init__()
         # event_map should be a json map path
         self.event_map = json.load(open(event_map_path))
         # TODO Defaults read in from file
         self. last_values = {"velocity": 0, "footswitch": False}
 
+    def convert_to_internal(self, input_map):
+        # input_map should be of the form
+        # {"topic":topic_name, "data" : the_data, "time": the_timestamp}
+        assert(input_map != None)
+
+        channelName = self.event_map[str(input_map["topic"])]
+        params = input_map["data"]
+        # Ignoring time for now
+
+        output_map = {}
+        output_map["channel"] = str(channelName)
+        output_map["params"] = params
+
+        return output_map
 
     def _decode_velocity(self, curr_velocity):
         """Decodes the change in velocity """
@@ -41,31 +55,9 @@ class MascotEventAbstractor(EventConverter):
 
     def _decode(self, update):
 
-## Some of this nees to move to convert_to_internal for this implementation
-## Decode should be working on the internal representation of CSP events
-        curr_velocity = update["velocity"]
-        curr_footswitch = update["footswitch"]
+        print update
 
-        new_events = None
-
-        # This is hard-coded, needs to be extracted.
-        if curr_velocity != self.last_values["velocity"] and curr_footswitch != self.last_values["footswitch"]:
-            first_trace_fragment = self._decode_velocity(curr_velocity) + ", " + self._decode_footswitch(curr_footswitch)
-
-            new_trace_fragment = self._decode_footswitch(curr_footswitch) + ", " +  self._decode_velocity(curr_velocity)
-
-            new_events = (first_trace_fragment, new_trace_fragment)
-
-        elif curr_velocity != self.last_values["velocity"]:
-            # becomes an event
-            new_events = self._decode_velocity(curr_velocity)
-
-        elif curr_footswitch != self.last_values["footswitch"]:
-            # becomes an event
-            new_events = self._decode_footswitch(curr_footswitch)
-        else:
-            # Assume this is just a speed update
-            new_events = self._decode_velocity(curr_velocity)
+        new_events = str(update["channel"] + "." + str(update["params"]))
 
         return new_events
 

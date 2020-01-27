@@ -1,6 +1,7 @@
 from fdr_interface import FDRInterface
 from system_interface import *
-from event_abstractor import *
+from event_converter import *
+from rosmon_mascot_event_abstractor import *
 import json
 
 #"MASCOT_SAFETY_SYSTEM :[has trace]: <system_init>"
@@ -36,27 +37,22 @@ class Monitor(object):
 
     def run_offline_rosmon(self, log_path):
         system = OfflineInterface(log_path)
-        eventMapper = EventAbstractor("event_map.json")
+        eventMapper = ROSMonMascotEventAbstractor("event_map.json")
 
         # get the trace file
         trace_file = system.connect()
 
-
-
         # check the traces
         for json_line in trace_file:
-            trace = eventMapper.new_traces(json.loads(json_line))
+            print json_line
+
+            event = eventMapper.convert_to_internal(json.loads(json_line))
+
+            print event
+
+            trace = eventMapper.new_traces(event)
+
             print trace
-            print type(trace)
-            # TODO Extract to a new component
-            #    {"topic": "velocity", "data": 100, "time" : 1}
-            tmp = [str(trace["topic"])+"."+str(trace["data"])]
-            print tmp
-            print type(tmp)
-            trace = tmp
-
-            new_traces = eventMapper.new_traces(trace)
-
             ###############
 
             result = self.fdr.check_trace(trace)
@@ -71,7 +67,7 @@ class Monitor(object):
 
     def run_online(self, ip, port):
 
-        eventMapper = EventAbstractor("event_map.json")
+        eventMapper = MascotEventAbstractor("event_map.json")
 
         ##connect to the system
         system = TCPInterface(ip, port)
