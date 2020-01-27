@@ -1,18 +1,18 @@
 import json
+from event_converter import EventConverter
 
-""" Abstracts the system's status updates to a trace of events """
+""" Abstracts the Mascot's status updates to a trace of events """
 
-class EventAbstractor(object):
+class MascotEventAbstractor(EventConverter):
     """Decodes JSON representation of system's status to produce a trace of events."""
 
     def __init__(self, event_map_path):
+        super(MascotEventAbstractor, self).__init__()
         # event_map should be a json map path
         self.event_map = json.load(open(event_map_path))
         # TODO Defaults read in from file
         self. last_values = {"velocity": 0, "footswitch": False}
 
-        # this tracks the event trace(s)
-        self.event_traces = [ ["system_init"]  ]
 
     def _decode_velocity(self, curr_velocity):
         """Decodes the change in velocity """
@@ -39,7 +39,7 @@ class EventAbstractor(object):
 
         return new_event
 
-    def decode(self, update):
+    def _decode(self, update):
 
         curr_velocity = update["velocity"]
         curr_footswitch = update["footswitch"]
@@ -67,46 +67,8 @@ class EventAbstractor(object):
 
         return new_events
 
-    def new_traces(self, update):
-
-        new_events = self.decode(update)
-        print new_events
-
-        if isinstance(new_events, tuple):
-            #first split
-            original_event_trace = self.event_traces[0]
-
-            new_event_traces = []
-
-            for new_event in new_events:
-
-                new_trace = original_event_trace + [new_event]
-
-                new_event_traces.append(new_trace)
-
-            self.event_traces = new_event_traces
-        elif len(self.event_traces) > 1 :
-            #after first split
-
-            if isinstance(new_events, tuple):
-                #split again
-                #TODO
-                pass
-            else:
-                #just update what we have
-                for trace in self.event_traces:
-                    trace.append(new_events)
-
-
-        else:
-            #no splits
-            self.event_traces[0].append(new_events)
-
-        return self.event_traces
-
-
 if __name__ == "__main__":
-    ea = EventAbstractor("event_map.json")
+    ea = MascotEventAbstractor("event_map.json")
 
     data = (open("../mascot-test/dummy_mascot_data.json"))
 
