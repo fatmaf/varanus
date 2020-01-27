@@ -18,6 +18,8 @@ class MascotEventAbstractor(EventConverter):
         """Decodes the change in velocity """
 
         new_event = self.event_map["velocity"]
+        # This is an assumption that the speed reading was ok, because the system did it
+        # Otherwise, FDR will reject the trace, which is what we want
         new_event = str(new_event) + "." + str(curr_velocity) + ", speed_ok"
 
         self.last_values["velocity"] = curr_velocity

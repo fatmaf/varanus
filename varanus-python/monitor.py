@@ -2,6 +2,7 @@ from fdr_interface import FDRInterface
 from system_interface import *
 from event_converter import *
 from rosmon_mascot_event_abstractor import *
+from trace_representation import Event, Trace
 import json
 
 #"MASCOT_SAFETY_SYSTEM :[has trace]: <system_init>"
@@ -41,16 +42,40 @@ class Monitor(object):
 
         # get the trace file
         trace_file = system.connect()
+        trace = Trace()
 
         # check the traces
         for json_line in trace_file:
+            if json_line == '\n':
+                continue
+
             print json_line
 
-            event = eventMapper.convert_to_internal(json.loads(json_line))
+            event_map = eventMapper.convert_to_internal(json.loads(json_line))
 
+            print event_map
+
+            event = Event(event_map["channel"], event_map["params"])
+            trace.add_event(event)
             print event
 
-            trace = eventMapper.new_traces(event)
+            #### THIS IS A BAD PLACE FOR THIS (also some of the above)
+
+            if event_map["channel"] == "speed" :
+                speed_ok = Event("speed_ok")
+                trace.add_event(speed_ok)
+
+            if event_map["channel"] == "foot_pedal_pressed" and event_map["params"] == True :
+                mode_change = Event("enter_hands_on_mode")
+                trace.add_event(mode_change)
+            elif event_map["channel"] == "foot_pedal_pressed" and event_map["params"] == False :
+                mode_change = Event("enter_autonomous_mode")
+                trace.add_event(mode_change)
+
+            ####
+
+
+            #trace = eventMapper.new_traces(event)
 
             print trace
             ###############

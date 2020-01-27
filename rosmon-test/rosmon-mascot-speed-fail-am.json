@@ -1,3 +1,5 @@
+{"topic": "system_init", "data": null, "time" : 0}
+
 {"topic": "velocity", "data": 100, "time" : 1}
 {"topic": "footswitch", "data": false, "time" : 2}
 

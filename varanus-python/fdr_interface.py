@@ -58,17 +58,18 @@ class FDRInterface(object):
         print type(trace)
 
         assert_check = assert_start
+        trace_list = trace.to_list()
 
-        for i in range(len(trace)):
+        for i in range(len(trace_list)):
             # the str is key here. My editor produced unicode which became
             # a unicode object, not a str object so the assertion parsing broke.
-            event = str(trace[i])
+            event = str(trace_list[i])
             print event
             print type(event)
             assert_check = assert_check + event
-            if i < len(trace)-1:
+            if i < len(trace_list)-1:
                 assert_check = assert_check + ", "
-            elif i == len(trace)-1:
+            elif i == len(trace_list)-1:
                 assert_check = assert_check + assert_end
 
         return assert_check

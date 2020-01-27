@@ -13,7 +13,6 @@ class Event(object):
         else:
             self.parameters = parameters
 
-        pass
 
     def to_fdr(self):
 
@@ -38,17 +37,22 @@ class Trace(object):
             self.trace=[initial_trace]
 
     def add_event(self, new_event):
+        """ Adds an event to the trace """
         assert(new_event != None)
 
         self.trace.append(new_event)
 
-    def to_fdr(self):
+    def to_list(self):
+        """ Returns a list of the events in the trace """
 
         fdr_list = []
         for event in self.trace:
             fdr_list.append(event.to_fdr())
 
         return fdr_list
+
+
+
 
 if __name__ == "__main__":
 
@@ -59,9 +63,9 @@ if __name__ == "__main__":
     print e2.to_fdr()
 
     t1 = Trace()
-    print t1.to_fdr()
+    print t1.to_list()
     t1.add_event(e1)
-    print t1.to_fdr()
+    print t1.to_list()
 
     t2 = Trace(e2)
-    print t2.to_fdr()
+    print t2.to_list()
