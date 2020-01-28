@@ -13,7 +13,6 @@ class Event(object):
         else:
             self.parameters = parameters
 
-
     def to_fdr(self):
 
         fdr_string = self.channel

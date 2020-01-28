@@ -62,7 +62,7 @@ class ROSMonMascotEventAbstractor(EventConverter):
         return new_events
 
 if __name__ == "__main__":
-    ea = MascotEventAbstractor("event_map.json")
+    ea = ROSMonMascotEventAbstractor("event_map.json")
 
     data = (open("../mascot-test/dummy_mascot_data.json"))
 

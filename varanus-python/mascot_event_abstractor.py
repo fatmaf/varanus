@@ -43,7 +43,7 @@ class MascotEventAbstractor(EventConverter):
 
     def _decode(self, update):
 
-## Some of this nees to move to convert_to_internal for this implementation
+## Some of this needs to move to convert_to_internal for this implementation
 ## Decode should be working on the internal representation of CSP events
         curr_velocity = update["velocity"]
         curr_footswitch = update["footswitch"]
@@ -70,6 +70,12 @@ class MascotEventAbstractor(EventConverter):
             new_events = self._decode_velocity(curr_velocity)
 
         return new_events
+
+
+    def convert_to_internal(self, input_map):
+            """Converts a map of an input event (from the monitored system)
+                into the internal representation of CSP events """
+            pass
 
 if __name__ == "__main__":
     ea = MascotEventAbstractor("event_map.json")

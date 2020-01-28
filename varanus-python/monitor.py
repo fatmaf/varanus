@@ -2,6 +2,7 @@ from fdr_interface import FDRInterface
 from system_interface import *
 from event_converter import *
 from rosmon_mascot_event_abstractor import *
+from mascot_event_abstractor import *
 from trace_representation import Event, Trace
 import json
 
@@ -19,11 +20,30 @@ class Monitor(object):
 
     def _run_offline_traces(self, log_path):
         system = OfflineInterface(log_path)
+        eventMapper = MascotEventAbstractor("event_map.json")
 
         trace_file = system.connect()
+        trace = Trace()
 
         for json_line in trace_file:
-            trace = json.loads(json_line)
+            if json_line == '\n':
+                continue
+            print json_line
+            # No convert_to_internal here becasue it's for a file of traces
+            event_list =json.loads(json_line)
+            print event_list
+            last_event = event_list[-1]
+            print last_event
+
+            if last_event.find(".") == -1:
+                channel, params = last_event, None
+                event = Event(channel, params)
+                trace.add_event(event)
+            else:
+                channel, params = last_event.split(".",1)
+                event = Event(channel, params)
+                trace.add_event(event)
+
             print trace
             print type(trace)
 
@@ -54,12 +74,10 @@ class Monitor(object):
             event_map = eventMapper.convert_to_internal(json.loads(json_line))
 
             print event_map
-
+            #### THIS IS A BAD PLACE FOR THIS
             event = Event(event_map["channel"], event_map["params"])
             trace.add_event(event)
             print event
-
-            #### THIS IS A BAD PLACE FOR THIS (also some of the above)
 
             if event_map["channel"] == "speed" :
                 speed_ok = Event("speed_ok")
@@ -142,7 +160,7 @@ class Monitor(object):
 
 
 mon = Monitor("model/mascot-safety-system.csp")
-mon.run_offline_rosmon("../rosmon-test/rosmon-mascot-pass.json")
-#mon._run_offline_traces("trace.json")
+#mon.run_offline_rosmon("../rosmon-test/rosmon-mascot-pass.json")
+mon._run_offline_traces("trace.json")
 #mon.run_online('127.0.0.1', 5005)
 mon.close()
