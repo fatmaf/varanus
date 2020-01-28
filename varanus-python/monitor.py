@@ -129,6 +129,7 @@ class Monitor(object):
 
 
             new_traces = eventMapper.new_traces(json.loads(data))
+            print new_traces
 
             results = []
             for new_trace in new_traces:
@@ -150,6 +151,7 @@ class Monitor(object):
                 print "False (100%)"
             else:
                 print "True (" + str(percentage_true) + "%)"
+# TODO if we get to here: UnboundLocalError: local variable 'result' referenced before assignment
 
         return result
 
@@ -160,7 +162,7 @@ class Monitor(object):
 
 
 mon = Monitor("model/mascot-safety-system.csp")
-#mon.run_offline_rosmon("../rosmon-test/rosmon-mascot-pass.json")
-mon._run_offline_traces("trace.json")
-#mon.run_online('127.0.0.1', 5005)
+mon.run_offline_rosmon("../rosmon-test/rosmon-mascot-pass.json")
+#mon._run_offline_traces("trace.json")
+#mon.run_online('127.0.0.1', 5045)
 mon.close()
