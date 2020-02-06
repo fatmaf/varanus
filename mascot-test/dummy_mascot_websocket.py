@@ -1,5 +1,10 @@
 import websocket
 import sys
+try:
+    import thread
+except ImportError:
+    import _thread as thread
+import time
 
 """ Reads the json file supplied in FILE and sends this to the monitor """
 
@@ -24,20 +29,18 @@ def main(argv):
 
     print("Mid Main")
 
-    telegram_file = open(FILE, "r")
 
-    for line in telegram_file:
-        ws.send(line)
-        print("+++ Dummy MASCOT sent data: ", line)
-        data = s.recv(BUFFER_SIZE)
-        print("+++ Dummy MASCOT received data: ", data)
-
-    telegram_file.close()
 
 
 
 def on_message(ws, message):
     print(message)
+
+    json_dict = json.loads(message)
+    if 'error' in json_dict:
+        print('The event ' + message + ' is inconsistent..')
+    else:
+        print('The event ' + message + ' is fine..')
 
 def on_error(ws, error):
     print(error)
@@ -46,7 +49,21 @@ def on_close(ws):
 	print('+++ Dummy MASCOT websocket closed +++')
 
 def on_open(ws):
-	print('+++ Dummy MASCOT websocket is open +++')
+    print('+++ Dummy MASCOT websocket is open +++')
+    def run(*args):
+        telegram_file = open(FILE, "r")
+        for line in telegram_file:
+            ws.send(line)
+            print("+++ Dummy MASCOT sent data: ", line)
+            data = s.recv(BUFFER_SIZE)
+            print("+++ Dummy MASCOT received data: ", data)
+
+        telegram_file.close()
+
+        time.sleep(1)
+        close(ws)
+        print("thread terminating...")
+    thread.start_new_thread(run, ())
 
 def close(ws):
     ws.close()
