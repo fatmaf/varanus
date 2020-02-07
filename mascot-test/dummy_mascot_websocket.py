@@ -5,14 +5,13 @@ try:
 except ImportError:
     import _thread as thread
 import time
+import json
 
 """ Reads the json file supplied in FILE and sends this to the monitor """
 
 TCP_IP = '127.0.0.1'
 TCP_PORT = "8080"
-BUFFER_SIZE = 1024
-MESSAGE = "Hello, World!"
-FILE = "mascot-speed-fail-am.json"
+FILE = "mascot-pass.json"
 
 def main(argv):
     websocket.enableTrace(True)
@@ -27,17 +26,13 @@ def main(argv):
         on_open = on_open)
     ws.run_forever()
 
-    print("Mid Main")
-
-
-
-
-
 def on_message(ws, message):
-    print(message)
+    print("+++ On Message " , message)
+    print(type(message))
 
-    json_dict = json.loads(message)
-    if 'error' in json_dict:
+    # THIS FAILS FOR SOME REASON, IT CAN'T SCAN THE message
+    json_dict = json.loads(str(message))
+    if "error" in json_dict:
         print('The event ' + message + ' is inconsistent..')
     else:
         print('The event ' + message + ' is fine..')
@@ -55,8 +50,7 @@ def on_open(ws):
         for line in telegram_file:
             ws.send(line)
             print("+++ Dummy MASCOT sent data: ", line)
-            data = s.recv(BUFFER_SIZE)
-            print("+++ Dummy MASCOT received data: ", data)
+
 
         telegram_file.close()
 
