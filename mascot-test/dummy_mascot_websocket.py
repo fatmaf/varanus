@@ -11,7 +11,7 @@ import json
 
 TCP_IP = '127.0.0.1'
 TCP_PORT = "8080"
-FILE = "mascot-pass.json"
+FILE = "scenarios/scenario1.json"
 
 def main(argv):
     websocket.enableTrace(True)
@@ -48,8 +48,11 @@ def on_open(ws):
     def run(*args):
         telegram_file = open(FILE, "r")
         for line in telegram_file:
-            ws.send(line)
-            print("+++ Dummy MASCOT sent data: ", line)
+			if line not in ['\n', '\r\n']:
+				ws.send(line)
+				print("+++ Dummy MASCOT sent data: ", line)
+			else
+				print("+++ Dummy MASCOT ignoring blank line: ", line) 
 
 
         telegram_file.close()
