@@ -7,3 +7,7 @@ assert MASCOT_SAFETY_SYSTEM :[has trace]: <system_init, speed.1250, protective_s
 
 -- Should Fail
 assert MASCOT_SAFETY_SYSTEM :[has trace]: <system_init, speed.100, protective_stop>
+
+
+assert MASCOT_SAFETY_SYSTEM :[has trace]: <system_init, speed.100, speed_ok, speed.100, speed_ok,
+ speed.500, speed_ok, speed.500, speed_ok, speed.500>
