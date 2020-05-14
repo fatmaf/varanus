@@ -1,7 +1,6 @@
 import random
 import json
 from trace_representation import *
-from mascot_event_abstractor import *
 
 def to_assertion(scenarioName, trace):
 
@@ -51,7 +50,7 @@ def build_secnario_0():
     footswitch_events = ['"footswitch": false', '"footswitch": true']
     velocity_events = ['"velocity":100', '"velocity":500']
 
-    trace = Trace()
+    trace = Trace(Event("system_init"))
 
     f = open("scenario0-stress.json", "w")
 
@@ -106,7 +105,7 @@ def build_secnario_0():
 
 
 if __name__ == '__main__':
-    #ea = MascotEventAbstractor("event_map.json")
+ 
     eventMap = {"velocity": "speed", "footswitch": "foot_pedal_pressed", "system_init" : "system_init"}
 
     build_secnario_0()
