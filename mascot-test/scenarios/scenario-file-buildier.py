@@ -45,21 +45,21 @@ def _split_and_convert_event(eventStr):
     return fdr_event, param
 
 
-def build_secnario_0():
+def build_secnario_0(traceLength):
 
     footswitch_events = ['"footswitch": false', '"footswitch": true']
     velocity_events = ['"velocity":100', '"velocity":500']
 
     trace = Trace(Event("system_init"))
 
-    f = open("scenario0-stress.json", "w")
+    f = open("scenario0-"+str(traceLength)+"-stress.json", "w")
 
     footswitch_bool = False
     velocity_num = 0
     
 
-#Set this loop to produce y*10 events, where range(x,y)
-    for i in range(0,10):
+#traceLength/10 because each of these loops produces 10 events (+ system_init for the csp file)
+    for i in range(0,traceLength/10):
 #This loop produces 10 events in the trace
 #Both in the json file and in the csp file.
         footswitch_bool = not footswitch_bool
@@ -101,14 +101,15 @@ def build_secnario_0():
     
     f.close()
 
-    to_assertion("scenario0", trace)
+    to_assertion("scenario0-"+str(traceLength), trace)
 
 
 if __name__ == '__main__':
  
     eventMap = {"velocity": "speed", "footswitch": "foot_pedal_pressed", "system_init" : "system_init"}
-
-    build_secnario_0()
+    
+    #Parameter is the trace length
+    build_secnario_0(10)
 
     
     

@@ -44,7 +44,7 @@ class Trace(object):
         elif isinstance(initial_trace, Event):
             self.trace=[initial_trace]
         elif isinstance(initial_trace, Trace):
-            print "appenind initial trace:" , initial_trace
+            print "appennd initial trace:" , initial_trace
             self.trace = []
             self.append_trace(initial_trace)
         else:
