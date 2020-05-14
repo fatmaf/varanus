@@ -5,6 +5,7 @@ from rosmon_mascot_event_abstractor import *
 from mascot_event_abstractor import *
 from trace_representation import Event, Trace
 import json
+import time
 
 #"MASCOT_SAFETY_SYSTEM :[has trace]: <system_init>"
 #"model/mascot-safety-system.csp"
@@ -215,10 +216,14 @@ class Monitor(object):
 
         self.fdr.close()
 
-
+t0 = time.time()
 mon = Monitor("model/mascot-safety-system.csp", "event_map.json")
 #mon.run_offline_rosmon("../rosmon-test/rosmon-mascot-pass.json")
 #mon._run_offline_traces("trace.json")
-mon.run_online('127.0.0.1', 5045)
+mon.run_online('127.0.0.1', 5044)
 #mon.run_online_websocket('127.0.0.1', 8080)
 mon.close()
+t1 = time.time()
+
+total = t1-t0
+print("+++ Time: "+ str(total) +"s +++")
