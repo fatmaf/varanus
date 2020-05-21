@@ -3,6 +3,7 @@ import json
 from trace_representation import *
 
 def to_assertion(scenarioName, trace):
+    """ Converts a Trace object into an assertion and writes it to a file """
 
     assert_start = "assert MASCOT_SAFETY_SYSTEM  :[has trace]: <"
     assert_end = ">"
@@ -29,6 +30,8 @@ def to_assertion(scenarioName, trace):
     f.close()
 
 def _split_and_convert_event(eventStr):
+    """Takes an event string, splits it on the : and converts the event from
+    system to model"""
 
     print(eventStr)
     eventList = eventStr.split(":")
@@ -46,6 +49,8 @@ def _split_and_convert_event(eventStr):
 
 
 def build_scenario_0(traceLength):
+    """Builds a stress-test trace out of just speed 100 or 500 events.
+    Trace is traceLength long """
 
     velocity_events = ['"velocity":100', '"velocity":500']
 
@@ -121,7 +126,7 @@ def build_collecting_or_replaceing_tools_section(trace, fileHandle, velocity_eve
 
     return trace
 
-def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, footswitchUsed=False, unsafe_velocity_events=None):
+def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, footswitch_used=False, unsafe_velocity_events=None):
     """ builds a trace of 50 events including velocity, 'speed_ok', and potentially footswitch changes.
         unsafeSpeeds says wether we might generate a speed too fast for the mode"""
 
@@ -156,6 +161,91 @@ def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, footswitchU
 
                 fileHandle.write("{"+ velocity +" , "+ footswitch +"}\n")
                 fileHandle.write("{"+ velocity +" , "+ footswitch +"}\n")
+
+    elif footswitch_used == True:
+
+        for i in range(0,5):
+            velocity_num = random.randint(0, (len(velocity_events)/2)-1)
+            velocity = velocity_events[velocity_num]
+
+            velEvent, velParam = _split_and_convert_event(velocity)
+            newVelEvent = Event(velEvent, velParam)
+            trace.add_event(newVelEvent)
+            speed_ok_event = Event("speed_ok", None)
+            trace.add_event(speed_ok_event)
+
+            fileHandle.write("{"+ velocity +" , "+ footswitch +"}\n")
+            fileHandle.write("{"+ velocity +" , "+ footswitch +"}\n")
+
+
+        if unsafe_velocity_events != None:
+            velocity_events.extend(unsafe_velocity_events)
+            for j in range(0,20):
+
+                if j % 5 == 0:
+                    footswitch_bool = not footswitch_bool
+                    footswitch = footswitch_events[footswitch_bool]
+
+                    fsEvent, fsParam = _split_and_convert_event(footswitch_events[footswitch_bool])
+                    newFSEvent = Event(fsEvent, fsParam)
+                    trace.add_event(newFSEvent)
+
+                    if footswitch_bool:
+                        fs_reply_event = Event("enter_hands_on_mode", None)
+                    else:
+                        fs_reply_event = Event("enter_autonomous_mode", None)
+
+                    trace.add_event(fs_reply_event)
+
+                else:
+
+                    if footswitch_bool:
+                        velocity_num = random.randint(0, (len(velocity_events)-1))
+                    else:
+                        velocity_num = random.randint(0, (len(velocity_events)/2)-1)
+                    velocity = velocity_events[velocity_num]
+
+                    velEvent, velParam = _split_and_convert_event(velocity)
+                    newVelEvent = Event(velEvent, velParam)
+                    trace.add_event(newVelEvent)
+                    speed_ok_event = Event("speed_ok", None)
+                    trace.add_event(speed_ok_event)
+        else:
+            footswitch_bool = False
+            for j in range(0,20):
+
+                if j % 5 == 0:
+                    footswitch_bool = not footswitch_bool
+                    footswitch = footswitch_events[footswitch_bool]
+
+                    fsEvent, fsParam = _split_and_convert_event(footswitch_events[footswitch_bool])
+                    newFSEvent = Event(fsEvent, fsParam)
+                    trace.add_event(newFSEvent)
+
+                    if footswitch_bool:
+                        fs_reply_event = Event("enter_hands_on_mode", None)
+                    else:
+                        fs_reply_event = Event("enter_autonomous_mode", None)
+
+                    trace.add_event(fs_reply_event)
+
+                else:
+
+                    if footswitch_bool:
+                        velocity_num = random.randint(0, (len(velocity_events)-1))
+                    else:
+                        velocity_num = random.randint(0, (len(velocity_events)/2)-1)
+                    velocity = velocity_events[velocity_num]
+
+                    velEvent, velParam = _split_and_convert_event(velocity)
+                    newVelEvent = Event(velEvent, velParam)
+                    trace.add_event(newVelEvent)
+                    speed_ok_event = Event("speed_ok", None)
+                    trace.add_event(speed_ok_event)
+
+                fileHandle.write("{"+ velocity +" , "+ footswitch +"}\n")
+                fileHandle.write("{"+ velocity +" , "+ footswitch +"}\n")
+
 
     else:
         for i in range(0,25):
@@ -213,6 +303,56 @@ def build_scenario_2():
 
     to_assertion("scenario2", trace)
 
+
+def build_scenario_3():
+    """ Builds Scenario 3, where the Operator switches to autonomous mode after
+     completing some of the mission's tasks and the speed is fine """
+
+    hands_on_velocities = ['"velocity":100', '"velocity":500']
+    autonomous_velocicities = [ '"velocity":750', '"velocity":1000']
+    velocity_events = hands_on_velocities + (autonomous_velocicities)
+
+    trace = Trace(Event("system_init"))
+    f = open("scenario3.json", "w")
+
+    build_collecting_or_replaceing_tools_section(trace, f, hands_on_velocities)
+
+    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True)
+    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True)
+    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True)
+
+    build_collecting_or_replaceing_tools_section(trace, f, hands_on_velocities)
+
+    f.close()
+
+    to_assertion("scenario3", trace)
+
+def build_scenario_4():
+    """ Builds Scenario 4, where the Operator switches to autonomous mode after
+     completing some of the mission's tasks and the speed is fine """
+
+    hands_on_velocities = ['"velocity":100', '"velocity":500']
+    autonomous_velocicities = [ '"velocity":750', '"velocity":1000']
+    velocity_events = hands_on_velocities + (autonomous_velocicities)
+
+    trace = Trace(Event("system_init"))
+    f = open("scenario4.json", "w")
+
+    #build_collecting_or_replaceing_tools_section(trace, f, hands_on_velocities)
+
+    #Technically the autonomous velocities are unsafe too, for the hands on
+    #mode, but this scenario specifically wants the higher speed limit to be broken
+    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
+    #build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
+    #build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
+
+    #build_collecting_or_replaceing_tools_section(trace, f, hands_on_velocities)
+
+    f.close()
+
+    to_assertion("scenario4", trace)
+
+
 if __name__ == '__main__':
 
     eventMap = {"velocity": "speed", "footswitch": "foot_pedal_pressed", "system_init" : "system_init"}
@@ -224,3 +364,7 @@ if __name__ == '__main__':
     #build_scenario_1()
 
     #build_scenario_2()
+
+    #build_scenario_3()
+
+    build_scenario_4()
