@@ -347,7 +347,7 @@ def build_scenario_3():
 
 def build_scenario_4():
     """ Builds Scenario 4, where the Operator switches to autonomous mode after
-     completing some of the mission's tasks and the speed is fine """
+     completing some of the mission's tasks and speed exceeds limit"""
 
     autonomous_velocicities = ['"velocity":100', '"velocity":500']
     hands_on_velocities = [ '"velocity":750', '"velocity":1000']
@@ -360,9 +360,9 @@ def build_scenario_4():
 
     #Technically the autonomous velocities are unsafe too, for the hands on
     #mode, but this scenario specifically wants the higher speed limit to be broken
-    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
-    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
-    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
 
     build_collecting_or_replaceing_tools_section(trace, f, autonomous_velocicities)
 
