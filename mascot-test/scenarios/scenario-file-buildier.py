@@ -107,10 +107,17 @@ def build_scenario_0(traceLength):
 
     to_assertion("scenario0-"+str(traceLength), trace)
 
-def build_collecting_or_replaceing_tools_section(trace, fileHandle, velocity_events):
-    """builds a trace of 20 low-speed, 'speed_ok' pairs with the footswitch set to false """
+def build_collecting_or_replaceing_tools_section(trace, fileHandle, velocity_events, add_footswitch_event = False):
+    """builds a trace of 20 low-speed, 'speed_ok' pairs with the footswitch set to true """
 
-    footswitch = footswitch_events[0]
+    footswitch = footswitch_events[1]
+    if add_footswitch_event:
+        fsEvent, fsParam = _split_and_convert_event(footswitch)
+        newFSEvent = Event(fsEvent, fsParam)
+        trace.add_event(newFSEvent)
+        fs_reply_event = Event("enter_hands_on_mode", None)
+        trace.add_event(fs_reply_event)
+
     for i in range(0,10):
         velocity_num = random.randint(-1, 1)
         velocity = velocity_events[velocity_num]
@@ -126,13 +133,19 @@ def build_collecting_or_replaceing_tools_section(trace, fileHandle, velocity_eve
 
     return trace
 
-def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, footswitch_used=False, unsafe_velocity_events=None):
+def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, starting_footswitch=None, footswitch_used=False, unsafe_velocity_events=None):
     """ builds a trace of 50 events including velocity, 'speed_ok', and potentially footswitch changes.
         unsafeSpeeds says wether we might generate a speed too fast for the mode"""
 
-    footswitch = footswitch_events[0]
+    if starting_footswitch == None or not starting_footswitch:
+        footswitch = footswitch_events[0]
+        footswitch_bool = False
+    elif starting_footswitch:
+        footswitch = footswitch_events[1]
+        footswitch_bool = True
 
-    if unsafe_velocity_events != None:
+    if unsafe_velocity_events != None and footswitch_used == False:
+        print("If")
         assert(type(unsafe_velocity_events) == type([]))
 
         for i in range(0,5):
@@ -163,9 +176,11 @@ def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, footswitch_
                 fileHandle.write("{"+ velocity +" , "+ footswitch +"}\n")
 
     elif footswitch_used == True:
-
+        print("First elif")
+        print(velocity_events)
         for i in range(0,5):
             velocity_num = random.randint(0, (len(velocity_events)/2)-1)
+            print("Velocity Num", velocity_num)
             velocity = velocity_events[velocity_num]
 
             velEvent, velParam = _split_and_convert_event(velocity)
@@ -211,7 +226,8 @@ def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, footswitch_
                     speed_ok_event = Event("speed_ok", None)
                     trace.add_event(speed_ok_event)
         else:
-            footswitch_bool = False
+            print("Else")
+
             for j in range(0,20):
 
                 if j % 5 == 0:
@@ -248,6 +264,7 @@ def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, footswitch_
 
 
     else:
+        print("Outer else?")
         for i in range(0,25):
             velocity_num = random.randint(-1, (len(velocity_events)-1))
             velocity = velocity_events[velocity_num]
@@ -264,17 +281,18 @@ def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, footswitch_
     return trace
 
 def build_scenario_1():
-    """ Builds Scenario 1, where the Operator stays in hands on mode and the speed is fine """
+    """ Builds Scenario 1, where the Operator enters and stays in hands on mode
+    and the speed is under the limit """
 
-    velocity_events = ['"velocity":100', '"velocity":500']
+    velocity_events = ['"velocity":100', '"velocity":500','"velocity":750', '"velocity":1000']
     trace = Trace(Event("system_init"))
     f = open("scenario1.json", "w")
 
-    build_collecting_or_replaceing_tools_section(trace, f, velocity_events)
+    build_collecting_or_replaceing_tools_section(trace, f, velocity_events, add_footswitch_event = True)
 
-    build_tiles_or_bolts_section(trace, f, velocity_events)
-    build_tiles_or_bolts_section(trace, f, velocity_events)
-    build_tiles_or_bolts_section(trace, f, velocity_events)
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True)
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True)
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True)
 
     build_collecting_or_replaceing_tools_section(trace, f, velocity_events)
 
@@ -283,19 +301,19 @@ def build_scenario_1():
     to_assertion("scenario1", trace)
 
 def build_scenario_2():
-    """ Builds Scenario 2, where the Operator stays in hands on mode, but speed
-    exceeds limit after completing some of the mission's tasks. """
+    """ Builds Scenario 2, where the Operator enters and stays in hands on mode,
+    but speed exceeds limit after completing some of the mission's tasks. """
 
-    velocity_events = ['"velocity":100', '"velocity":500']
+    velocity_events = ['"velocity":100', '"velocity":500', '"velocity":750', '"velocity":1000']
 
     trace = Trace(Event("system_init"))
     f = open("scenario2.json", "w")
 
-    build_collecting_or_replaceing_tools_section(trace, f, velocity_events)
+    build_collecting_or_replaceing_tools_section(trace, f, velocity_events, add_footswitch_event = True)
 
-    build_tiles_or_bolts_section(trace, f, velocity_events)
-    build_tiles_or_bolts_section(trace, f, velocity_events, unsafe_velocity_events=['"velocity":750'] )
-    build_tiles_or_bolts_section(trace, f, velocity_events)
+    build_tiles_or_bolts_section(trace, f, velocity_events,  starting_footswitch=True)
+    build_tiles_or_bolts_section(trace, f, velocity_events,  starting_footswitch=True, unsafe_velocity_events=['"velocity":1250'] )
+    build_tiles_or_bolts_section(trace, f, velocity_events,  starting_footswitch=True)
 
     build_collecting_or_replaceing_tools_section(trace, f, velocity_events)
 
@@ -308,18 +326,18 @@ def build_scenario_3():
     """ Builds Scenario 3, where the Operator switches to autonomous mode after
      completing some of the mission's tasks and the speed is fine """
 
-    hands_on_velocities = ['"velocity":100', '"velocity":500']
-    autonomous_velocicities = [ '"velocity":750', '"velocity":1000']
-    velocity_events = hands_on_velocities + (autonomous_velocicities)
+    autonomous_velocicities = ['"velocity":100', '"velocity":500']
+    hands_on_velocities = [ '"velocity":750', '"velocity":1000']
+    velocity_events = autonomous_velocicities + hands_on_velocities
 
     trace = Trace(Event("system_init"))
     f = open("scenario3.json", "w")
 
-    build_collecting_or_replaceing_tools_section(trace, f, hands_on_velocities)
+    build_collecting_or_replaceing_tools_section(trace, f, autonomous_velocicities, add_footswitch_event = True)
 
-    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True)
-    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True)
-    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True)
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True, footswitch_used=True)
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True, footswitch_used=True)
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True, footswitch_used=True)
 
     build_collecting_or_replaceing_tools_section(trace, f, hands_on_velocities)
 
@@ -331,22 +349,22 @@ def build_scenario_4():
     """ Builds Scenario 4, where the Operator switches to autonomous mode after
      completing some of the mission's tasks and the speed is fine """
 
-    hands_on_velocities = ['"velocity":100', '"velocity":500']
-    autonomous_velocicities = [ '"velocity":750', '"velocity":1000']
-    velocity_events = hands_on_velocities + (autonomous_velocicities)
+    autonomous_velocicities = ['"velocity":100', '"velocity":500']
+    hands_on_velocities = [ '"velocity":750', '"velocity":1000']
+    velocity_events = autonomous_velocicities + hands_on_velocities
 
     trace = Trace(Event("system_init"))
     f = open("scenario4.json", "w")
 
-    #build_collecting_or_replaceing_tools_section(trace, f, hands_on_velocities)
+    build_collecting_or_replaceing_tools_section(trace, f, autonomous_velocicities, add_footswitch_event = True)
 
     #Technically the autonomous velocities are unsafe too, for the hands on
     #mode, but this scenario specifically wants the higher speed limit to be broken
     build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
-    #build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
-    #build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
+    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
+    build_tiles_or_bolts_section(trace, f, velocity_events, footswitch_used=True, unsafe_velocity_events=['"velocity":1250'])
 
-    #build_collecting_or_replaceing_tools_section(trace, f, hands_on_velocities)
+    build_collecting_or_replaceing_tools_section(trace, f, autonomous_velocicities)
 
     f.close()
 
@@ -361,10 +379,10 @@ if __name__ == '__main__':
     #Parameter is the trace length
     #build_scenario_0(10)
 
-    #build_scenario_1()
+    build_scenario_1()
 
-    #build_scenario_2()
+    build_scenario_2()
 
-    #build_scenario_3()
+    build_scenario_3()
 
     build_scenario_4()
