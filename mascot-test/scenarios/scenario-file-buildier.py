@@ -278,7 +278,7 @@ def build_tiles_or_bolts_section(trace, fileHandle, velocity_events, starting_fo
             fileHandle.write("{"+ velocity +" , "+ footswitch +"}\n")
             fileHandle.write("{"+ velocity +" , "+ footswitch +"}\n")
 
-    return trace
+    return (velocity, footswitch)
 
 def build_scenario_1():
     """ Builds Scenario 1, where the Operator enters and stays in hands on mode
@@ -370,19 +370,112 @@ def build_scenario_4():
 
     to_assertion("scenario4", trace)
 
+def build_safe_state_key_usage(trace, fileHandle, lastTelegram):
+    """Builds part of a trace where the safe state key is use to trigger an emergency stop"""
+    #safe_state_key.PresentOn -> emergency_stop -> safe_stop_cat1-> enter_safe_state
+    assert(isinstance(lastTelegram, tuple) )
+
+    #ss_key" :"safe_state_key" , "em_stop" : "emergency_stop" , "cat_1_stop" : "safe_stop_cat1" ,
+    #"safe_state" : "enter_safe_state"
+
+    velocity = lastTelegram[0]
+    footswitch = lastTelegram[1]
+
+    safeStateEvent = Event("safe_state_key", "PresentOn")
+    trace.add_event(safeStateEvent)
+
+    ssKey = '\"ss_key\":\"PresentOn\"'
+
+    fileHandle.write("{"+ velocity +" , "+ footswitch + ", " + ssKey + "}\n")
+
+    emStopEvent = Event("emergency_stop")
+    trace.add_event(emStopEvent)
+
+    safeStopEvent = Event("safe_stop_cat1")
+    trace.add_event(safeStopEvent)
+
+    # I'm assuming that the telegram wont need either emergency stop or safet stop
+
+    entSafeStateEvent = Event("enter_safe_state")
+    trace.add_event(entSafeStateEvent)
+
+    safeState = ' \"safe_state\" : true'
+    fileHandle.write("{"+ velocity +" , "+ footswitch + ", " + safeState + "}\n")
+
+
+def build_reset_and_restart_usage(trace, fileHandle, lastTelegram):
+    """Builds part of a trace where the system is reset and restarted """
+
+    assert(isinstance(lastTelegram, tuple))
+
+    velocity = lastTelegram[0]
+    footswitch = lastTelegram[1]
+
+    safeStateEvent = Event("reset")
+    trace.add_event(safeStateEvent)
+
+    safeStateEvent = Event("restart")
+    trace.add_event(safeStateEvent)
+
+    #Assuming that the telegram wont need with reset or restart.
+
+    safeStateEvent = Event("leave_safe_state")
+    trace.add_event(safeStateEvent)
+
+    safeState = ' \"safe_state\" : false'
+    fileHandle.write("{"+ velocity +" , "+ footswitch + ", " + safeState + "}\n")
+
+    amEvent = Event("enter_autonomous_mode")
+    trace.add_event(amEvent)
+
+
+def build_scenario_5():
+    """ Builds Scenario 5, where the Safe State Key is used to trigger an
+    emHMM1 = foot_pedal_pressed.True -> enter_hands_on_mode -> HMM1ergancy stop, during the mission. Then the system is reset, restarted,
+    and the mission continues to completion."""
+
+    autonomous_velocicities = ['"velocity":100', '"velocity":500']
+    hands_on_velocities = [ '"velocity":750', '"velocity":1000']
+    velocity_events = autonomous_velocicities + hands_on_velocities
+
+    trace = Trace(Event("system_init"))
+    f = open("scenario5.json", "w")
+
+    build_collecting_or_replaceing_tools_section(trace, f, autonomous_velocicities, add_footswitch_event = True)
+
+    lastTelegram = build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=True, footswitch_used=True)
+
+    print("Entering safe state key usage with ", lastTelegram)
+    build_safe_state_key_usage(trace, f, lastTelegram)
+
+    build_reset_and_restart_usage(trace, f, lastTelegram)
+
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=False, footswitch_used=True)
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=False, footswitch_used=True)
+
+    build_collecting_or_replaceing_tools_section(trace, f, autonomous_velocicities)
+
+    f.close()
+
+    to_assertion("scenario5", trace)
 
 if __name__ == '__main__':
 
-    eventMap = {"velocity": "speed", "footswitch": "foot_pedal_pressed", "system_init" : "system_init"}
+    eventMap = {"velocity": "speed", "footswitch": "foot_pedal_pressed", "system_init" : "system_init",
+    "ss_key" :"safe_state_key" , "em_stop" : "emergency_stop" , "cat_1_stop" : "safe_stop_cat1" ,
+    "safe_state" : "enter_safe_state"}
+
     footswitch_events = ['"footswitch": false', '"footswitch": true']
 
     #Parameter is the trace length
     #build_scenario_0(10)
 
-    build_scenario_1()
+    #build_scenario_1()
 
-    build_scenario_2()
+    #build_scenario_2()
 
-    build_scenario_3()
+    #build_scenario_3()
 
-    build_scenario_4()
+    #build_scenario_4()
+
+    build_scenario_5()

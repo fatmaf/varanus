@@ -32,7 +32,7 @@ ATOM_CHAINS =
   (speed?_ -> (protective_stop -> ATOM_CHAINS [] speed_ok -> ATOM_CHAINS))
   []
   ([] e : diff(Events, {|system_init, speed, protective_stop, speed_ok,
-        safe_state_key.PresentOn,emergency_stop, safe_stop_cat1, enter_safe_state, foot_pedal_pressed, enter_autonomous_mode,  enter_hands_on_mode |})  @ e->ATOM_CHAINS)
+        safe_state_key.PresentOn,emergency_stop, safe_stop_cat1, enter_safe_state, foot_pedal_pressed, enter_hands_on_mode |})  @ e->ATOM_CHAINS)
   []
   (safe_state_key.PresentOn -> emergency_stop -> safe_stop_cat1->enter_safe_state -> ATOM_CHAINS)
   []

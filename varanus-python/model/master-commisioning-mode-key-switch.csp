@@ -1,6 +1,6 @@
 -- 5.4 Master Commissioning Mode Key Switch
 
-mcmAlpha = {| master_commissioning_switch, reset, enter_master_commissioning_state, leave_master_commissioning_state, system_init|} --, enter_safe_state, leave_safe_state |}
+mcmAlpha = {| master_commissioning_switch, reset, enter_master_commissioning_state, leave_master_commissioning_state, system_init|} 
 
 MCM_MASTER_COMMISSIONING_STATE =
   master_commissioning_switch.MCM_Off -> leave_master_commissioning_state -> MCM_ENABLED_STATE

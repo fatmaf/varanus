@@ -1,6 +1,6 @@
 -- 5.5 Slave Commissioning Mode Key Switch
 
-scmAlpha = {| slave_commissioning_switch,  enter_slave_commissioning_state, leave_safe_state, system_init |}
+scmAlpha = {| slave_commissioning_switch,  enter_slave_commissioning_state, system_init |}
 
 SCM_SLAVE_COMMISSIONING_STATE =
   slave_commissioning_switch.SCM_Off -> leave_master_commissioning_state -> MCM_ENABLED_STATE

@@ -56,7 +56,7 @@ SSM_UNMONITORED_MODE(lastMode) =
 
 
 SSM_SAFE_STATE =
-  leave_safe_state -> SSM_AUTONOMOUS_MODE
+  leave_safe_state -> enter_autonomous_mode -> SSM_AUTONOMOUS_MODE
 
 SAFE_SPEED_MONITOR =
   system_init ->  SSM_AUTONOMOUS_MODE
