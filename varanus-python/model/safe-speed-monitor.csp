@@ -16,14 +16,11 @@ ssmAlpha = {| enter_hands_on_mode, enter_autonomous_mode, speed,
 SSM_AUTONOMOUS_MODE =
   enter_hands_on_mode -> SSM_HANDS_ON_MODE
   []
-  -- Becasue of 5.4.1:4.a
-  enter_master_commissioning_state -> SSM_UNMONITORED_MODE(AM)
-  []
   speed?s:AutonomousSafeSpeeds -> speed_ok -> SSM_AUTONOMOUS_MODE
   []
-  speed?s:AutonomousUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE
+  speed?s:AutonomousUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE(AM)
   []
-  enter_safe_state -> SSM_SAFE_STATE
+  enter_safe_state -> SSM_SAFE_STATE(AM)
   -- assumes that we don't monitor speed in the safe state
 
 
@@ -31,32 +28,38 @@ SSM_AUTONOMOUS_MODE =
 SSM_HANDS_ON_MODE =
   enter_autonomous_mode -> SSM_AUTONOMOUS_MODE
   []
-  -- Becasue of 5.4.1:4.a
-  enter_master_commissioning_state -> speed_ok -> SSM_UNMONITORED_MODE(HOM)
-  []
   speed?s:HandsOnSafeSpeeds -> speed_ok -> SSM_HANDS_ON_MODE
   []
-  speed?s:HandsOnUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE
+  speed?s:HandsOnUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE(HOM)
   []
-  enter_safe_state -> SSM_SAFE_STATE
+  enter_safe_state -> SSM_SAFE_STATE(HOM)
   -- assumes that we don't monitor speed in the safe state
 
--- Becasue of 5.4.1:4.az
+-- Becasue of 5.4.1(4.a)
 SSM_UNMONITORED_MODE(lastMode) =
   speed?_ -> speed_ok -> SSM_UNMONITORED_MODE(lastMode)
   []
   (
   if lastMode == HOM then
-    leave_master_commissioning_state -> SSM_HANDS_ON_MODE
+    enter_safe_state -> SSM_HANDS_ON_MODE
+
   else if lastMode == AM then
-    leave_master_commissioning_state -> SSM_AUTONOMOUS_MODE
+    enter_safe_state -> SSM_AUTONOMOUS_MODE
+
   else
     SKIP
   )
+  []
+  enter_autonomous_mode ->  SSM_UNMONITORED_MODE(lastMode)
+  []
+  enter_hands_on_mode ->  SSM_UNMONITORED_MODE(lastMode)
 
-
-SSM_SAFE_STATE =
-  leave_safe_state -> enter_autonomous_mode -> SSM_AUTONOMOUS_MODE
+  SSM_SAFE_STATE(lastMode) =
+  -- Assuming that 'reset' means go back to default, and the system should default to autonomous mode
+    leave_safe_state -> SSM_AUTONOMOUS_MODE
+    []
+  -- Becasue of 5.4.1:4.a
+    enter_master_commissioning_state -> SSM_UNMONITORED_MODE(lastMode)
 
 SAFE_SPEED_MONITOR =
   system_init ->  SSM_AUTONOMOUS_MODE

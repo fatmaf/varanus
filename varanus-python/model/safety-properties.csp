@@ -57,8 +57,8 @@ assert EPS2B [F= MASCOT_SAFETY_SYSTEM\(diff(Events, {|system_init, speed, protec
 
 
 -- 5.2.1:4 and 5
-EPS3 = safe_state_key.PresentOn -> safeStateIs.Enabled -> EPS3
-assert EPS3 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_state_key.PresentOn, safeStateIs|}) )
+EPS3 = safe_state_key.PresentOn -> systemStateIs.SafeState -> EPS3
+assert EPS3 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_state_key.PresentOn, systemStateIs|}) )
 
 assert not MASCOT_SAFETY_SYSTEM
 [|Events|]
@@ -68,8 +68,8 @@ safe_stop_cat1-> enter_safe_state -> reset ->
 :[deadlock free]
 
 -- 5.2.1:6
-EPS4 =  safe_state_key.PresentOn -> safeStateIs.Enabled -> EPS4
-assert EPS4 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_state_key.PresentOn, safeStateIs|}) )
+EPS4 =  safe_state_key.PresentOn -> systemStateIs.SafeState -> EPS4
+assert EPS4 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_state_key.PresentOn, systemStateIs|}) )
 
 -- 5.3 Safe State Key Switch
 KEY_SWITCH1 = safe_state_key.PresentOn -> emergency_stop -> KEY_SWITCH1
@@ -82,7 +82,7 @@ KEY_SWITCH2 =
     |~|
     safe_state_key.Removed -> KEY_SWITCH2
     |~|
-    safeStateIs.Enabled -> KEY_SWITCH2
+    systemStateIs.SafeState -> KEY_SWITCH2
     |~|
     safe_state_key.Removed -> safe_state_key.PresentOff -> reset -> KEY_SWITCH2
   )
@@ -98,10 +98,15 @@ assert KEY_SWITCH2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {| safe_state_key.Pre
 
 -- 5.4.1:2
 MCM_SWITCH1 =
-  reset -> master_commissioning_switch.MCM_On -> enter_master_commissioning_state -> MCM_SWITCH1
-  |~|
-  master_commissioning_switch.MCM_On -> MCM_SWITCH1
-assert MCM_SWITCH1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|reset, master_commissioning_switch.MCM_On, enter_master_commissioning_state |}) )
+  master_commissioning_switch.MCM_On ->
+  (
+    reset ->  enter_master_commissioning_state -> MCM_SWITCH1
+    |~|
+    master_commissioning_switch.MCM_Off -> MCM_SWITCH1
+  )
+--To let the implementation reset withouth the MCM Switch
+  |~| reset ->  MCM_SWITCH1
+assert MCM_SWITCH1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|reset, master_commissioning_switch, enter_master_commissioning_state |}) )
 
 -- 5.4.1:3
 MCM_SWITCH2 = enter_safe_state -> leave_master_commissioning_state -> MCM_SWITCH2
@@ -133,8 +138,8 @@ assert SCM_SWITCH1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning
 
 -- 5.5.1:2.c
 SCM_SWITCH2 =
- slave_commissioning_switch.SCM_On -> safeStateIs.Enabled -> SCM_SWITCH2
-assert SCM_SWITCH2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_On, safeStateIs|}) )
+ slave_commissioning_switch.SCM_On -> systemStateIs.SafeState -> SCM_SWITCH2
+assert SCM_SWITCH2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_On, systemStateIs|}) )
 
 
 --5.5.1:3
@@ -148,7 +153,7 @@ assert SCM_SWITCH3 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning
 
 -- 5.6 Master Safe Speed Monitoring
 
--- 5.6.1:5 and 7 and 5.6.1:5
+-- 5.6.1(5) and (7) and 5.6.1(5)
 channel get_monitoring : Bool
 channel get_limit : Speed
 
@@ -195,13 +200,14 @@ assert SSM1\{|get_limit, get_monitoring|} [F= MASCOT_SAFETY_SYSTEM\( diff(Events
 
 --5.7 Hands on Mode Monitoring
 
---5.7.1:6
+--5.7.1(6)
+--The monitored foot pedal is the only way for Hands-on Mode to be entered.
 HMM1 = foot_pedal_pressed.True -> enter_hands_on_mode -> HMM1
 
 assert HMM1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|foot_pedal_pressed.True, enter_hands_on_mode |}) )
 
--- 5.7.1:7
-
+-- 5.7.1(7)
+-- Autonomous mode is entered if the control system indicates it is no longer in Hands-on Mode.
 HMM2 =
   foot_pedal_pressed.False -> enter_autonomous_mode -> HMM2
   |~|
@@ -209,8 +215,8 @@ HMM2 =
 
 assert HMM2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|foot_pedal_pressed.False, enter_autonomous_mode |}) )
 
--- 5.7.1:8
-
+-- 5.7.1(8)
+-- The HMM defaults to autonomous mode when in the safe state.
 HMM3 =
   enter_safe_state -> enter_autonomous_mode -> HMM3
   |~|

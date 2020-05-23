@@ -1,6 +1,6 @@
 --5.7 Master Hands-On Mode Monitoring
 
-hmmAlpha = {| enter_safe_state, foot_pedal_pressed, enter_autonomous_mode, enter_hands_on_mode, system_init, speed, protective_stop, speed_ok, leave_safe_state  |}
+hmmAlpha = {| enter_safe_state, foot_pedal_pressed, enter_autonomous_mode, enter_hands_on_mode, system_init, speed, protective_stop, speed_ok, leave_safe_state, enter_master_commissioning_state, leave_safe_state_done_hom  |}
 
 
 
@@ -36,11 +36,13 @@ HMM_NEXT_MODE(nextMode) =
   )
 
 HMM_SAFE_STATE =
-  leave_safe_state -> enter_autonomous_mode -> HMM_AUTONOMOUS_MODE
+  leave_safe_state -> enter_autonomous_mode -> leave_safe_state_done_hom-> HMM_AUTONOMOUS_MODE
+  []
+  enter_master_commissioning_state -> enter_autonomous_mode -> leave_safe_state_done_hom -> HMM_AUTONOMOUS_MODE
 
 HANDS_ON_MODE_MONITOR =
   system_init -> HMM_AUTONOMOUS_MODE
-
+--Assumption: the operator is not pressing the footpedal when the system is initialised
 
   assert HANDS_ON_MODE_MONITOR :[deadlock free]
   assert HANDS_ON_MODE_MONITOR :[divergence free]
