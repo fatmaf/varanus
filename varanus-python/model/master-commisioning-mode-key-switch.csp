@@ -17,8 +17,8 @@ MCM_SWITCH_ON =
 MCM_ENABLED_STATE =
   --Becasue of 5.4.1(2)
   master_commissioning_switch.MCM_On -> MCM_SWITCH_ON
-  --[]
---  enter_safe_state -> MCM_SAFE_STATE
+  []
+  reset -> MCM_ENABLED_STATE
 
 
 MASTER_COMMISSIONING_MODE =

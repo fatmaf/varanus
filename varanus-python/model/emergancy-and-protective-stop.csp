@@ -1,6 +1,6 @@
 -- 5.2 Emergency/Protective Stop and 5.3 Safe State Key
 
-epsAlpha = {| reset, safe_state_key, enter_safe_state, protective_stop, restart, leave_safe_state, emergency_stop, safe_stop_cat1, system_init, enter_master_commissioning_state, leave_safe_state_done_hom |}
+epsAlpha = {| reset, safe_state_key, enter_safe_state, protective_stop, restart, leave_safe_state, emergency_stop, safe_stop_cat1, system_init, enter_master_commissioning_state, leave_safe_state_done_hom, systemStateIs |}
 
 EPS_SAFE_STATE =
   reset -> EPS_RESET_STATE
@@ -39,9 +39,9 @@ EPS_SYSTEM_STATE(systemState) =
 
 
 EPS_RESET_STATE =
-  restart -> leave_safe_state -> leave_safe_state_done_hom -> EPS_ENABLED_STATE
+  restart -> leave_safe_state -> EPS_ENABLED_STATE
   []
-  enter_master_commissioning_state -> leave_safe_state -> leave_safe_state_done_hom -> EPS_ENABLED_STATE
+  enter_master_commissioning_state ->  EPS_ENABLED_STATE
 
 EMERGANCY_PROTECTIVE_STOP =
   system_init ->
