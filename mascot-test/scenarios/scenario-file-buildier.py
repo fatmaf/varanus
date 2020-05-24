@@ -425,9 +425,6 @@ def build_reset_and_restart_usage(trace, fileHandle, lastTelegram):
     safeState = ' \"safe_state\" : false'
     fileHandle.write("{"+ velocity +" , "+ footswitch + ", " + safeState + "}\n")
 
-    amEvent = Event("enter_autonomous_mode")
-    trace.add_event(amEvent)
-
 
 def build_scenario_5():
     """ Builds Scenario 5, where the Safe State Key is used to trigger an
@@ -450,8 +447,17 @@ def build_scenario_5():
 
     build_reset_and_restart_usage(trace, f, lastTelegram)
 
-    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=False, footswitch_used=True)
-    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=False, footswitch_used=True)
+    footswitch = lastTelegram[1]
+
+    fsList = footswitch.split(":")
+
+    lastTelegram = build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=fsList[1],footswitch_used=True)
+
+    footswitch = lastTelegram[1]
+
+    fsList = footswitch.split(":")
+
+    build_tiles_or_bolts_section(trace, f, velocity_events, starting_footswitch=fsList[1], footswitch_used=True)
 
     build_collecting_or_replaceing_tools_section(trace, f, autonomous_velocicities)
 

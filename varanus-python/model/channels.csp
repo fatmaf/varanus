@@ -6,8 +6,6 @@ channel safe_stop_cat1
 channel enter_master_commissioning_state, leave_master_commissioning_state
 channel system_init
 
-channel leave_safe_state_done_hom
-
 Speed = {100, 500, 750, 1000, 1250}
 channel speed : Speed
 

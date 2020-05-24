@@ -1,6 +1,6 @@
 --5.7 Master Hands-On Mode Monitoring
 
-hmmAlpha = {| enter_safe_state, foot_pedal_pressed, enter_autonomous_mode, enter_hands_on_mode, system_init, speed, protective_stop, speed_ok, leave_safe_state, enter_master_commissioning_state, leave_safe_state_done_hom  |}
+hmmAlpha = {| enter_safe_state, foot_pedal_pressed, enter_autonomous_mode, enter_hands_on_mode, system_init, speed, protective_stop, speed_ok, leave_safe_state, enter_master_commissioning_state |}
 
 
 
