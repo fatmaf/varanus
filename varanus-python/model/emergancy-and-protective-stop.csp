@@ -17,15 +17,16 @@ EPS_SAFE_STATE' =
   safe_state_key.Replaced -> EPS_SAFE_STATE
 
 EPS_ENABLED_STATE =
-  safe_state_key.PresentOff -> EPS_ENABLED_STATE
-  []
+--Assumes key starts off
+--  safe_state_key.PresentOff -> EPS_ENABLED_STATE
+--  []
   --From 5.3.1
   safe_state_key.PresentOn -> emergency_stop -> safe_stop_cat1-> enter_safe_state -> EPS_SAFE_STATE
   []
   -- Comes from SSM
   protective_stop -> safe_stop_cat1 -> enter_safe_state -> EPS_SAFE_STATE
 
-SystemStateAlpha = {|enter_safe_state, leave_safe_state, enter_master_commissioning_state  |}
+SystemStateInterface = {|enter_safe_state, leave_safe_state, enter_master_commissioning_state  |}
 
 EPS_SYSTEM_STATE(systemState) =
   enter_master_commissioning_state -> EPS_SYSTEM_STATE(NotSafeState)
@@ -45,7 +46,7 @@ EPS_RESET_STATE =
 
 EMERGANCY_PROTECTIVE_STOP =
   system_init ->
-    (EPS_ENABLED_STATE  [| SystemStateAlpha |]  EPS_SYSTEM_STATE(NotSafeState) )
+    (EPS_ENABLED_STATE  [| SystemStateInterface |]  EPS_SYSTEM_STATE(NotSafeState) )
 
 assert EMERGANCY_PROTECTIVE_STOP :[deadlock free]
 assert EMERGANCY_PROTECTIVE_STOP :[divergence free]

@@ -36,13 +36,9 @@ HMM_NEXT_MODE(nextMode) =
   )
 
 HMM_SAFE_STATE(lastMode) =
-  -- This assumes that we go back to autonomous mode, even if the user is still pressing the foot pedal
- -- Not sure if this is intended. The spec doesn't say anything about it
---  leave_safe_state -> enter_autonomous_mode -> leave_safe_state_done_hom-> HMM_AUTONOMOUS_MODE
   leave_safe_state -> HMM_NEXT_MODE(lastMode)
   []
-  --enter_master_commissioning_state -> enter_autonomous_mode -> leave_safe_state_done_hom -> HMM_AUTONOMOUS_MODE
-enter_master_commissioning_state -> HMM_NEXT_MODE(lastMode)
+  enter_master_commissioning_state -> HMM_NEXT_MODE(lastMode)
 
 HANDS_ON_MODE_MONITOR =
   system_init -> HMM_AUTONOMOUS_MODE

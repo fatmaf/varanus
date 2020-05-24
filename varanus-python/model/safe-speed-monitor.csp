@@ -21,7 +21,7 @@ SSM_AUTONOMOUS_MODE =
   speed?s:AutonomousUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE(AM)
   []
   enter_safe_state -> SSM_SAFE_STATE(AM)
-  -- assumes that we don't monitor speed in the safe state
+  -- assumes that we don't allow speed in the safe state
 
 
 
@@ -33,7 +33,7 @@ SSM_HANDS_ON_MODE =
   speed?s:HandsOnUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE(HOM)
   []
   enter_safe_state -> SSM_SAFE_STATE(HOM)
-  -- assumes that we don't monitor speed in the safe state
+  -- assumes that we don't alloe speed in the safe state
 
 -- Becasue of 5.4.1(4.a)
 SSM_UNMONITORED_MODE(lastMode) =
@@ -54,6 +54,7 @@ SSM_UNMONITORED_MODE(lastMode) =
   []
   enter_hands_on_mode ->  SSM_UNMONITORED_MODE(lastMode)
 
+--SAFE STATE Assumes there are no Speed events in the safe state
   SSM_SAFE_STATE(lastMode) =
   -- Assuming that 'reset' means go back to default, and the system should default to autonomous mode
     leave_safe_state ->
@@ -65,7 +66,7 @@ SSM_UNMONITORED_MODE(lastMode) =
     else
       SKIP
     []
-  -- Becasue of 5.4.1:4.a
+  -- Becasue of 5.4.1(4a)
     enter_master_commissioning_state -> SSM_UNMONITORED_MODE(lastMode)
 
 SAFE_SPEED_MONITOR =
