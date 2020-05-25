@@ -96,9 +96,16 @@ EPS3_SAFE =
   safe_state_key.PresentOff -> EPS3_RESETTING
 
 EPS3_RESETTING =
+  enter_master_commissioning_state -> EPS3_MASTER_COM
+  []
   systemStateIs.SafeState -> EPS3_RESETTING
   []
   restart -> EPS3_RESTARTING
+
+EPS3_MASTER_COM =
+  systemStateIs.NotSafeState -> EPS3_MASTER_COM
+  []
+  safe_stop_cat1 -> enter_safe_state -> EPS3_SAFE
 
 EPS3_RESTARTING =
   systemStateIs.SafeState -> EPS3_RESTARTING
@@ -106,8 +113,7 @@ EPS3_RESTARTING =
   leave_safe_state -> EPS3
 
 
-  --safe_state_key.PresentOn -> systemStateIs.SafeState -> EPS3
-assert EPS3 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_stop_cat1, enter_safe_state, leave_safe_state, systemStateIs, reset, restart, safe_state_key.PresentOff|}) )
+assert EPS3 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_stop_cat1, enter_safe_state, leave_safe_state, systemStateIs, reset, restart, safe_state_key.PresentOff, enter_master_commissioning_state|}) )
 
 assert not MASCOT_SAFETY_SYSTEM
 [|Events|]
