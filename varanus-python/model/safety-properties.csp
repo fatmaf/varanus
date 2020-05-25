@@ -138,9 +138,9 @@ KEY_SWITCH2 =
 KEY_SWITCH2_SAFE=
     restart -> KEY_SWITCH2
     |~|
-  --  safe_state_key.Removed -> KEY_SWITCH2
-  --  |~|
-    safe_state_key.PresentOff -> restart -> KEY_SWITCH2
+    enter_master_commissioning_state -> KEY_SWITCH2
+    |~|
+    safe_state_key.PresentOff -> (restart -> KEY_SWITCH2 [] enter_master_commissioning_state -> KEY_SWITCH2)
     |~|
     systemStateIs.SafeState -> KEY_SWITCH2
     |~|
@@ -151,7 +151,7 @@ KEY_SWITCH2_REMOVED =
 
 -- This checks that if the keywitch is used, then we enter the safe state, and
 -- if the key is removed, then it must be replaced before restart can happen
-assert KEY_SWITCH2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {| safe_state_key, enter_safe_state, restart |}) )
+assert KEY_SWITCH2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {| safe_state_key, enter_safe_state, restart, enter_master_commissioning_state |}) )
 
 
 -- 5.4 Master Commissioning Mode Key Switch
