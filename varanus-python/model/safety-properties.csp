@@ -169,12 +169,19 @@ MCM_SWITCH1 =
 assert MCM_SWITCH1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|reset, master_commissioning_switch, enter_master_commissioning_state |}) )
 
 -- 5.4.1(3)
+-- When the safety system enters the Safe State then the Safety System will leave the Master Commisioning State
 MCM_SWITCH2 =
-  enter_master_commissioning_state -> enter_safe_state -> leave_master_commissioning_state -> MCM_SWITCH2
-  []
-  enter_safe_state -> leave_safe_state -> MCM_SWITCH2
+  enter_safe_state -> MCM_SWITCH2_SafeState
 
-assert MCM_SWITCH2 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {|enter_master_commissioning_state, enter_safe_state,leave_safe_state, leave_master_commissioning_state|}) )
+MCM_SWITCH2_SafeState =
+  leave_safe_state -> MCM_SWITCH2
+  []
+  enter_master_commissioning_state -> MCM_SWITCH2_MCMode
+
+MCM_SWITCH2_MCMode =
+  enter_safe_state -> MCM_SWITCH2_SafeState
+
+assert MCM_SWITCH2 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {| enter_master_commissioning_state, enter_safe_state,leave_safe_state, leave_master_commissioning_state|}) )
 
 -- 5.4.1:4
 MCM_SWITCH3a =
