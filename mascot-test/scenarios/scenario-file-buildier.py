@@ -465,11 +465,65 @@ def build_scenario_5():
 
     to_assertion("scenario5", trace)
 
+def build_master_commissioning_mode_on(trace, fileHandle, lastTelegram):
+    """ Builds part of a trace where the master Commissioning mode is entered """
+    
+    assert(isinstance(lastTelegram, tuple))
+
+    velocity = lastTelegram[0]
+    footswitch = lastTelegram[1]
+
+
+    mcmSwitchEvent = Event("master_commissioning_switch", "MCM_On")
+    trace.add_event(mcmSwitchEvent)
+
+    mcmTelegram = '\"mcm_switch\":true'
+    fileHandle.write("{"+ velocity +" , "+ footswitch + ", " + mcmTelegram + "}\n")
+
+    resetEvent = Event("reset")
+    trace.add_event(resetEvent)
+
+    enterMCSEvent = Event("enter_master_commissioning_state")
+    trace.add_event(enterMCSEvent)
+
+
+def build_scenario_6():
+    """Build a trace where the system is reset with the Master Commissioning Mode Key set to 'On'. Some movements occur that are unmoniotred (so don't trigger the protective stop), then the safe state key is used to enter the safe state (and so exit the Master Commissioning State). Then the system is reset.
+    """
+
+    autonomous_velocicities = ['"velocity":100', '"velocity":500']
+    hands_on_velocities = [ '"velocity":750', '"velocity":1000']
+    velocity_events = autonomous_velocicities + hands_on_velocities
+
+    trace = Trace(Event("system_init"))
+    f = open("scenario6.json", "w")
+
+    velocity = '"velocity":0'
+    footswitch = footswitch_events[0]
+
+    firstTelegram = (velocity, footswitch)
+
+    build_safe_state_key_usage(trace, f, firstTelegram)
+
+    build_master_commissioning_mode_on(trace, f, firstTelegram)
+
+    build_collecting_or_replaceing_tools_section(trace, f, velocity_events, add_footswitch_event = True)
+
+    midTelegram = (velocity, footswitch[1])
+
+    build_safe_state_key_usage(trace, f, midTelegram)
+
+    build_reset_and_restart_usage(trace, f, midTelegram)
+
+    f.close()
+
+    to_assertion("scenario6", trace)
+
 if __name__ == '__main__':
 
     eventMap = {"velocity": "speed", "footswitch": "foot_pedal_pressed", "system_init" : "system_init",
     "ss_key" :"safe_state_key" , "em_stop" : "emergency_stop" , "cat_1_stop" : "safe_stop_cat1" ,
-    "safe_state" : "enter_safe_state"}
+    "safe_state" : "enter_safe_state", "mcm_switch":"master_commissioning_switch"}
 
     footswitch_events = ['"footswitch": false', '"footswitch": true']
 
@@ -484,4 +538,6 @@ if __name__ == '__main__':
 
     #build_scenario_4()
 
-    build_scenario_5()
+    #build_scenario_5()
+
+    build_scenario_6()
