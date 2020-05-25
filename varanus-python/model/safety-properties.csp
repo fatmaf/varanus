@@ -41,6 +41,10 @@ speed?s:AutonomousSafeSpeeds -> speed_ok -> EPS2B_AM
 speed?s:AutonomousUnSafeSpeeds -> protective_stop -> EPS2B_AM
 []
 foot_pedal_pressed.True -> EPS2B_HOM
+[]
+enter_master_commissioning_state -> EPS2B_UnMon(AM)
+[]
+enter_safe_state -> EPS2B_AM
 )
 
 EPS2B_HOM =
@@ -50,10 +54,32 @@ EPS2B_HOM =
   speed?s:HandsOnUnSafeSpeeds -> protective_stop -> EPS2B_HOM
   []
   foot_pedal_pressed.False -> EPS2B_AM
+  []
+  enter_master_commissioning_state -> EPS2B_UnMon(HOM)
+  []
+  enter_safe_state -> EPS2B_HOM
 )
 
--- This says that when speed happens, speed_ok or protective_stop (as appropriate) will not be refused.
-assert EPS2B [F= MASCOT_SAFETY_SYSTEM\(diff(Events, {|system_init, speed, protective_stop, speed_ok, foot_pedal_pressed |}))
+EPS2B_UnMon(lastMode) =
+speed?_ -> speed_ok -> EPS2B_UnMon(lastMode)
+[]
+(
+if lastMode == HOM then
+  enter_safe_state -> EPS2B_HOM
+
+else if lastMode == AM then
+  enter_safe_state -> EPS2B_AM
+else
+  SKIP
+)
+[]
+foot_pedal_pressed.False -> EPS2B_UnMon(AM)
+[]
+foot_pedal_pressed.True -> EPS2B_UnMon(HOM)
+
+-- This says that when speed happens, speed_ok or protective_stop (as appropriate) will happen.
+-- This checks the state changes from foot_pedal_pressed and master commissioning state
+assert EPS2B [T= MASCOT_SAFETY_SYSTEM\(diff(Events, {|system_init, speed, protective_stop, speed_ok, foot_pedal_pressed, enter_master_commissioning_state, enter_safe_state |}))
 
 
 -- 5.2.1(4),(5), (6)
