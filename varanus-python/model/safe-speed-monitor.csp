@@ -33,7 +33,7 @@ SSM_HANDS_ON_MODE =
   speed?s:HandsOnUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE(HOM)
   []
   enter_safe_state -> SSM_SAFE_STATE(HOM)
-  -- assumes that we don't alloe speed in the safe state
+  -- assumes that we don't allow speed in the safe state
 
 -- Becasue of 5.4.1(4.a)
 SSM_UNMONITORED_MODE(lastMode) =
@@ -41,18 +41,18 @@ SSM_UNMONITORED_MODE(lastMode) =
   []
   (
   if lastMode == HOM then
-    enter_safe_state -> SSM_HANDS_ON_MODE
+    enter_safe_state -> SSM_SAFE_STATE(HOM)
 
   else if lastMode == AM then
-    enter_safe_state -> SSM_AUTONOMOUS_MODE
+    enter_safe_state -> SSM_SAFE_STATE(AM)
 
   else
     SKIP
   )
   []
-  enter_autonomous_mode ->  SSM_UNMONITORED_MODE(lastMode)
+  enter_autonomous_mode ->  SSM_UNMONITORED_MODE(AM)
   []
-  enter_hands_on_mode ->  SSM_UNMONITORED_MODE(lastMode)
+  enter_hands_on_mode ->  SSM_UNMONITORED_MODE(HOM)
 
 --SAFE STATE Assumes there are no Speed events in the safe state
   SSM_SAFE_STATE(lastMode) =

@@ -42,7 +42,7 @@ EPS_SYSTEM_STATE(systemState) =
 EPS_RESET_STATE =
   restart -> leave_safe_state -> EPS_ENABLED_STATE
   []
-  enter_master_commissioning_state ->  EPS_ENABLED_STATE
+  enter_master_commissioning_state -> EPS_ENABLED_STATE
 
 EMERGANCY_PROTECTIVE_STOP =
   system_init ->

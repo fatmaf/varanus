@@ -6,7 +6,7 @@ channel safe_stop_cat1
 channel enter_master_commissioning_state, leave_master_commissioning_state
 channel system_init
 
-Speed = {100, 500, 750, 1000, 1250}
+Speed = {0, 100, 500, 750, 1000, 1250}
 channel speed : Speed
 
 datatype SafeStateType = SafeState | NotSafeState

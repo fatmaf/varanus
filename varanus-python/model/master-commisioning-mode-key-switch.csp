@@ -4,6 +4,9 @@ mcmAlpha = {| master_commissioning_switch, reset, enter_master_commissioning_sta
 
 MCM_MASTER_COMMISSIONING_STATE =
   enter_safe_state -> leave_master_commissioning_state -> MCM_ENABLED_STATE
+  []
+  -- Just letting it happen
+  reset -> MCM_MASTER_COMMISSIONING_STATE
   --[]
 --  master_commissioning_switch.MCM_On -> enter_master_commissioning_state -> MCM_MASTER_COMMISSIONING_STATE
 --  []
