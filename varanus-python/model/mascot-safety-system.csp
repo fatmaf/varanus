@@ -70,4 +70,5 @@ assert MASCOT_SAFETY_SYSTEM :[divergence free]
 assert MASCOT_SAFETY_SYSTEM :[deterministic]
 
 include "safety-properties.csp"
-include "monitorTest.csp"
+--include "monitorTest.csp"
+include "scenarios.csp"
