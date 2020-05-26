@@ -187,16 +187,21 @@ assert MCM_SWITCH2 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {| enter_master_commi
 -- ...does not issue a protective stop when the safe speed monitoring speed threshold
 -- has been exceeded.
 MCM_SWITCH3a =
-  enter_master_commissioning_state ->
-  (
-  leave_safe_state -> protective_stop -> MCM_SWITCH3a
-  []
-  leave_master_commissioning_state -> protective_stop -> MCM_SWITCH3a
-  )
-
+  enter_master_commissioning_state -> MCM_SWITCH3a_MCM
   |~|
   protective_stop ->  MCM_SWITCH3a
-assert MCM_SWITCH3a [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|enter_master_commissioning_state, leave_master_commissioning_state, protective_stop, leave_safe_state|}) )
+  |~|
+  leave_safe_state -> MCM_SWITCH3a
+
+MCM_SWITCH3a_MCM =
+  leave_master_commissioning_state -> MCM_SWITCH3a
+  |~|
+  -- Becasue a leave means we've entered the safe state, so left the MCM state
+ leave_safe_state -> MCM_SWITCH3a
+
+
+assert MCM_SWITCH3a [F= MASCOT_SAFETY_SYSTEM\(
+diff(Events, {|enter_master_commissioning_state, leave_master_commissioning_state, protective_stop, leave_safe_state|}) )
 
 MCM_SWITCH3b =
   safe_state_key.PresentOn -> emergency_stop -> safe_stop_cat1 -> enter_safe_state -> reset -> master_commissioning_switch.MCM_On ->
