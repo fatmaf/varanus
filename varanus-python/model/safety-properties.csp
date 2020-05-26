@@ -240,7 +240,14 @@ assert SCM_SWITCH3 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning
 
 -- 5.6 Master Safe Speed Monitoring
 
--- 5.6.1(5) and (7) and 5.6.1(5)
+-- 5.6.1(5),(6), and (7)
+-- (5) The actuator speed limits are set such that the linear speed limit at the wrist does not exceed
+-- 500mm/s for a manipulator arm running in autonomous mode.
+-- (6) The actuator speed limits are set such that the linear speed limit at the wrist does not exceed
+-- the Mascot 4.5 baseline wrist maximum speed of 1000mms/s when the master is used in
+-- ‘hands on mode’ aka. bilateral operation.
+-- (7) Initiate a Protective Stop if the speed threshold is exceeded.
+
 channel get_monitoring : Bool
 channel get_limit : Speed
 
@@ -254,12 +261,14 @@ SSM1_STATE(True, AutonomousSafeSpeed)
 
 ssm1_stateAlpha =
   {|enter_master_commissioning_state, leave_master_commissioning_state, system_init,
-  foot_pedal_pressed, get_monitoring, get_limit |}
+  foot_pedal_pressed, get_monitoring, get_limit, leave_safe_state |}
 
 SSM1_STATE(monitoring, limit) =
 enter_master_commissioning_state -> SSM1_STATE(False, limit)
 []
 leave_master_commissioning_state -> SSM1_STATE(True, limit)
+[]
+leave_safe_state -> SSM1_STATE(True, limit)
 []
 system_init -> SSM1_STATE(monitoring, AutonomousSafeSpeed)
 []
@@ -281,7 +290,7 @@ else
 
 assert SSM1\{|get_limit, get_monitoring|} [F= MASCOT_SAFETY_SYSTEM\( diff(Events,
   {|system_init, foot_pedal_pressed, speed, protective_stop, speed_ok,
-     leave_master_commissioning_state, enter_master_commissioning_state |}) )
+     leave_master_commissioning_state, enter_master_commissioning_state, leave_safe_state |}) )
 
 
 
