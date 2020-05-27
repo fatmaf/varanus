@@ -467,7 +467,7 @@ def build_scenario_5():
 
 def build_master_commissioning_mode_on(trace, fileHandle, lastTelegram):
     """ Builds part of a trace where the master Commissioning mode is entered """
-    
+
     assert(isinstance(lastTelegram, tuple))
 
     velocity = lastTelegram[0]
@@ -519,6 +519,47 @@ def build_scenario_6():
 
     to_assertion("scenario6", trace)
 
+def build_slave_commissioning_mode_on(trace, fileHandle, lastTelegram):
+    pass
+
+def build_slave_commissioning_mode_off(trace, fileHandle, lastTelegram):
+    pass
+
+def build_scenario_7():
+    """ Builds a trace where the Slave commisioning mode switch is used to put
+    the system into the Slave Commissioning Mode. Some movements are performed
+    for troubleshooting. Then slave commissioning mode is disabled, again using
+    the Slave Commissioning mode switch."""
+
+    autonomous_velocicities = ['"velocity":100', '"velocity":500']
+    hands_on_velocities = [ '"velocity":750', '"velocity":1000']
+    velocity_events = autonomous_velocicities + hands_on_velocities
+
+    trace = Trace(Event("system_init"))
+    f = open("scenario7.json", "w")
+
+    velocity = '"velocity":0'
+    footswitch = footswitch_events[0]
+
+    firstTelegram = (velocity, footswitch)
+
+    build_safe_state_key_usage(trace, f, firstTelegram)
+
+    build_slave_commissioning_mode_on(trace, f, firstTelegram)
+
+    build_collecting_or_replaceing_tools_section(trace, f, velocity_events, add_footswitch_event = True)
+
+    midTelegram = (velocity, footswitch[1])
+
+    build_slave_commissioning_mode_off(trace, f, firstTelegram)
+
+    f.close()
+
+    to_assertion("scenario7", trace)
+
+
+
+
 if __name__ == '__main__':
 
     eventMap = {"velocity": "speed", "footswitch": "foot_pedal_pressed", "system_init" : "system_init",
@@ -540,4 +581,6 @@ if __name__ == '__main__':
 
     #build_scenario_5()
 
-    build_scenario_6()
+    #build_scenario_6()
+
+    build_scenario_7()
