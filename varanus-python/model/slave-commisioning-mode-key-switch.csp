@@ -16,6 +16,9 @@ SCM_ENABLED_STATE =
   []
   -- letting the safe state key be used
   safe_stop_cat1 -> enter_safe_state -> SCM_PAUSE
+  []
+  --Letting this happen
+  leave_safe_state -> SCM_ENABLED_STATE
 
 SCM_PAUSE =
  leave_safe_state -> SCM_ENABLED_STATE

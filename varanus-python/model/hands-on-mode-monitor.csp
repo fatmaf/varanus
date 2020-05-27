@@ -38,7 +38,7 @@ HMM_NEXT_MODE(nextMode) =
 HMM_SAFE_STATE(lastMode) =
   leave_safe_state -> HMM_NEXT_MODE(lastMode)
   []
-  enter_master_commissioning_state -> HMM_NEXT_MODE(lastMode)
+  enter_master_commissioning_state -> leave_safe_state -> HMM_NEXT_MODE(lastMode)
 
 HANDS_ON_MODE_MONITOR =
   system_init -> HMM_AUTONOMOUS_MODE

@@ -1,6 +1,7 @@
 -- 5.4 Master Commissioning Mode Key Switch
 
-mcmAlpha = {| master_commissioning_switch, reset, enter_master_commissioning_state, leave_master_commissioning_state, system_init, enter_safe_state, leave_safe_state|}
+mcmAlpha = {| master_commissioning_switch, reset, enter_master_commissioning_state,
+leave_master_commissioning_state, system_init, enter_safe_state, leave_safe_state|}
 
 MCM_MASTER_COMMISSIONING_STATE =
   enter_safe_state -> leave_master_commissioning_state -> MCM_ENABLED_STATE
@@ -15,7 +16,7 @@ MCM_MASTER_COMMISSIONING_STATE =
 MCM_SWITCH_ON =
   master_commissioning_switch.MCM_Off -> MCM_ENABLED_STATE
   []
-  reset -> enter_master_commissioning_state -> MCM_MASTER_COMMISSIONING_STATE
+  reset -> enter_master_commissioning_state -> leave_safe_state -> MCM_MASTER_COMMISSIONING_STATE
   []
   --To allow the safe state to be entered from elsewhere
   enter_safe_state -> MCM_SWITCH_ON
@@ -28,11 +29,15 @@ MCM_ENABLED_STATE =
   []
   --To allow the safe state to be entered from elsewhere
   enter_safe_state -> MCM_PAUSE
+  []
+  leave_safe_state ->  MCM_ENABLED_STATE 
 
 MCM_PAUSE =
   leave_safe_state -> MCM_ENABLED_STATE
   []
   reset -> MCM_ENABLED_STATE
+  []
+  master_commissioning_switch.MCM_On -> MCM_SWITCH_ON
 
 
 MASTER_COMMISSIONING_MODE =

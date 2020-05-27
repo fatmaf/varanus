@@ -104,16 +104,23 @@ EPS3_SAFE =
   safe_state_key.PresentOff -> EPS3_RESETTING
 
 EPS3_RESETTING =
-  enter_master_commissioning_state -> EPS3_MASTER_COM
+  enter_master_commissioning_state ->  EPS3_MASTER_COM
   []
   systemStateIs.SafeState -> EPS3_RESETTING
   []
   restart -> EPS3_RESTARTING
 
 EPS3_MASTER_COM =
+  leave_safe_state ->EPS3_MASTER_COM
+  []
   systemStateIs.NotSafeState -> EPS3_MASTER_COM
   []
-  safe_stop_cat1 -> enter_safe_state -> EPS3_SAFE
+  safe_stop_cat1 ->
+  (
+    (enter_safe_state -> EPS3_SAFE)
+    []
+    (enter_slave_commissioning_state -> EPS3_SLAVE_COM)
+  )
 
 EPS3_SLAVE_COM =
   systemStateIs.NotSafeState -> EPS3_SLAVE_COM
@@ -128,7 +135,10 @@ EPS3_RESTARTING =
   leave_safe_state -> EPS3
 
 
-assert EPS3 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_stop_cat1, enter_safe_state, leave_safe_state, systemStateIs, reset, restart, safe_state_key.PresentOff, enter_master_commissioning_state, enter_slave_commissioning_state|}) )
+assert EPS3 [T= MASCOT_SAFETY_SYSTEM\(
+ diff(Events, {|safe_stop_cat1, enter_safe_state, leave_safe_state,
+ systemStateIs, reset, restart, safe_state_key.PresentOff,
+ enter_master_commissioning_state, enter_slave_commissioning_state|}) )
 
 assert not MASCOT_SAFETY_SYSTEM
 [|Events|]
@@ -186,23 +196,18 @@ assert MCM_SWITCH1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|reset, master_commi
 -- 5.4.1(3)
 -- When the safety system enters the Safe State then the Safety System will leave the Master Commisioning State
 MCM_SWITCH2 =
-  enter_safe_state -> MCM_SWITCH2_SafeState
+enter_safe_state -> leave_safe_state -> MCM_SWITCH2
+[]
+enter_safe_state -> enter_master_commissioning_state -> leave_safe_state -> MCM_SWITCH2
 
-MCM_SWITCH2_SafeState =
-  leave_safe_state -> MCM_SWITCH2
-  []
-  enter_master_commissioning_state -> MCM_SWITCH2_MCMode
-
-MCM_SWITCH2_MCMode =
-  enter_safe_state -> MCM_SWITCH2_SafeState
-
-assert MCM_SWITCH2 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {| enter_master_commissioning_state, enter_safe_state,leave_safe_state, leave_master_commissioning_state|}) )
+assert MCM_SWITCH2 [T= MASCOT_SAFETY_SYSTEM\(
+diff(Events, {| enter_master_commissioning_state, leave_safe_state, enter_safe_state |}) )
 
 -- 5.4.1(4)
 -- ...does not issue a protective stop when the safe speed monitoring speed threshold
 -- has been exceeded.
 MCM_SWITCH3a =
-  enter_master_commissioning_state -> MCM_SWITCH3a_MCM
+  enter_master_commissioning_state -> leave_safe_state-> MCM_SWITCH3a_MCM
   |~|
   protective_stop ->  MCM_SWITCH3a
   |~|
@@ -300,7 +305,7 @@ ssm1_stateAlpha =
   foot_pedal_pressed, get_monitoring, get_limit, leave_safe_state |}
 
 SSM1_STATE(monitoring, limit) =
-enter_master_commissioning_state -> SSM1_STATE(False, limit)
+enter_master_commissioning_state -> leave_safe_state ->SSM1_STATE(False, limit)
 []
 leave_master_commissioning_state -> SSM1_STATE(True, limit)
 []
