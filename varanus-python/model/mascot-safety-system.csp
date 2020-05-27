@@ -29,14 +29,18 @@ MASCOT_SYSTEM_STATE(state) =
 epsPrecedenceAlpha = Events
 
 ATOM_CHAINS =
-  (speed?_ -> (protective_stop -> ATOM_CHAINS [] speed_ok -> ATOM_CHAINS))
+  (speed?_ -> (protective_stop -> safe_stop_cat1 -> enter_safe_state -> ATOM_CHAINS [] speed_ok -> ATOM_CHAINS))
   []
   ([] e : diff(Events, {|system_init, speed, protective_stop, speed_ok,
-        safe_state_key.PresentOn,emergency_stop, safe_stop_cat1, enter_safe_state, foot_pedal_pressed, enter_hands_on_mode |})  @ e->ATOM_CHAINS)
+        safe_state_key.PresentOn,emergency_stop, safe_stop_cat1, enter_safe_state,
+         foot_pedal_pressed, enter_hands_on_mode, slave_commissioning_switch,
+          enter_slave_commissioning_state  |})  @ e->ATOM_CHAINS)
   []
   (safe_state_key.PresentOn -> emergency_stop -> safe_stop_cat1->enter_safe_state -> ATOM_CHAINS)
   []
   (foot_pedal_pressed?_ -> (enter_autonomous_mode -> ATOM_CHAINS [] enter_hands_on_mode -> ATOM_CHAINS ) )
+  []
+  slave_commissioning_switch.SCM_On -> safe_stop_cat1 -> enter_slave_commissioning_state -> ATOM_CHAINS
 
 MASCOT_SAFETY_SYSTEM =
   (system_init -> MASCOT_SYSTEM_STATE(EnabedAutonomous)
@@ -70,5 +74,5 @@ assert MASCOT_SAFETY_SYSTEM :[divergence free]
 assert MASCOT_SAFETY_SYSTEM :[deterministic]
 
 include "safety-properties.csp"
---include "monitorTest.csp"
-include "scenarios.csp"
+include "monitorTest.csp"
+--include "scenarios.csp"

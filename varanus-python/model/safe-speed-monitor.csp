@@ -18,7 +18,7 @@ SSM_AUTONOMOUS_MODE =
   []
   speed?s:AutonomousSafeSpeeds -> speed_ok -> SSM_AUTONOMOUS_MODE
   []
-  speed?s:AutonomousUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE(AM)
+  speed?s:AutonomousUnSafeSpeeds -> protective_stop -> enter_safe_state -> SSM_SAFE_STATE(AM)
   []
   enter_safe_state -> SSM_SAFE_STATE(AM)
   -- assumes that we don't allow speed in the safe state
@@ -30,7 +30,7 @@ SSM_HANDS_ON_MODE =
   []
   speed?s:HandsOnSafeSpeeds -> speed_ok -> SSM_HANDS_ON_MODE
   []
-  speed?s:HandsOnUnSafeSpeeds -> protective_stop -> SSM_SAFE_STATE(HOM)
+  speed?s:HandsOnUnSafeSpeeds -> protective_stop -> enter_safe_state -> SSM_SAFE_STATE(HOM)
   []
   enter_safe_state -> SSM_SAFE_STATE(HOM)
   -- assumes that we don't allow speed in the safe state

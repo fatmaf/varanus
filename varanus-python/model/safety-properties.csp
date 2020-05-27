@@ -83,8 +83,16 @@ assert EPS2B [T= MASCOT_SAFETY_SYSTEM\(diff(Events, {|system_init, speed, protec
 
 
 -- 5.2.1(4),(5), (6)
+-- (4) Remain Active until reset
+-- (5) On reset by a manual action that does not cayuse a resstart after resetting, but shall only permis a restart to occurr...
+-- (6) Provide and output signal to indicate when the system is in the Safe State
 EPS3 =
-  safe_stop_cat1 -> enter_safe_state -> EPS3_SAFE
+  safe_stop_cat1 ->
+    (
+      (enter_safe_state -> EPS3_SAFE)
+      []
+      (enter_slave_commissioning_state -> EPS3_SLAVE_COM)
+    )
   []
   systemStateIs.NotSafeState -> EPS3
 
@@ -107,13 +115,20 @@ EPS3_MASTER_COM =
   []
   safe_stop_cat1 -> enter_safe_state -> EPS3_SAFE
 
+EPS3_SLAVE_COM =
+  systemStateIs.NotSafeState -> EPS3_SLAVE_COM
+  []
+  leave_slave_commissioning_state -> EPS3
+  []
+  safe_stop_cat1 -> enter_safe_state -> EPS3_SAFE
+
 EPS3_RESTARTING =
   systemStateIs.SafeState -> EPS3_RESTARTING
   []
   leave_safe_state -> EPS3
 
 
-assert EPS3 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_stop_cat1, enter_safe_state, leave_safe_state, systemStateIs, reset, restart, safe_state_key.PresentOff, enter_master_commissioning_state|}) )
+assert EPS3 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {|safe_stop_cat1, enter_safe_state, leave_safe_state, systemStateIs, reset, restart, safe_state_key.PresentOff, enter_master_commissioning_state, enter_slave_commissioning_state|}) )
 
 assert not MASCOT_SAFETY_SYSTEM
 [|Events|]
@@ -213,29 +228,50 @@ assert not MCM_SWITCH3b
 
 -- 5.5 Slave Commissioning Mode Key switch
 
--- 5.5.1:1
+-- 5.5.1(1)
+-- Perform the same function as the Safe State Key Switch with the exception that the system
+-- shall enter the Commissioning State rather than Safe State on the completion of the Safe Stop
+-- Category 1 (SS1) function.
+
 SCM_SWITCH1=
  slave_commissioning_switch.SCM_On -> safe_stop_cat1 -> enter_slave_commissioning_state -> SCM_SWITCH1
-assert SCM_SWITCH1 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_On, enter_slave_commissioning_state|}) )
+[]
+-- Allowing safe state key to be used
+safe_stop_cat1 -> SCM_SWITCH1
+
+assert SCM_SWITCH1 [T= MASCOT_SAFETY_SYSTEM\(
+diff(Events, {|slave_commissioning_switch.SCM_On, enter_slave_commissioning_state, safe_stop_cat1|}) )
 
 -- 5.5.1(2c)
+-- The Commissioning State entered is defined as the Safe State with the following differences:...
+-- (c) The Safe State output signal provided indicates that the system is not in the Safe State.
 SCM_SWITCH2 =
- slave_commissioning_switch.SCM_On -> systemStateIs.NotSafeState -> SCM_SWITCH2
+slave_commissioning_switch.SCM_On -> enter_slave_commissioning_state -> SCM_SWITCH2_SCS
 []
 systemStateIs.NotSafeState -> SCM_SWITCH2
+[]
+leave_safe_state -> SCM_SWITCH2
+
+SCM_SWITCH2_SCS =
+  systemStateIs.NotSafeState -> SCM_SWITCH2
+  []
+  slave_commissioning_switch.SCM_Off -> leave_slave_commissioning_state -> SCM_SWITCH2
+  []
+  leave_safe_state -> SCM_SWITCH2
+
+assert SCM_SWITCH2 [T= MASCOT_SAFETY_SYSTEM\(
+  diff(Events, {|slave_commissioning_switch, systemStateIs.NotSafeState, enter_slave_commissioning_state, leave_slave_commissioning_state, leave_safe_state|}) )
 
 
-
-assert SCM_SWITCH2 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_On, systemStateIs.NotSafeState|}) )
-
-
---5.5.1:3
+--5.5.1(3)
+-- As implied by items 1 & 2, the system cannot be enabled until the commissioning mode has
+-- been disabled.
 SCM_SWITCH3 =
   slave_commissioning_switch.SCM_Off -> enter_autonomous_mode -> SCM_SWITCH3
   |~|
   enter_autonomous_mode -> SCM_SWITCH3
 
-assert SCM_SWITCH3 [F= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_Off, enter_autonomous_mode|}) )
+assert SCM_SWITCH3 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_Off, enter_autonomous_mode|}) )
 
 
 -- 5.6 Master Safe Speed Monitoring
