@@ -23,3 +23,9 @@ assert MASCOT_SAFETY_SYSTEM  :[has trace]: <system_init, foot_pedal_pressed. tru
 assert MASCOT_SAFETY_SYSTEM\{|enter_master_commissioning_state, leave_master_commissioning_state, emergency_stop, enter_safe_state, leave_safe_state, enter_hands_on_mode |}
 :[has trace]: <system_init, safe_state_key.PresentOn, safe_stop_cat1, master_commissioning_switch.MCM_On, reset, foot_pedal_pressed. true, speed.1000, speed_ok, speed.100, speed_ok, speed.100, speed_ok, speed.1000, speed_ok, speed.1000, speed_ok, speed.500, speed_ok, speed.500, speed_ok, speed.100, speed_ok, speed.500, speed_ok, speed.500, speed_ok, safe_state_key.PresentOn,  safe_stop_cat1,  reset, restart >
 --- MANUALLY MODIFIED TO NOT PASTE OVER
+
+-- Scenario 7
+-- MANUALLY Built
+assert MASCOT_SAFETY_SYSTEM\{|enter_slave_commissioning_state, leave_slave_commissioning_state, enter_hands_on_mode |}
+:[has trace]: <system_init, slave_commissioning_switch.SCM_On, safe_stop_cat1, foot_pedal_pressed. true, speed.1000, speed_ok, speed.100, speed_ok, speed.100, speed_ok, speed.1000, speed_ok, speed.1000, speed_ok, speed.500, speed_ok, speed.500, speed_ok, speed.100, speed_ok, speed.500, speed_ok, speed.500, speed_ok,
+slave_commissioning_switch.SCM_Off >

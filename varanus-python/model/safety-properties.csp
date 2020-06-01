@@ -138,7 +138,7 @@ EPS3_RESTARTING =
 assert EPS3 [T= MASCOT_SAFETY_SYSTEM\(
  diff(Events, {|safe_stop_cat1, enter_safe_state, leave_safe_state,
  systemStateIs, reset, restart, safe_state_key.PresentOff,
- enter_master_commissioning_state, enter_slave_commissioning_state|}) )
+ enter_master_commissioning_state, enter_slave_commissioning_state, leave_slave_commissioning_state|}) )
 
 assert not MASCOT_SAFETY_SYSTEM
 [|Events|]
@@ -258,7 +258,7 @@ systemStateIs.NotSafeState -> SCM_SWITCH2
 leave_safe_state -> SCM_SWITCH2
 
 SCM_SWITCH2_SCS =
-  systemStateIs.NotSafeState -> SCM_SWITCH2
+  systemStateIs.NotSafeState -> SCM_SWITCH2_SCS
   []
   slave_commissioning_switch.SCM_Off -> leave_slave_commissioning_state -> SCM_SWITCH2
   []
@@ -272,11 +272,20 @@ assert SCM_SWITCH2 [T= MASCOT_SAFETY_SYSTEM\(
 -- As implied by items 1 & 2, the system cannot be enabled until the commissioning mode has
 -- been disabled.
 SCM_SWITCH3 =
-  slave_commissioning_switch.SCM_Off -> enter_autonomous_mode -> SCM_SWITCH3
-  |~|
-  enter_autonomous_mode -> SCM_SWITCH3
+  SCM_SWITCH3_ENABLED
 
-assert SCM_SWITCH3 [T= MASCOT_SAFETY_SYSTEM\( diff(Events, {|slave_commissioning_switch.SCM_Off, enter_autonomous_mode|}) )
+SCM_SWITCH3_ENABLED =
+  slave_commissioning_switch.SCM_On -> SCM_SWITCH3_COMM
+  []
+  enter_autonomous_mode -> SCM_SWITCH3_ENABLED
+  []
+  enter_hands_on_mode -> SCM_SWITCH3_ENABLED
+
+SCM_SWITCH3_COMM =
+  slave_commissioning_switch.SCM_Off -> SCM_SWITCH3_ENABLED
+
+assert SCM_SWITCH3 [T= MASCOT_SAFETY_SYSTEM\(
+ diff(Events, {|slave_commissioning_switch, enter_hands_on_mode, enter_autonomous_mode|}) )
 
 
 -- 5.6 Master Safe Speed Monitoring
@@ -317,7 +326,8 @@ foot_pedal_pressed.True -> SSM1_STATE(monitoring,HandsOnSafeSpeed )
 []
 foot_pedal_pressed.False -> SSM1_STATE(monitoring,AutonomousSafeSpeed )
 []
-speed?_ -> get_monitoring!monitoring -> get_limit!limit -> (protective_stop -> SSM1_STATE(monitoring, limit) [] speed_ok -> SSM1_STATE(monitoring, limit) )
+speed?_ -> get_monitoring!monitoring -> get_limit!limit ->
+  (protective_stop -> SSM1_STATE(monitoring, limit) [] speed_ok -> SSM1_STATE(monitoring, limit) )
 
 SSM1_SPEED =
 speed?s ->

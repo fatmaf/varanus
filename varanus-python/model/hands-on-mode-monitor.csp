@@ -1,6 +1,9 @@
 --5.7 Master Hands-On Mode Monitoring
 
-hmmAlpha = {| enter_safe_state, foot_pedal_pressed, enter_autonomous_mode, enter_hands_on_mode, system_init, speed, protective_stop, speed_ok, leave_safe_state, enter_master_commissioning_state |}
+hmmAlpha = {| enter_safe_state, foot_pedal_pressed, enter_autonomous_mode,
+enter_hands_on_mode, system_init, speed, protective_stop, speed_ok,
+leave_safe_state, enter_master_commissioning_state, enter_slave_commissioning_state,
+leave_slave_commissioning_state |}
 
 
 
@@ -10,6 +13,8 @@ HMM_AUTONOMOUS_MODE =
   foot_pedal_pressed.True -> enter_hands_on_mode -> HMM_HANDS_ON_MODE
   []
   speed?_ -> HMM_PAUSE(AM)
+  []
+  enter_slave_commissioning_state -> HMM_SAFE_STATE(AM)
 
 HMM_HANDS_ON_MODE =
   foot_pedal_pressed.False -> enter_autonomous_mode -> HMM_AUTONOMOUS_MODE
@@ -17,6 +22,8 @@ HMM_HANDS_ON_MODE =
   enter_safe_state -> HMM_SAFE_STATE(HOM)
   []
   speed?_ -> HMM_PAUSE(HOM)
+  []
+  enter_slave_commissioning_state -> HMM_SAFE_STATE(HOM)
 
 HMM_PAUSE(lastMode) =
   (
@@ -39,6 +46,8 @@ HMM_SAFE_STATE(lastMode) =
   leave_safe_state -> HMM_NEXT_MODE(lastMode)
   []
   enter_master_commissioning_state -> leave_safe_state -> HMM_NEXT_MODE(lastMode)
+  []
+  leave_slave_commissioning_state -> HMM_NEXT_MODE(lastMode)
 
 HANDS_ON_MODE_MONITOR =
   system_init -> HMM_AUTONOMOUS_MODE

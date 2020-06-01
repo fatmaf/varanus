@@ -10,8 +10,9 @@ HandsOnSafeSpeeds = {s | s <- Speed, s <= HandsOnSafeSpeed }
 HandsOnUnSafeSpeeds = {s | s <- Speed, s > HandsOnSafeSpeed}
 
 ssmAlpha = {| enter_hands_on_mode, enter_autonomous_mode, speed,
-              enter_master_commissioning_state, 
-              protective_stop, speed_ok, leave_safe_state, system_init, enter_safe_state|}
+              enter_master_commissioning_state,
+              protective_stop, speed_ok, leave_safe_state, system_init,
+              enter_safe_state, enter_slave_commissioning_state, leave_slave_commissioning_state|}
 
 SSM_AUTONOMOUS_MODE =
   enter_hands_on_mode -> SSM_HANDS_ON_MODE
@@ -22,6 +23,8 @@ SSM_AUTONOMOUS_MODE =
   []
   enter_safe_state -> SSM_SAFE_STATE(AM)
   -- assumes that we don't allow speed in the safe state
+  []
+  enter_slave_commissioning_state -> SSM_SAFE_STATE(AM)
 
 
 
@@ -34,6 +37,8 @@ SSM_HANDS_ON_MODE =
   []
   enter_safe_state -> SSM_SAFE_STATE(HOM)
   -- assumes that we don't allow speed in the safe state
+  []
+  enter_slave_commissioning_state -> SSM_SAFE_STATE(HOM)
 
 -- Becasue of 5.4.1(4.a)
 SSM_UNMONITORED_MODE(lastMode) =
@@ -56,16 +61,18 @@ SSM_UNMONITORED_MODE(lastMode) =
 
 --SAFE STATE Assumes there are no Speed events in the safe state
   SSM_SAFE_STATE(lastMode) =
-  -- Assuming that 'reset' means go back to default, and the system should default to autonomous mode
-    leave_safe_state ->
     (
-      if lastMode == HOM then
-        SSM_HANDS_ON_MODE
+      (leave_safe_state -> SKIP [] leave_slave_commissioning_state -> SKIP)
+      ;
+      (
+        if lastMode == HOM then
+          SSM_HANDS_ON_MODE
 
-      else if lastMode == AM then
-          SSM_AUTONOMOUS_MODE
-      else
-        SKIP
+        else if lastMode == AM then
+            SSM_AUTONOMOUS_MODE
+        else
+          SKIP
+      )
     )
     []
   -- Becasue of 5.4.1(4a)
