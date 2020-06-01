@@ -29,6 +29,8 @@ MCM_ENABLED_STATE =
   []
   -- letting bad speeds trigger EPS
   enter_safe_state -> MCM_ENABLED_STATE
+  []
+  leave_safe_state -> MCM_ENABLED_STATE
 
 
 MCM_PAUSE =
