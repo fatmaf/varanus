@@ -5,6 +5,8 @@ include "master-commisioning-mode-key-switch.csp"
 include "slave-commisioning-mode-key-switch.csp"
 include "safe-speed-monitor.csp"
 
+
+
 datatype MascotState = Safe | MasterCommissioning | EnabedAutonomous | EnabedHandsOn | SlaveCommissioning
 
 channel getState : MascotState
@@ -68,3 +70,4 @@ assert MASCOT_SAFETY_SYSTEM :[divergence free]
 assert MASCOT_SAFETY_SYSTEM :[deterministic]
 
 include "safety-properties.csp"
+include "monitorTest.csp"
