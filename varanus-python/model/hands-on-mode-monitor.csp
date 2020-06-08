@@ -27,7 +27,8 @@ HMM_HANDS_ON_MODE =
 
 HMM_PAUSE(lastMode) =
   (
-    protective_stop -> enter_safe_state -> enter_autonomous_mode -> HMM_NEXT_MODE(AM)
+    protective_stop -> enter_safe_state -> --enter_autonomous_mode ->
+    HMM_SAFE_STATE(lastMode)
     []
     speed_ok -> HMM_NEXT_MODE(lastMode)
   )
