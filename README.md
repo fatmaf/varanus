@@ -11,7 +11,7 @@ Varanus is the genus of Monitor Lizards
 
 * command_line.py
  - Part of the FDR API, runs FDR
-* event_abstractor.py (should be but currently isn't)
+* event_converter.py
  - Reads the event_map.json file to convert incoming system events to model events
 * fdr_interface.py
  - Part of the FDR API, slightly modified from the original version to connect the monitor to FDR
@@ -21,6 +21,9 @@ Varanus is the genus of Monitor Lizards
  - Controls the monitoring program
 
 ## Specific Components
+
+* mascot_event_abstractor.py
+  - Implements EventConverter for Mascot
 
 * event_map.json
   - Provide a map from the events the monitor will read from the system to the events inside the model.
