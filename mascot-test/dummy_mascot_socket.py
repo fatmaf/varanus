@@ -3,7 +3,7 @@ import socket
 """ Reads the json file supplied in FILE and sends this to the monitor """
 
 TCP_IP = '127.0.0.1'
-TCP_PORT = 5045
+TCP_PORT = 5044
 BUFFER_SIZE = 1024
 MESSAGE = "Hello, World!"
 FILE = "scenarios/scenario1.json"
@@ -19,7 +19,7 @@ for line in f:
         s.send(line)
         lineCount = lineCount +1
         print "Line Num: ", lineCount ,"sent data: ", line
-	    
+
         data = s.recv(BUFFER_SIZE)
         print "received data: ", data
 
