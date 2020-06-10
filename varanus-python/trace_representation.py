@@ -58,6 +58,7 @@ class Trace(object):
         """ Adds an event to the trace """
         assert(new_event != None)
         assert(not isinstance(new_event, Trace) )
+        assert(isinstance(new_event, Event) )
 
         self.trace.append(new_event)
 
