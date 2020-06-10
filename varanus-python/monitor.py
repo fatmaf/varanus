@@ -158,7 +158,7 @@ class Monitor(object):
         and for each new event checks the new trace in FDR. """
 
         ##connect to the system
-        system = TCPInterface(ip, port)
+        system = TCPInterface_Client(ip, port)
         conn = system.connect()
 
         trace = Trace()

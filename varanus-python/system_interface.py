@@ -36,8 +36,6 @@ class OfflineInterface(SystemInterface):
     def close(self):
         self.trace_file.close()
 
-
-
 class TCPInterface(SystemInterface):
     """Interface to a TCP connection."""
 
@@ -56,6 +54,17 @@ class TCPInterface(SystemInterface):
 
     def close(self):
         self.conn.close()
+
+
+class TCPInterface_Client(TCPInterface):
+    """Interface to a TCP connection, as a Client """
+
+    def connect(self):
+        varanus_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        varanus_socket.connect((self.IP, self.port))
+
+        return varanus_socket
+
 
 
 class WebSocketInterface(SystemInterface):
