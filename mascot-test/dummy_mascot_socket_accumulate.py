@@ -15,27 +15,19 @@ varanus_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 varanus_socket.connect((TCP_IP, TCP_PORT))
 
 trace_file = open(FILE, "r")
-lineCount =0
 
-trace_line = trace_file.read()
-event_list =json.loads(trace_line)
+event_list =json.load(trace_file)
 
 trace_file.close()
 
-
-trace_list = []
-
 for event in event_list:
-    # pop from the event_list and add to the trace_list
-    trace_list.append(event_list.pop())
 
-    # send current trace (trace_list) to Varanus
-    line = json.dumps(trace_list)
-    varanus_socket.send(line)
-    print(line)
+    # send current event to Varanus
+    print("*** Dummy MASCOT Sent: " + event " ***")
+    varanus_socket.send(event)
 
     #Check reply
     data = varanus_socket.recv(BUFFER_SIZE)
-    print "received data: ", data
+    print("*** Dummy MASCOT Received: " + data + " ***")
 
 varanus_socket.close()

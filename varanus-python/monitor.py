@@ -153,6 +153,44 @@ class Monitor(object):
         return result
 
 
+    def run_online_traces_accumulate(self, ip, port):
+        """Accepts traces (as json lists) transferred across a socket, checks each one in FDR. """
+
+        ##connect to the system
+        system = TCPInterface(ip, port)
+        conn = system.connect()
+
+        trace = Trace()
+
+        # How to terminate? What is the end program signal?
+        while 1:
+
+            #get the data from the system
+            data = conn.recv(1024)
+            # break if it's empty
+            if not data: break
+
+            print("+++ Varanus received:" + data + " +++")
+            conn.send(data)  # echo
+
+            if data.find(".") == -1:
+                channel, params = data, None
+                new_event = Event(channel, params)
+                trace.add_event(new_event)
+            else:
+                channel, params = data.split(".",1)
+                new_event = Event(channel, params)
+                trace.add_event(new_event)
+
+
+            #Send to FDR
+            result = self.fdr.check_trace(trace)
+
+            print result
+
+
+        pass
+
     def run_online(self, ip, port):
 
 
