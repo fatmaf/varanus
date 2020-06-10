@@ -153,7 +153,7 @@ class Monitor(object):
         return result
 
 
-    def run_online_traces_accumulate(self, ip, port):
+    def run_online_traces_accumulate(self, ip, port, timeRun = False):
         """Accepts events transferred across a socket, accumulates a trace,
         and for each new event checks the new trace in FDR. """
 
@@ -162,6 +162,11 @@ class Monitor(object):
         conn = system.connect()
 
         trace = Trace()
+
+        if timeRun:
+            time_list = []
+            t0 = time.time()
+
 
         # How to terminate? What is the end program signal?
         while 1:
@@ -190,7 +195,16 @@ class Monitor(object):
 
             print result
 
+            if timeRun:
+                t1 = time.time()
+                total = t1-t0
+                time_tuple = (trace.get_length(), total)
+                time_list.append(time_tuple)
 
+        if timeRun:
+            print("Times:")
+            for t in time_list:
+                print(str(t))
         pass
 
     def run_online(self, ip, port):

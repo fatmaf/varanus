@@ -63,7 +63,12 @@ class Trace(object):
         self.trace.append(new_event)
 
     def get_trace(self):
+        """ Returns the trace as a list """
         return self.trace
+
+    def get_length(self):
+        """Returns the length of the trace """
+        return len(self.trace)
 
     def append_trace(self, new_trace):
         """ Appends the events in a trace object to this trace """
