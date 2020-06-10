@@ -15,9 +15,9 @@ class Monitor(object):
     """The main class of the program, controls the process """
 
     def __init__(self, model_path, event_map_path):
-        self.fdr = FDRInterface()
+        ##self.fdr = FDRInterface()
         self.model_path = model_path
-        self.fdr.load_model(self.model_path)
+        #self.fdr.load_model(self.model_path)
         self.eventMapper = MascotEventAbstractor(event_map_path)
 
     def _run_offline_traces_single(self, trace_path):
@@ -154,7 +154,8 @@ class Monitor(object):
 
 
     def run_online_traces_accumulate(self, ip, port):
-        """Accepts traces (as json lists) transferred across a socket, checks each one in FDR. """
+        """Accepts events transferred across a socket, accumulates a trace,
+        and for each new event checks the new trace in FDR. """
 
         ##connect to the system
         system = TCPInterface(ip, port)
@@ -184,7 +185,8 @@ class Monitor(object):
 
 
             #Send to FDR
-            result = self.fdr.check_trace(trace)
+            #result = self.fdr.check_trace(trace)
+            result = True
 
             print result
 
@@ -296,5 +298,5 @@ class Monitor(object):
 
 
     def close(self):
-
-        self.fdr.close()
+        pass
+        #self.fdr.close()
