@@ -23,7 +23,7 @@ trace_file.close()
 for event in event_list:
 
     # send current event to Varanus
-    print("*** Dummy MASCOT Sent: " + event " ***")
+    print("*** Dummy MASCOT Sent: " + event + " ***")
     varanus_socket.send(event)
 
     #Check reply
