@@ -20,6 +20,51 @@ class Monitor(object):
         self.fdr.load_model(self.model_path)
         self.eventMapper = MascotEventAbstractor(event_map_path)
 
+    def _run_offline_traces_single(self, trace_path):
+        """ Runs Varanus Offline, taking a single trace and sending it to FDR"""
+
+        system = OfflineInterface(trace_path)
+        trace_file = system.connect()
+        trace = Trace()
+
+        # Take a single line
+        trace_line = trace_file.read()
+        # parse to list
+        event_list =json.loads(trace_line)
+        print event_list
+
+        # built trace from list
+        for event in event_list:
+            event = str(event)
+            if event.find(".") == -1:
+                channel, params = event, None
+                new_event = Event(channel, params)
+                trace.add_event(new_event)
+            else:
+                channel, params = event.split(".",1)
+                new_event = Event(channel, params)
+                trace.add_event(new_event)
+
+        print trace
+
+        # throw at FDR
+        result = self.fdr.check_trace(trace)
+        print result
+
+        if not result:
+            system.close()
+            return result
+
+        return result
+
+
+# This Doesn't Work As Expected.
+# Takes last event from each line and accumulates
+# so we get a failure:
+# MASCOT_SAFETY_SYSTEM
+#    :[has trace]: <system_init, speed.1250, protective_stop, speed_ok> Failed
+#Counterexample type: minimal acceptance refusing {safe_stop_cat1, }
+#Obvious bullshit
     def _run_offline_traces(self, log_path):
         system = OfflineInterface(log_path)
 
@@ -215,15 +260,3 @@ class Monitor(object):
     def close(self):
 
         self.fdr.close()
-
-t0 = time.time()
-mon = Monitor("model/mascot-safety-system.csp", "event_map.json")
-#mon.run_offline_rosmon("../rosmon-test/rosmon-mascot-pass.json")
-#mon._run_offline_traces("trace.json")
-mon.run_online('127.0.0.1', 5044)
-#mon.run_online_websocket('127.0.0.1', 8080)
-mon.close()
-t1 = time.time()
-
-total = t1-t0
-print("+++ Time: "+ str(total) +"s +++")
