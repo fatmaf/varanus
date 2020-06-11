@@ -23,7 +23,8 @@ class Monitor(object):
 
     def _run_offline_traces_single(self, trace_path):
         """ Runs Varanus Offline, taking a single trace and sending it to FDR"""
-        varanus_logger.info("running offline traces single")
+
+        varanus_logger.info("+++ Running Offline Traces Single +++")
 
         system = OfflineInterface(trace_path)
         trace_file = system.connect()
@@ -158,7 +159,7 @@ class Monitor(object):
         """Accepts events transferred across a socket, accumulates a trace,
         and for each new event checks the new trace in FDR. """
 
-        varanus_logger.info("running offline traces single")
+        varanus_logger.info("+++ Running Offline Traces Single +++")
         ##connect to the system
         system = TCPInterface_Client(ip, port)
         conn = system.connect()
@@ -178,7 +179,7 @@ class Monitor(object):
             # break if it's empty
             if not data: break
 
-            varanus_logger.info("+++ Varanus received:" + data + " +++")
+            varanus_logger.info("+++ Varanus received: " + data + " +++")
             conn.send(data)  # echo
 
             if data.find(".") == -1:
@@ -195,7 +196,7 @@ class Monitor(object):
             #result = self.fdr.check_trace(trace)
             result = True
 
-            varanus_logger.debug("result: "+ result)
+            varanus_logger.debug("result: "+ str(result))
 
             if timeRun:
                 t1 = time.time()
