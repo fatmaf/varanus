@@ -24,7 +24,7 @@ class Monitor(object):
     def _run_offline_traces_single(self, trace_path):
         """ Runs Varanus Offline, taking a single trace and sending it to FDR"""
         varanus_logger.info("running offline traces single")
-        
+
         system = OfflineInterface(trace_path)
         trace_file = system.connect()
         trace = Trace()

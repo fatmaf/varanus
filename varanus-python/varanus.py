@@ -9,13 +9,15 @@ VERSION_NUM = 0.6
 
 ###############
 
+#set to the name of the scenario
 logFileName = "test"
+log_level = logging.INFO
 
 if not os.path.exists("log"):
     os.mkdir("log")
 
 varanus_logger = logging.getLogger("varanus")
-varanus_logger.setLevel(logging.INFO)
+varanus_logger.setLevel(log_level)
 
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -35,9 +37,8 @@ print("+++++++++++++++++++++")
 print("")
 
 
-varanus_logger.debug('This message should go to the log file')
-varanus_logger.info('So should this')
-varanus_logger.warning('And this, too')
+varanus_logger.debug("Varanus Running")
+
 
 t0 = time.time()
 mon = Monitor("model/mascot-safety-system.csp", "event_map.json")
@@ -54,3 +55,5 @@ t1 = time.time()
 total = t1-t0
 print("")
 print("+++ Time: "+ str(total) +"s +++")
+
+varanus_logger.debug("Varanus Finished")
