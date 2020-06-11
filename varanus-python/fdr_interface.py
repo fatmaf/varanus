@@ -50,25 +50,25 @@ class FDRInterface(object):
             self.session.load_file(modelPath)
 
         except fdr.Error, e:
-            varanus_logging.error()e
+            varanus_logger.error(e)
 
     def _make_assertion(self, trace):
         #generate assert and dump it into the model
         assert_start = "MASCOT_SAFETY_SYSTEM  :[has trace]: <"
         assert_end = ">"
 
-        varanus_logging.debug("type of trace: " + type(trace))
+        varanus_logger.debug("type of trace: " + str(type(trace)))
 
         assert_check = assert_start
         trace_list = trace.to_list()
-        varanus_logging.debug("trace_list: " + str(trace_list))
+        varanus_logger.debug("trace_list: " + str(trace_list))
 
         for i in range(len(trace_list)):
             # the str is key here. My editor produced unicode which became
             # a unicode object, not a str object so the assertion parsing broke.
             event = str(trace_list[i])
-            varanus_logging.degbug("event: " + event)
-            varanus_logging.degbug("event type: " + type(event))
+            varanus_logger.debug("event: " + event)
+            varanus_logger.debug("event type: " + str(type(event)))
             assert_check = assert_check + event
             if i < len(trace_list)-1:
                 assert_check = assert_check + ", "
@@ -86,7 +86,7 @@ class FDRInterface(object):
         assert(self.session != None)
 
         assertionString = self._make_assertion(trace)
-        varanus_logging.degbug("assertionString: "+ assertionString)
+        varanus_logger.debug("assertionString: "+ assertionString)
 
         parsedAssert = self.session.parse_assertion(assertionString)
 
@@ -95,10 +95,10 @@ class FDRInterface(object):
         assertion.execute(None)
 
         if assertion.passed():
-            varanus_logging.info("+++ " + assertion.to_string() + " Passed +++")
+            varanus_logger.info("+++ " + assertion.to_string() + " Passed +++")
             return True
         else:
-            varanus_logging.info("+++ " +  assertion.to_string() + " Failed +++")
+            varanus_logger.info("+++ " +  assertion.to_string() + " Failed +++")
 
             for counterexample in assertion.counterexamples():
                 describe_counterexample(self.session, counterexample, children=False)

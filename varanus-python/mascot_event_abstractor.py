@@ -104,7 +104,7 @@ class MascotEventAbstractor(EventConverter):
             #first split
             original_trace = self.event_traces[0]
             varanus_logger.debug("Original Trace = " + original_trace)
-            varanus_logger.debug("Type of original trace = "+ type(original_trace))
+            varanus_logger.debug("Type of original trace = "+ str(type(original_trace)))
 
             new_event_traces = []
 

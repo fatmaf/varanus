@@ -53,8 +53,8 @@ class Trace(object):
             assert(not isinstance(initial_trace, tuple))
             self.trace=[Event(initial_trace)]
             varanus_logger.debug("initial trace: " + initial_trace)
-            varanus_logger.debug("type of initial trace: " + type(initial_trace))
-            varanus_logger.debug("trace is: " + self.trace)
+            varanus_logger.debug("type of initial trace: " + str(type(initial_trace)))
+            varanus_logger.debug("trace is: " + str(self.trace))
 
     def add_event(self, new_event):
         """ Adds an event to the trace """

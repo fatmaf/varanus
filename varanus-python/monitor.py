@@ -47,11 +47,11 @@ class Monitor(object):
                 new_event = Event(channel, params)
                 trace.add_event(new_event)
 
-        varanus_logger.debug("trace: " + trace)
+        varanus_logger.debug("trace: " + str(trace))
 
         # throw at FDR
         result = self.fdr.check_trace(trace)
-        varanus_logger.debug("result: " + result)
+        varanus_logger.debug("result: " + str(result))
 
         if not result:
             system.close()
@@ -224,7 +224,7 @@ class Monitor(object):
             # break if it's empty
             if not data: break
 
-            varanus_logger.debug("received data:" str(data))
+            varanus_logger.debug("received data:" + str(data))
             conn.send(data)  # echo
 
 
@@ -265,7 +265,7 @@ class Monitor(object):
 
     def websockect_check_event(self, client, server, message):
         """Called when a client sends a message, callback method"""
-        print("Monitor got: ", message)
+        varanus_logger.debug("Monitor got: " + message)
 
         json_original_message = json.loads(str(message))
         for key in json_original_message.keys():
@@ -276,14 +276,14 @@ class Monitor(object):
         json_reply_message = json_original_message
 
         new_traces = self.eventMapper.new_traces(json_original_message)
-        print new_traces
+        varanus_logger.debug("new_traces: " + new_traces)
 
         results = []
         for new_trace in new_traces:
-            print new_trace
+            varanus_logger.debug("new_traces: " + new_trace)
             result = self.fdr.check_trace(new_trace)
 
-            print result
+            varanus_logger.debug("result: " + result)
             results.append(result)
 
         num_of_results = len(results)
@@ -295,13 +295,13 @@ class Monitor(object):
         percentage_true = (float(num_of_t) / num_of_results) * 100
 
         if percentage_true == 0:
-            print "False (100%)"
+            varanus_logger.info("False (100%)")
             json_reply_message["error"] = True
         else:
-            print "True (" + str(percentage_true) + "%)"
+            varanus_logger.info("True (" + str(percentage_true) + "%)")
             json_reply_message["error"] = False
 
-        print("+++ Monitor Sending ", json_reply_message)
+        varanus_logger.debug("Monitor Sending " + json_reply_message)
         server.send_message(client, str(json_reply_message))
 
         # if check_event(message):
