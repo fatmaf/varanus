@@ -6,23 +6,25 @@ from mascot_event_abstractor import *
 from trace_representation import Event, Trace
 import json
 import time
+import logging
 
 #"MASCOT_SAFETY_SYSTEM :[has trace]: <system_init>"
 #"model/mascot-safety-system.csp"
-
+varanus_logger = logging.getLogger("varanus")
 
 class Monitor(object):
     """The main class of the program, controls the process """
 
     def __init__(self, model_path, event_map_path):
-        ##self.fdr = FDRInterface()
+        self.fdr = FDRInterface()
         self.model_path = model_path
-        #self.fdr.load_model(self.model_path)
+        self.fdr.load_model(self.model_path)
         self.eventMapper = MascotEventAbstractor(event_map_path)
 
     def _run_offline_traces_single(self, trace_path):
         """ Runs Varanus Offline, taking a single trace and sending it to FDR"""
-
+        varanus_logger.info("running offline traces single")
+        
         system = OfflineInterface(trace_path)
         trace_file = system.connect()
         trace = Trace()
@@ -157,6 +159,7 @@ class Monitor(object):
         """Accepts events transferred across a socket, accumulates a trace,
         and for each new event checks the new trace in FDR. """
 
+        varanus_logger.info("running offline traces single")
         ##connect to the system
         system = TCPInterface_Client(ip, port)
         conn = system.connect()
@@ -205,7 +208,7 @@ class Monitor(object):
             print("Times:")
             for t in time_list:
                 print(str(t))
-        pass
+        system.close()
 
     def run_online(self, ip, port):
 
@@ -312,5 +315,5 @@ class Monitor(object):
 
 
     def close(self):
-        pass
-        #self.fdr.close()
+
+        self.fdr.close()

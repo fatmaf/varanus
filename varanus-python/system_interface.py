@@ -60,10 +60,13 @@ class TCPInterface_Client(TCPInterface):
     """Interface to a TCP connection, as a Client """
 
     def connect(self):
-        varanus_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        varanus_socket.connect((self.IP, self.port))
+        self.varanus_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.varanus_socket.connect((self.IP, self.port))
 
-        return varanus_socket
+        return self.varanus_socket
+
+    def close(self):
+        self.varanus_socket.close()
 
 
 
