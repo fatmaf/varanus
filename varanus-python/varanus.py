@@ -53,7 +53,7 @@ mon.close()
 t1 = time.time()
 
 total = t1-t0
-print("")
-print("+++ Time: "+ str(total) +"s +++")
+
+varanus_logger.info("+++ Time: "+ str(total) +"s +++")
 
 varanus_logger.debug("Varanus Finished")

@@ -1,5 +1,7 @@
 import json
 from event_converter import EventConverter
+import logging
+varanus_logger = logging.getLogger("varanus")
 
 """ Abstracts the Mascot's status updates to a trace of events """
 
@@ -55,7 +57,7 @@ class ROSMonMascotEventAbstractor(EventConverter):
 
     def _decode(self, update):
 
-        print update
+        varanus_logger.debug("update = " + update)
 
         new_events = str(update["channel"] + "." + str(update["params"]))
 
@@ -69,4 +71,4 @@ if __name__ == "__main__":
     for update in data:
         update_map = json.loads(update)
 
-        print ea.new_traces(update_map)
+        varanus_logger.debug("new_traces = " +ea.new_traces(update_map) )
