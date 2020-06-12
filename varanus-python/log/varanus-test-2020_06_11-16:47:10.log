@@ -1,6 +1,0 @@
-2020-06-11 16:47:10,396 - varanus - DEBUG - Varanus Running
-2020-06-11 16:47:10,498 - varanus - DEBUG - initial trace: system_init
-2020-06-11 16:47:10,498 - varanus - DEBUG - type of initial trace: <type 'str'>
-2020-06-11 16:47:10,498 - varanus - DEBUG - trace is: [<trace_representation.Event object at 0x7fc243579a10>]
-2020-06-11 16:47:10,498 - varanus - INFO - running offline traces single
-2020-06-11 16:47:10,499 - varanus - INFO - +++ Varanus received:system_init +++
