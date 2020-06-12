@@ -5,10 +5,10 @@ import json
     After each event, it sends the new Trace to Varanus """
 
 TCP_IP = '127.0.0.1'
-TCP_PORT = 5090
+TCP_PORT = 5088
 BUFFER_SIZE = 1024
 MESSAGE = "Hello, World!"
-FILE = "scenario-traces/scenario1-trace.json"
+FILE = "scenario-traces/scenario7-trace.json"
 
 #Open socket to Varanus
 mascot_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -16,14 +16,16 @@ mascot_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mascot_socket.bind((TCP_IP, TCP_PORT))
 mascot_socket.listen(1)
 
+print("*** Dummy Mascot Listening ***")
 varanus_socket, addr = mascot_socket.accept()
 
+print("*** Dummy Mascot Reading File ***")
 trace_file = open(FILE, "r")
 
 event_list =json.load(trace_file)
 
 trace_file.close()
-
+print("*** Dummy Mascot Sending ***")
 for event in event_list:
 
     # send current event to Varanus
@@ -34,4 +36,5 @@ for event in event_list:
     data = varanus_socket.recv(BUFFER_SIZE)
     print("*** Dummy MASCOT Received: " + data + " ***")
 
+mascot_socket.close()
 varanus_socket.close()
