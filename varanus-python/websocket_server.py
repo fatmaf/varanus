@@ -265,7 +265,8 @@ class WebSocketHandler(StreamRequestHandler):
         elif isinstance(message, str):
             pass
         else:
-            logger.warning('Can\'t send message, message has to be a string or bytes. Given type is %s' % type(message))
+            logger.warning("Can\'t send message, message has to be a string or bytes. Given type is "
+                + str(type(message)))
             return False
 
         header  = bytearray()

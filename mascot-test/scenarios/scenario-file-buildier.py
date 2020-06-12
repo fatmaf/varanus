@@ -568,8 +568,16 @@ if __name__ == '__main__':
 
     footswitch_events = ['"footswitch": false', '"footswitch": true']
 
+    print("+++ You Commented Them All Out, Dufus +++")
+
     #Parameter is the trace length
     #build_scenario_0(10)
+
+    #build_scenario_0(10)
+    #build_scenario_0(100)
+    #build_scenario_0(1000)
+    #build_scenario_0(10000)
+    #build_scenario_0(100000)
 
     #build_scenario_1()
 
@@ -583,4 +591,4 @@ if __name__ == '__main__':
 
     #build_scenario_6()
 
-    build_scenario_7()
+    #build_scenario_7()
