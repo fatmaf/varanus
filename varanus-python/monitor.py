@@ -6,22 +6,25 @@ from mascot_event_abstractor import *
 from trace_representation import Event, Trace
 import json
 import time
+import logging
 
 #"MASCOT_SAFETY_SYSTEM :[has trace]: <system_init>"
 #"model/mascot-safety-system.csp"
-
+varanus_logger = logging.getLogger("varanus")
 
 class Monitor(object):
     """The main class of the program, controls the process """
 
     def __init__(self, model_path, event_map_path):
-        ##self.fdr = FDRInterface()
+        self.fdr = FDRInterface()
         self.model_path = model_path
-        #self.fdr.load_model(self.model_path)
+        self.fdr.load_model(self.model_path)
         self.eventMapper = MascotEventAbstractor(event_map_path)
 
     def _run_offline_traces_single(self, trace_path):
         """ Runs Varanus Offline, taking a single trace and sending it to FDR"""
+
+        varanus_logger.info("+++ Running Offline Traces Single +++")
 
         system = OfflineInterface(trace_path)
         trace_file = system.connect()
@@ -31,7 +34,7 @@ class Monitor(object):
         trace_line = trace_file.read()
         # parse to list
         event_list =json.loads(trace_line)
-        print event_list
+        varanus_logger.debug("event_list:" + str(event_list))
 
         # built trace from list
         for event in event_list:
@@ -45,11 +48,11 @@ class Monitor(object):
                 new_event = Event(channel, params)
                 trace.add_event(new_event)
 
-        print trace
+        varanus_logger.debug("trace: " + str(trace))
 
         # throw at FDR
         result = self.fdr.check_trace(trace)
-        print result
+        varanus_logger.debug("result: " + str(result))
 
         if not result:
             system.close()
@@ -74,12 +77,12 @@ class Monitor(object):
         for json_line in trace_file:
             if json_line == '\n':
                 continue
-            print json_line
+            varanus_logger.debug("json_line:" + json_line)
             # No convert_to_internal here becasue it's for a file of traces
             event_list =json.loads(json_line)
-            print event_list
+            varanus_logger.debug("event_list" + str(event_list))
             last_event = event_list[-1]
-            print last_event
+            varanus_logger.debug("last_event" + last_event)
 
             if last_event.find(".") == -1:
                 channel, params = last_event, None
@@ -90,11 +93,10 @@ class Monitor(object):
                 event = Event(channel, params)
                 trace.add_event(event)
 
-            print trace
-            print type(trace)
+            varanus_logger.debug("trace: " + str(trace) + "and type: " + type(trace))
 
             result = self.fdr.check_trace(trace)
-            print result
+            varanus_logger.debug("result: "+ result)
 
             if not result:
                 system.close()
@@ -114,15 +116,15 @@ class Monitor(object):
             if json_line == '\n':
                 continue
 
-            print json_line
+            varanus_logger.debug("json_line" + json_line)
 
             event_map = self.eventMapper.convert_to_internal(json.loads(json_line))
 
-            print event_map
+            varanus_logger.debug("event_map: " + str(event_map))
             #### THIS IS A BAD PLACE FOR THIS
             event = Event(event_map["channel"], event_map["params"])
             trace.add_event(event)
-            print event
+            varanus_logger.debug("event: " + event)
 
             if event_map["channel"] == "speed" :
                 speed_ok = Event("speed_ok")
@@ -140,11 +142,11 @@ class Monitor(object):
 
             #trace = eventMapper.new_traces(event)
 
-            print trace
+            varanus_logger.debug("trace: " +trace)
             ###############
 
             result = self.fdr.check_trace(trace)
-            print result
+            varanus_logger.debug("result: " + result)
 
             if not result:
                 system.close()
@@ -157,6 +159,7 @@ class Monitor(object):
         """Accepts events transferred across a socket, accumulates a trace,
         and for each new event checks the new trace in FDR. """
 
+        varanus_logger.info("+++ Running Offline Traces Single +++")
         ##connect to the system
         system = TCPInterface_Client(ip, port)
         conn = system.connect()
@@ -176,7 +179,7 @@ class Monitor(object):
             # break if it's empty
             if not data: break
 
-            print("+++ Varanus received:" + data + " +++")
+            varanus_logger.info("+++ Varanus received: " + data + " +++")
             conn.send(data)  # echo
 
             if data.find(".") == -1:
@@ -193,7 +196,7 @@ class Monitor(object):
             #result = self.fdr.check_trace(trace)
             result = True
 
-            print result
+            varanus_logger.debug("result: "+ str(result))
 
             if timeRun:
                 t1 = time.time()
@@ -202,10 +205,10 @@ class Monitor(object):
                 time_list.append(time_tuple)
 
         if timeRun:
-            print("Times:")
+            varanus_logger.info("Times:")
             for t in time_list:
-                print(str(t))
-        pass
+                varanus_logger.info(str(t))
+        system.close()
 
     def run_online(self, ip, port):
 
@@ -222,19 +225,19 @@ class Monitor(object):
             # break if it's empty
             if not data: break
 
-            print "received data:", data
+            varanus_logger.debug("received data:" + str(data))
             conn.send(data)  # echo
 
 
             new_traces = self.eventMapper.new_traces(json.loads(data))
-            print new_traces
+            varanus_logger.debug("new_traces: "+ new_traces)
 
             results = []
             for new_trace in new_traces:
-                print new_trace
+                varanus_logger.debug("new_trace: " + new_trace)
                 result = self.fdr.check_trace(new_trace)
 
-                print result
+                varanus_logger.debug("result: "+ result)
                 results.append(result)
 
             num_of_results = len(results)
@@ -246,9 +249,9 @@ class Monitor(object):
             percentage_true = (float(num_of_t) / num_of_results) * 100
 
             if percentage_true == 0 :
-                print "False (100%)"
+                varanus_logger.info("False (100%)")
             else:
-                print "True (" + str(percentage_true) + "%)"
+                prvaranus_logger.info("True (" + str(percentage_true) + "%)")
 # TODO if we get to here: UnboundLocalError: local variable 'result' referenced before assignment
 
         return result
@@ -263,7 +266,7 @@ class Monitor(object):
 
     def websockect_check_event(self, client, server, message):
         """Called when a client sends a message, callback method"""
-        print("Monitor got: ", message)
+        varanus_logger.debug("Monitor got: " + message)
 
         json_original_message = json.loads(str(message))
         for key in json_original_message.keys():
@@ -274,14 +277,14 @@ class Monitor(object):
         json_reply_message = json_original_message
 
         new_traces = self.eventMapper.new_traces(json_original_message)
-        print new_traces
+        varanus_logger.debug("new_traces: " + new_traces)
 
         results = []
         for new_trace in new_traces:
-            print new_trace
+            varanus_logger.debug("new_traces: " + new_trace)
             result = self.fdr.check_trace(new_trace)
 
-            print result
+            varanus_logger.debug("result: " + result)
             results.append(result)
 
         num_of_results = len(results)
@@ -293,13 +296,13 @@ class Monitor(object):
         percentage_true = (float(num_of_t) / num_of_results) * 100
 
         if percentage_true == 0:
-            print "False (100%)"
+            varanus_logger.info("False (100%)")
             json_reply_message["error"] = True
         else:
-            print "True (" + str(percentage_true) + "%)"
+            varanus_logger.info("True (" + str(percentage_true) + "%)")
             json_reply_message["error"] = False
 
-        print("+++ Monitor Sending ", json_reply_message)
+        varanus_logger.debug("Monitor Sending " + json_reply_message)
         server.send_message(client, str(json_reply_message))
 
         # if check_event(message):
@@ -312,5 +315,5 @@ class Monitor(object):
 
 
     def close(self):
-        pass
-        #self.fdr.close()
+
+        self.fdr.close()

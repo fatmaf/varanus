@@ -1,3 +1,5 @@
+import logging
+varanus_logger = logging.getLogger("varanus")
 
 """ Represents traces and event within the program """
 
@@ -16,7 +18,7 @@ class Event(object):
     def to_fdr(self):
 
         fdr_string = self.channel
-        print self.parameters
+        varanus_logger.debug("to_fdr, parameter = " + str(self.parameters))
         if self.parameters != None:
             for p in self.parameters:
                 fdr_string = fdr_string + "." + str(p)
@@ -44,15 +46,15 @@ class Trace(object):
         elif isinstance(initial_trace, Event):
             self.trace=[initial_trace]
         elif isinstance(initial_trace, Trace):
-            print "appenind initial trace:" , initial_trace
+            varanus_logger.debug("appenind initial trace: " + initial_trace)
             self.trace = []
             self.append_trace(initial_trace)
         else:
             assert(not isinstance(initial_trace, tuple))
             self.trace=[Event(initial_trace)]
-            print initial_trace
-            print type(initial_trace)
-            print "trace is:", self.trace
+            varanus_logger.debug("initial trace: " + initial_trace)
+            varanus_logger.debug("type of initial trace: " + str(type(initial_trace)))
+            varanus_logger.debug("trace is: " + str(self.trace))
 
     def add_event(self, new_event):
         """ Adds an event to the trace """

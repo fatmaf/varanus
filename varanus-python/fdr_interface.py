@@ -1,6 +1,8 @@
 import os
 import platform
 import sys
+import logging
+varanus_logger = logging.getLogger("varanus")
 
 """ Interface to FDR. Based on: https://www.cs.ox.ac.uk/projects/fdr/manual/api/api.html#getting-started-with-python"""
 
@@ -48,25 +50,25 @@ class FDRInterface(object):
             self.session.load_file(modelPath)
 
         except fdr.Error, e:
-            print e
+            varanus_logger.error(e)
 
     def _make_assertion(self, trace):
         #generate assert and dump it into the model
         assert_start = "MASCOT_SAFETY_SYSTEM  :[has trace]: <"
         assert_end = ">"
 
-        print type(trace)
+        varanus_logger.debug("type of trace: " + str(type(trace)))
 
         assert_check = assert_start
         trace_list = trace.to_list()
-        print "trace_list", trace_list
+        varanus_logger.debug("trace_list: " + str(trace_list))
 
         for i in range(len(trace_list)):
             # the str is key here. My editor produced unicode which became
             # a unicode object, not a str object so the assertion parsing broke.
             event = str(trace_list[i])
-            print "event", event
-            print "event type" , type(event)
+            varanus_logger.debug("event: " + event)
+            varanus_logger.debug("event type: " + str(type(event)))
             assert_check = assert_check + event
             if i < len(trace_list)-1:
                 assert_check = assert_check + ", "
@@ -84,7 +86,7 @@ class FDRInterface(object):
         assert(self.session != None)
 
         assertionString = self._make_assertion(trace)
-        print assertionString
+        varanus_logger.debug("assertionString: "+ assertionString)
 
         parsedAssert = self.session.parse_assertion(assertionString)
 
@@ -93,10 +95,10 @@ class FDRInterface(object):
         assertion.execute(None)
 
         if assertion.passed():
-            print assertion.to_string() + " Passed"
+            varanus_logger.info("+++ " + assertion.to_string() + " Passed +++")
             return True
         else:
-            print assertion.to_string() + " Failed"
+            varanus_logger.info("+++ " +  assertion.to_string() + " Failed +++")
 
             for counterexample in assertion.counterexamples():
                 describe_counterexample(self.session, counterexample, children=False)

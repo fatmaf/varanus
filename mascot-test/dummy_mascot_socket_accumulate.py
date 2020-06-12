@@ -5,7 +5,7 @@ import json
     After each event, it sends the new Trace to Varanus """
 
 TCP_IP = '127.0.0.1'
-TCP_PORT = 5088
+TCP_PORT = 5090
 BUFFER_SIZE = 1024
 MESSAGE = "Hello, World!"
 FILE = "scenario-traces/scenario1-trace.json"

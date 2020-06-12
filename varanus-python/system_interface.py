@@ -2,6 +2,8 @@ import socket
 from websocket_server import WebsocketServer
 from mascot_event_abstractor import MascotEventAbstractor
 import json
+import logging
+varanus_logger = logging.getLogger("varanus")
 
 """Communicates with the system being monitored and passes back its handle.
 This should provide a common interface to the Monitor class, regardless of the
@@ -49,7 +51,7 @@ class TCPInterface(SystemInterface):
         s.listen(1)
 
         self.conn, addr = s.accept()
-        print '+++ Varanus Connection address:', addr
+        varanus_logger.debug("+++ Varanus Connection address: "+ str(addr))
         return self.conn
 
     def close(self):
@@ -60,10 +62,13 @@ class TCPInterface_Client(TCPInterface):
     """Interface to a TCP connection, as a Client """
 
     def connect(self):
-        varanus_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        varanus_socket.connect((self.IP, self.port))
+        self.varanus_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.varanus_socket.connect((self.IP, self.port))
 
-        return varanus_socket
+        return self.varanus_socket
+
+    def close(self):
+        self.varanus_socket.close()
 
 
 
@@ -81,11 +86,11 @@ class WebSocketInterface(SystemInterface):
         self.server.set_fn_client_left(self.client_left)
         self.server.set_fn_message_received(message_callback)
 
-        print(self.server)
-        print("+++ WebSocket Server Initialised +++")
+        varanus_logger.debug(self.server)
+        varanus_logger.info("+++ WebSocket Server Initialised +++")
 
     def send(self, message):
-        print("+++ Sending ", message, " +++")
+        varanus_logger.info("+++ Sending ", message, " +++")
         self.ws.send(message)
 
     def connect(self):
@@ -93,12 +98,12 @@ class WebSocketInterface(SystemInterface):
 
     def new_client(self, client, server):
         """Called for every client connecting (after handshake)"""
-        print("New ROS monitor connected and was given id %d" % client['id'])
+        varanus_logger.info("+++ New ROS monitor connected and was given id: "+ client['id'] + " +++" )
         # server.send_message_to_all("Hey all, a new client has joined us")
 
     def client_left(self, client, server):
         """ Called for every client disconnecting"""
-        print("ROS monitor (%d) disconnected" % client['id'])
+        varanus_logger.info("ROS monitor "+ client['id'] +" disconnected +++"  )
 
     def close(self):
         self.server.close()

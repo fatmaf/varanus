@@ -1,6 +1,8 @@
 import json
 from event_converter import EventConverter
 from trace_representation import Event, Trace
+import logging
+varanus_logger = logging.getLogger("varanus")
 
 """ Abstracts the Mascot's status updates to a trace of events """
 
@@ -97,12 +99,12 @@ class MascotEventAbstractor(EventConverter):
         assert(isinstance(new_traces, tuple) or isinstance(new_traces, Trace))
         # This will be a Trace if we're sure of the order of events
         # or a tuple of Traces if we're not
-    
+
         if isinstance(new_traces, tuple):
             #first split
             original_trace = self.event_traces[0]
-            print "Original Trace", original_trace
-            print type(original_trace)
+            varanus_logger.debug("Original Trace = " + original_trace)
+            varanus_logger.debug("Type of original trace = "+ str(type(original_trace)))
 
             new_event_traces = []
 
@@ -143,4 +145,4 @@ if __name__ == "__main__":
     for update in data:
         update_map = json.loads(update)
 
-        print ea.new_traces(update_map)
+        varanus_logger.debug("new traces = " + ea.new_traces(update_map))
