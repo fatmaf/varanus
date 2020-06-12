@@ -5,12 +5,12 @@ import os
 
 ################
 ###CONSTANTS###
-VERSION_NUM = 0.6
+VERSION_NUM = 0.88
 
 ###############
 
 #set to the name of the scenario
-logFileName = "test"
+logFileName = "scenario1"
 log_level = logging.INFO
 
 if not os.path.exists("log"):
@@ -45,7 +45,7 @@ mon = Monitor("model/mascot-safety-system.csp", "event_map.json")
 #mon._run_offline_traces("trace.json")
 
 mon._run_offline_traces_single("../mascot-test/scenario-traces/scenario1-trace.json")
-#mon.run_online_traces_accumulate('127.0.0.1', 5090, timeRun=True)
+#mon.run_online_traces_accumulate('127.0.0.1', 5088, timeRun=True)
 
 #mon.run_online('127.0.0.1', 5044)
 #mon.run_online_websocket('127.0.0.1', 8080)
