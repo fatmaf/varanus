@@ -1,0 +1,389 @@
+2020-06-11 16:53:24,158 - varanus - INFO - running offline traces single
+2020-06-11 16:53:24,158 - varanus - INFO - +++ Varanus received: system_init +++
+2020-06-11 16:53:24,158 - varanus - INFO - +++ Varanus received: foot_pedal_pressed.true +++
+2020-06-11 16:53:24,159 - varanus - INFO - +++ Varanus received: enter_hands_on_mode +++
+2020-06-11 16:53:24,159 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,159 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,159 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,159 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,159 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,159 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,159 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,160 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,160 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,160 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,160 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,160 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,160 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,160 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,160 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,160 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,161 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,161 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,161 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,161 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,161 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,161 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,161 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,161 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,162 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,162 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,162 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,162 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,162 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,162 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,162 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,162 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,163 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,163 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,163 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,163 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,163 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,163 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,163 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,164 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,164 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,164 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,164 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,164 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,164 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,164 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,165 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,165 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,165 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,165 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,165 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,166 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,166 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,166 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,166 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,166 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,166 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,167 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,167 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,167 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,167 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,167 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,167 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,167 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,168 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,169 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,170 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,171 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,171 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,171 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,171 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,171 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,171 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,171 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,171 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,171 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,172 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,172 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,172 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,172 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,172 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,172 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,172 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,172 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,172 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,173 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,173 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,173 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,173 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,173 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,173 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,173 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,173 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,173 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,174 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,174 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,174 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,174 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,174 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,174 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,174 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,175 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,175 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,175 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,175 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,175 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,175 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,175 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,175 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,176 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,176 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,176 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,176 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,176 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,176 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,176 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,177 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,177 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,177 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,177 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,177 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,177 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:53:24,177 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,177 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,177 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,178 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,178 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,178 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,178 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,178 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,178 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,178 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,178 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,178 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,179 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,179 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,179 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,179 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,179 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,179 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,179 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,179 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,180 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,180 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,180 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,180 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,180 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,180 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,180 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,180 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:53:24,180 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,181 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:53:24,181 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,181 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,181 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,181 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,181 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,181 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,181 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,181 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,182 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,182 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:53:24,182 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:53:24,182 - varanus - INFO - Times:
+2020-06-11 16:53:24,182 - varanus - INFO - (1, 0.00044608116149902344)
+2020-06-11 16:53:24,182 - varanus - INFO - (2, 0.0006220340728759766)
+2020-06-11 16:53:24,182 - varanus - INFO - (3, 0.00074005126953125)
+2020-06-11 16:53:24,182 - varanus - INFO - (4, 0.0008411407470703125)
+2020-06-11 16:53:24,182 - varanus - INFO - (5, 0.0009379386901855469)
+2020-06-11 16:53:24,182 - varanus - INFO - (6, 0.0010361671447753906)
+2020-06-11 16:53:24,182 - varanus - INFO - (7, 0.0012431144714355469)
+2020-06-11 16:53:24,182 - varanus - INFO - (8, 0.0013890266418457031)
+2020-06-11 16:53:24,183 - varanus - INFO - (9, 0.0014870166778564453)
+2020-06-11 16:53:24,183 - varanus - INFO - (10, 0.0016269683837890625)
+2020-06-11 16:53:24,183 - varanus - INFO - (11, 0.0017271041870117188)
+2020-06-11 16:53:24,183 - varanus - INFO - (12, 0.0018320083618164062)
+2020-06-11 16:53:24,183 - varanus - INFO - (13, 0.0019321441650390625)
+2020-06-11 16:53:24,183 - varanus - INFO - (14, 0.00203704833984375)
+2020-06-11 16:53:24,183 - varanus - INFO - (15, 0.0021369457244873047)
+2020-06-11 16:53:24,183 - varanus - INFO - (16, 0.002268075942993164)
+2020-06-11 16:53:24,183 - varanus - INFO - (17, 0.0023720264434814453)
+2020-06-11 16:53:24,183 - varanus - INFO - (18, 0.002496004104614258)
+2020-06-11 16:53:24,183 - varanus - INFO - (19, 0.002596139907836914)
+2020-06-11 16:53:24,183 - varanus - INFO - (20, 0.0027000904083251953)
+2020-06-11 16:53:24,183 - varanus - INFO - (21, 0.002833127975463867)
+2020-06-11 16:53:24,183 - varanus - INFO - (22, 0.0029370784759521484)
+2020-06-11 16:53:24,183 - varanus - INFO - (23, 0.0030410289764404297)
+2020-06-11 16:53:24,183 - varanus - INFO - (24, 0.003178119659423828)
+2020-06-11 16:53:24,183 - varanus - INFO - (25, 0.0033550262451171875)
+2020-06-11 16:53:24,184 - varanus - INFO - (26, 0.003486156463623047)
+2020-06-11 16:53:24,184 - varanus - INFO - (27, 0.0035860538482666016)
+2020-06-11 16:53:24,184 - varanus - INFO - (28, 0.003690004348754883)
+2020-06-11 16:53:24,184 - varanus - INFO - (29, 0.0038299560546875)
+2020-06-11 16:53:24,184 - varanus - INFO - (30, 0.003968000411987305)
+2020-06-11 16:53:24,184 - varanus - INFO - (31, 0.0040740966796875)
+2020-06-11 16:53:24,184 - varanus - INFO - (32, 0.004209995269775391)
+2020-06-11 16:53:24,184 - varanus - INFO - (33, 0.004346132278442383)
+2020-06-11 16:53:24,184 - varanus - INFO - (34, 0.00444793701171875)
+2020-06-11 16:53:24,184 - varanus - INFO - (35, 0.004580974578857422)
+2020-06-11 16:53:24,184 - varanus - INFO - (36, 0.004717111587524414)
+2020-06-11 16:53:24,184 - varanus - INFO - (37, 0.0048520565032958984)
+2020-06-11 16:53:24,184 - varanus - INFO - (38, 0.004976034164428711)
+2020-06-11 16:53:24,184 - varanus - INFO - (39, 0.005079030990600586)
+2020-06-11 16:53:24,184 - varanus - INFO - (40, 0.00519108772277832)
+2020-06-11 16:53:24,184 - varanus - INFO - (41, 0.005438089370727539)
+2020-06-11 16:53:24,184 - varanus - INFO - (42, 0.005529165267944336)
+2020-06-11 16:53:24,185 - varanus - INFO - (43, 0.005712032318115234)
+2020-06-11 16:53:24,185 - varanus - INFO - (44, 0.005839109420776367)
+2020-06-11 16:53:24,185 - varanus - INFO - (45, 0.005959987640380859)
+2020-06-11 16:53:24,185 - varanus - INFO - (46, 0.006047964096069336)
+2020-06-11 16:53:24,185 - varanus - INFO - (47, 0.006250143051147461)
+2020-06-11 16:53:24,185 - varanus - INFO - (48, 0.006440162658691406)
+2020-06-11 16:53:24,185 - varanus - INFO - (49, 0.006608009338378906)
+2020-06-11 16:53:24,185 - varanus - INFO - (50, 0.0067789554595947266)
+2020-06-11 16:53:24,185 - varanus - INFO - (51, 0.00704503059387207)
+2020-06-11 16:53:24,185 - varanus - INFO - (52, 0.007279157638549805)
+2020-06-11 16:53:24,185 - varanus - INFO - (53, 0.007430076599121094)
+2020-06-11 16:53:24,185 - varanus - INFO - (54, 0.00755000114440918)
+2020-06-11 16:53:24,185 - varanus - INFO - (55, 0.007740020751953125)
+2020-06-11 16:53:24,185 - varanus - INFO - (56, 0.00793910026550293)
+2020-06-11 16:53:24,185 - varanus - INFO - (57, 0.00817108154296875)
+2020-06-11 16:53:24,185 - varanus - INFO - (58, 0.008301973342895508)
+2020-06-11 16:53:24,185 - varanus - INFO - (59, 0.008422136306762695)
+2020-06-11 16:53:24,186 - varanus - INFO - (60, 0.008512020111083984)
+2020-06-11 16:53:24,186 - varanus - INFO - (61, 0.008733034133911133)
+2020-06-11 16:53:24,186 - varanus - INFO - (62, 0.008903026580810547)
+2020-06-11 16:53:24,186 - varanus - INFO - (63, 0.009042024612426758)
+2020-06-11 16:53:24,186 - varanus - INFO - (64, 0.009261131286621094)
+2020-06-11 16:53:24,186 - varanus - INFO - (65, 0.009394168853759766)
+2020-06-11 16:53:24,186 - varanus - INFO - (66, 0.009515047073364258)
+2020-06-11 16:53:24,186 - varanus - INFO - (67, 0.009603023529052734)
+2020-06-11 16:53:24,186 - varanus - INFO - (68, 0.00972604751586914)
+2020-06-11 16:53:24,186 - varanus - INFO - (69, 0.00982809066772461)
+2020-06-11 16:53:24,186 - varanus - INFO - (70, 0.009927988052368164)
+2020-06-11 16:53:24,186 - varanus - INFO - (71, 0.010029077529907227)
+2020-06-11 16:53:24,186 - varanus - INFO - (72, 0.010131120681762695)
+2020-06-11 16:53:24,186 - varanus - INFO - (73, 0.010228157043457031)
+2020-06-11 16:53:24,186 - varanus - INFO - (74, 0.010326147079467773)
+2020-06-11 16:53:24,186 - varanus - INFO - (75, 0.010421037673950195)
+2020-06-11 16:53:24,186 - varanus - INFO - (76, 0.010519027709960938)
+2020-06-11 16:53:24,186 - varanus - INFO - (77, 0.010612964630126953)
+2020-06-11 16:53:24,187 - varanus - INFO - (78, 0.010710000991821289)
+2020-06-11 16:53:24,187 - varanus - INFO - (79, 0.010806083679199219)
+2020-06-11 16:53:24,187 - varanus - INFO - (80, 0.010908126831054688)
+2020-06-11 16:53:24,187 - varanus - INFO - (81, 0.011003971099853516)
+2020-06-11 16:53:24,187 - varanus - INFO - (82, 0.011101007461547852)
+2020-06-11 16:53:24,187 - varanus - INFO - (83, 0.011196136474609375)
+2020-06-11 16:53:24,187 - varanus - INFO - (84, 0.01129293441772461)
+2020-06-11 16:53:24,187 - varanus - INFO - (85, 0.011389017105102539)
+2020-06-11 16:53:24,187 - varanus - INFO - (86, 0.011491060256958008)
+2020-06-11 16:53:24,187 - varanus - INFO - (87, 0.01158595085144043)
+2020-06-11 16:53:24,187 - varanus - INFO - (88, 0.011683940887451172)
+2020-06-11 16:53:24,187 - varanus - INFO - (89, 0.011779069900512695)
+2020-06-11 16:53:24,187 - varanus - INFO - (90, 0.011876106262207031)
+2020-06-11 16:53:24,187 - varanus - INFO - (91, 0.011970996856689453)
+2020-06-11 16:53:24,187 - varanus - INFO - (92, 0.012068033218383789)
+2020-06-11 16:53:24,187 - varanus - INFO - (93, 0.012161970138549805)
+2020-06-11 16:53:24,187 - varanus - INFO - (94, 0.01225900650024414)
+2020-06-11 16:53:24,187 - varanus - INFO - (95, 0.012352943420410156)
+2020-06-11 16:53:24,188 - varanus - INFO - (96, 0.012484073638916016)
+2020-06-11 16:53:24,188 - varanus - INFO - (97, 0.012594938278198242)
+2020-06-11 16:53:24,188 - varanus - INFO - (98, 0.01270604133605957)
+2020-06-11 16:53:24,188 - varanus - INFO - (99, 0.012814044952392578)
+2020-06-11 16:53:24,188 - varanus - INFO - (100, 0.012928009033203125)
+2020-06-11 16:53:24,188 - varanus - INFO - (101, 0.013038158416748047)
+2020-06-11 16:53:24,188 - varanus - INFO - (102, 0.013147115707397461)
+2020-06-11 16:53:24,188 - varanus - INFO - (103, 0.013263940811157227)
+2020-06-11 16:53:24,188 - varanus - INFO - (104, 0.013386011123657227)
+2020-06-11 16:53:24,188 - varanus - INFO - (105, 0.013496160507202148)
+2020-06-11 16:53:24,188 - varanus - INFO - (106, 0.013610124588012695)
+2020-06-11 16:53:24,188 - varanus - INFO - (107, 0.013718128204345703)
+2020-06-11 16:53:24,188 - varanus - INFO - (108, 0.013828039169311523)
+2020-06-11 16:53:24,188 - varanus - INFO - (109, 0.013935089111328125)
+2020-06-11 16:53:24,188 - varanus - INFO - (110, 0.014044046401977539)
+2020-06-11 16:53:24,188 - varanus - INFO - (111, 0.014152050018310547)
+2020-06-11 16:53:24,188 - varanus - INFO - (112, 0.0142669677734375)
+2020-06-11 16:53:24,188 - varanus - INFO - (113, 0.014382123947143555)
+2020-06-11 16:53:24,188 - varanus - INFO - (114, 0.014495134353637695)
+2020-06-11 16:53:24,189 - varanus - INFO - (115, 0.01460409164428711)
+2020-06-11 16:53:24,189 - varanus - INFO - (116, 0.014714956283569336)
+2020-06-11 16:53:24,189 - varanus - INFO - (117, 0.014822006225585938)
+2020-06-11 16:53:24,189 - varanus - INFO - (118, 0.014930963516235352)
+2020-06-11 16:53:24,189 - varanus - INFO - (119, 0.015040159225463867)
+2020-06-11 16:53:24,189 - varanus - INFO - (120, 0.015149116516113281)
+2020-06-11 16:53:24,189 - varanus - INFO - (121, 0.015267133712768555)
+2020-06-11 16:53:24,189 - varanus - INFO - (122, 0.015378952026367188)
+2020-06-11 16:53:24,189 - varanus - INFO - (123, 0.015494108200073242)
+2020-06-11 16:53:24,189 - varanus - INFO - (124, 0.015583038330078125)
+2020-06-11 16:53:24,189 - varanus - INFO - (125, 0.0157470703125)
+2020-06-11 16:53:24,189 - varanus - INFO - (126, 0.015900135040283203)
+2020-06-11 16:53:24,189 - varanus - INFO - (127, 0.016047000885009766)
+2020-06-11 16:53:24,189 - varanus - INFO - (128, 0.016209125518798828)
+2020-06-11 16:53:24,189 - varanus - INFO - (129, 0.016343116760253906)
+2020-06-11 16:53:24,189 - varanus - INFO - (130, 0.016473054885864258)
+2020-06-11 16:53:24,189 - varanus - INFO - (131, 0.016607046127319336)
+2020-06-11 16:53:24,190 - varanus - INFO - (132, 0.016740083694458008)
+2020-06-11 16:53:24,190 - varanus - INFO - (133, 0.01687002182006836)
+2020-06-11 16:53:24,190 - varanus - INFO - (134, 0.01700305938720703)
+2020-06-11 16:53:24,190 - varanus - INFO - (135, 0.01713395118713379)
+2020-06-11 16:53:24,190 - varanus - INFO - (136, 0.017251014709472656)
+2020-06-11 16:53:24,190 - varanus - INFO - (137, 0.01735401153564453)
+2020-06-11 16:53:24,190 - varanus - INFO - (138, 0.017516136169433594)
+2020-06-11 16:53:24,190 - varanus - INFO - (139, 0.017631053924560547)
+2020-06-11 16:53:24,190 - varanus - INFO - (140, 0.017747163772583008)
+2020-06-11 16:53:24,190 - varanus - INFO - (141, 0.017859935760498047)
+2020-06-11 16:53:24,190 - varanus - INFO - (142, 0.01797795295715332)
+2020-06-11 16:53:24,190 - varanus - INFO - (143, 0.0180661678314209)
+2020-06-11 16:53:24,190 - varanus - INFO - (144, 0.018219947814941406)
+2020-06-11 16:53:24,190 - varanus - INFO - (145, 0.01838207244873047)
+2020-06-11 16:53:24,190 - varanus - INFO - (146, 0.01852703094482422)
+2020-06-11 16:53:24,190 - varanus - INFO - (147, 0.01867198944091797)
+2020-06-11 16:53:24,190 - varanus - INFO - (148, 0.018830060958862305)
+2020-06-11 16:53:24,191 - varanus - INFO - (149, 0.018944978713989258)
+2020-06-11 16:53:24,191 - varanus - INFO - (150, 0.019063949584960938)
+2020-06-11 16:53:24,191 - varanus - INFO - (151, 0.019176006317138672)
+2020-06-11 16:53:24,191 - varanus - INFO - (152, 0.01929306983947754)
+2020-06-11 16:53:24,191 - varanus - INFO - (153, 0.01940608024597168)
+2020-06-11 16:53:24,191 - varanus - INFO - (154, 0.01951909065246582)
+2020-06-11 16:53:24,191 - varanus - INFO - (155, 0.019639968872070312)
+2020-06-11 16:53:24,191 - varanus - INFO - (156, 0.01975703239440918)
+2020-06-11 16:53:24,191 - varanus - INFO - (157, 0.01987004280090332)
+2020-06-11 16:53:24,191 - varanus - INFO - (158, 0.01998305320739746)
+2020-06-11 16:53:24,191 - varanus - INFO - (159, 0.020095109939575195)
+2020-06-11 16:53:24,191 - varanus - INFO - (160, 0.020208120346069336)
+2020-06-11 16:53:24,191 - varanus - INFO - (161, 0.02031993865966797)
+2020-06-11 16:53:24,191 - varanus - INFO - (162, 0.02043294906616211)
+2020-06-11 16:53:24,191 - varanus - INFO - (163, 0.020544052124023438)
+2020-06-11 16:53:24,191 - varanus - INFO - (164, 0.020657062530517578)
+2020-06-11 16:53:24,191 - varanus - INFO - (165, 0.020768165588378906)
+2020-06-11 16:53:24,192 - varanus - INFO - (166, 0.02088308334350586)
+2020-06-11 16:53:24,192 - varanus - INFO - (167, 0.020993947982788086)
+2020-06-11 16:53:24,192 - varanus - INFO - (168, 0.021106958389282227)
+2020-06-11 16:53:24,192 - varanus - INFO - (169, 0.02121710777282715)
+2020-06-11 16:53:24,192 - varanus - INFO - (170, 0.021342992782592773)
+2020-06-11 16:53:24,192 - varanus - INFO - (171, 0.02145695686340332)
+2020-06-11 16:53:24,192 - varanus - INFO - (172, 0.02156996726989746)
+2020-06-11 16:53:24,192 - varanus - INFO - (173, 0.02168107032775879)
+2020-06-11 16:53:24,192 - varanus - INFO - (174, 0.021793127059936523)
+2020-06-11 16:53:24,192 - varanus - INFO - (175, 0.021906137466430664)
+2020-06-11 16:53:24,192 - varanus - INFO - (176, 0.022019147872924805)
+2020-06-11 16:53:24,192 - varanus - INFO - (177, 0.02213001251220703)
+2020-06-11 16:53:24,192 - varanus - INFO - (178, 0.0222170352935791)
+2020-06-11 16:53:24,192 - varanus - INFO - (179, 0.022341012954711914)
+2020-06-11 16:53:24,192 - varanus - INFO - (180, 0.022520065307617188)
+2020-06-11 16:53:24,192 - varanus - INFO - (181, 0.022635936737060547)
+2020-06-11 16:53:24,192 - varanus - INFO - (182, 0.022752046585083008)
+2020-06-11 16:53:24,193 - varanus - INFO - (183, 0.022864103317260742)
+2020-06-11 16:53:24,193 - varanus - INFO - (184, 0.022983074188232422)
+2020-06-11 16:53:24,193 - varanus - INFO - (185, 0.023069143295288086)
+2020-06-11 16:53:24,193 - varanus - INFO - (186, 0.023173093795776367)
+2020-06-11 16:53:24,193 - varanus - INFO - (187, 0.023298978805541992)
+2020-06-11 16:53:24,193 - varanus - INFO - (188, 0.02341294288635254)
+2020-06-11 16:53:24,193 - varanus - INFO - (189, 0.023524999618530273)
+2020-06-11 16:53:24,193 - varanus - INFO - (190, 0.023638010025024414)
+2020-06-11 16:53:24,193 - varanus - INFO - (191, 0.02375006675720215)
+2020-06-11 16:53:24,193 - varanus - INFO - (192, 0.023864030838012695)
+2020-06-11 16:53:24,193 - varanus - INFO - (193, 0.024018049240112305)
+2020-06-11 16:53:24,193 - varanus - INFO - +++ Time: 0.13066983223s +++

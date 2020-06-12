@@ -1,0 +1,587 @@
+2020-06-11 16:47:59,494 - varanus - DEBUG - Varanus Running
+2020-06-11 16:47:59,587 - varanus - DEBUG - initial trace: system_init
+2020-06-11 16:47:59,587 - varanus - DEBUG - type of initial trace: <type 'str'>
+2020-06-11 16:47:59,587 - varanus - DEBUG - trace is: [<trace_representation.Event object at 0x7fe07aaf0a10>]
+2020-06-11 16:47:59,588 - varanus - INFO - running offline traces single
+2020-06-11 16:47:59,588 - varanus - INFO - +++ Varanus received: system_init +++
+2020-06-11 16:47:59,588 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,588 - varanus - INFO - +++ Varanus received: foot_pedal_pressed.true +++
+2020-06-11 16:47:59,588 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,588 - varanus - INFO - +++ Varanus received: enter_hands_on_mode +++
+2020-06-11 16:47:59,589 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,589 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,589 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,589 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,589 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,589 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,589 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,589 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,589 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,589 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,589 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,590 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,590 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,590 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,590 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,590 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,590 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,590 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,590 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,590 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,590 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,590 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,591 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,591 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,591 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,591 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,591 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,591 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,591 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,591 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,591 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,591 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,591 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,591 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,592 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,592 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,592 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,592 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,592 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,592 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,592 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,592 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,592 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,592 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,592 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,592 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,592 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,593 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,593 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,593 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,593 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,593 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,593 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,593 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,593 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,593 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,593 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,593 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,593 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,593 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,593 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,594 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,594 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,594 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,594 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,594 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,594 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,594 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,594 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,594 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,594 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,594 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,594 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,594 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,594 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,595 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,595 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,595 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,595 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,595 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,595 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,595 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,595 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,595 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,595 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,595 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,595 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,596 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,596 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,596 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,596 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,596 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,596 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,596 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,596 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,596 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,596 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,596 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,596 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,596 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,597 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,597 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,597 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,597 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,597 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,597 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,597 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,597 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,597 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,597 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,597 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,597 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,597 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,597 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,598 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,598 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,598 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,598 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,598 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,598 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,598 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,598 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,598 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,598 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,598 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,598 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,598 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,598 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,598 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,599 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,599 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,599 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,599 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,599 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,599 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,599 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,599 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,599 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,599 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,599 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,599 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,599 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,600 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,600 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,600 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,600 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,600 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,600 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,600 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,600 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,600 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,600 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,600 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,603 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,603 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,603 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,603 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,603 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,603 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,603 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,603 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,603 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,604 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,604 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,604 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,604 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,604 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,604 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,604 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,604 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,604 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,604 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,604 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,604 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,604 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,605 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,605 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,605 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,605 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,605 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,605 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,605 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,605 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,605 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,605 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,605 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,605 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,605 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,605 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,606 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,606 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,606 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,606 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,606 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,606 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,606 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,606 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,606 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,606 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,606 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,606 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,606 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,606 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,607 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,607 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,607 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,607 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,607 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,607 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,607 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,607 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,607 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,607 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,607 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,607 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,607 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,607 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,608 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,608 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,608 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,608 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,608 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,608 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,608 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,608 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,608 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,608 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,609 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,609 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,609 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,609 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,609 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,609 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,609 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,609 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,609 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,609 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,609 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,610 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,610 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,610 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,610 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,610 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,610 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,610 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,610 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,610 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,610 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,610 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,610 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,610 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,611 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,611 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,611 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,611 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,611 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,611 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,611 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,611 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,611 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,611 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,611 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,611 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,611 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,611 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,612 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,612 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,612 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,612 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,612 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,612 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,612 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,612 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,612 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,612 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,612 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,612 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,612 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,612 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,613 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,613 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,613 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,613 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,613 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,613 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,613 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,613 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,613 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,613 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,613 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,613 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,613 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,613 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,614 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,614 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,614 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,614 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,614 - varanus - INFO - +++ Varanus received: speed.750 +++
+2020-06-11 16:47:59,614 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,614 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,614 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,614 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,614 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,614 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,614 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,614 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,614 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,615 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,615 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,615 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,615 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,615 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,615 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,615 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,615 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,615 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,615 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,615 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,615 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,615 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,615 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,616 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,616 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,616 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,616 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,616 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,616 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,616 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,616 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,616 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,616 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,616 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,616 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,616 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,616 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,617 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,617 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,617 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,617 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,617 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,617 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,617 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,617 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,617 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,617 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,617 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,617 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,617 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,617 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,618 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,618 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,618 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,618 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,618 - varanus - INFO - +++ Varanus received: speed.1000 +++
+2020-06-11 16:47:59,618 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,618 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,618 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,618 - varanus - INFO - +++ Varanus received: speed.500 +++
+2020-06-11 16:47:59,618 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,618 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,618 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,618 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,618 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,619 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,619 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,619 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,619 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,619 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,619 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,619 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,619 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,619 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,619 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,619 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,619 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,619 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,619 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,620 - varanus - INFO - +++ Varanus received: speed.100 +++
+2020-06-11 16:47:59,620 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,620 - varanus - INFO - +++ Varanus received: speed_ok +++
+2020-06-11 16:47:59,620 - varanus - DEBUG - result: True
+2020-06-11 16:47:59,620 - varanus - INFO - Times:
+2020-06-11 16:47:59,620 - varanus - INFO - (1, 0.0004978179931640625)
+2020-06-11 16:47:59,620 - varanus - INFO - (2, 0.0006539821624755859)
+2020-06-11 16:47:59,620 - varanus - INFO - (3, 0.00084686279296875)
+2020-06-11 16:47:59,620 - varanus - INFO - (4, 0.0010268688201904297)
+2020-06-11 16:47:59,620 - varanus - INFO - (5, 0.0012009143829345703)
+2020-06-11 16:47:59,620 - varanus - INFO - (6, 0.0013799667358398438)
+2020-06-11 16:47:59,620 - varanus - INFO - (7, 0.0015628337860107422)
+2020-06-11 16:47:59,620 - varanus - INFO - (8, 0.001737833023071289)
+2020-06-11 16:47:59,620 - varanus - INFO - (9, 0.0019199848175048828)
+2020-06-11 16:47:59,620 - varanus - INFO - (10, 0.0021038055419921875)
+2020-06-11 16:47:59,620 - varanus - INFO - (11, 0.002283811569213867)
+2020-06-11 16:47:59,621 - varanus - INFO - (12, 0.0024650096893310547)
+2020-06-11 16:47:59,621 - varanus - INFO - (13, 0.002635955810546875)
+2020-06-11 16:47:59,621 - varanus - INFO - (14, 0.0028188228607177734)
+2020-06-11 16:47:59,621 - varanus - INFO - (15, 0.0030028820037841797)
+2020-06-11 16:47:59,621 - varanus - INFO - (16, 0.003184795379638672)
+2020-06-11 16:47:59,621 - varanus - INFO - (17, 0.0033659934997558594)
+2020-06-11 16:47:59,621 - varanus - INFO - (18, 0.0035228729248046875)
+2020-06-11 16:47:59,621 - varanus - INFO - (19, 0.003699779510498047)
+2020-06-11 16:47:59,621 - varanus - INFO - (20, 0.003847837448120117)
+2020-06-11 16:47:59,621 - varanus - INFO - (21, 0.0039899349212646484)
+2020-06-11 16:47:59,621 - varanus - INFO - (22, 0.004130840301513672)
+2020-06-11 16:47:59,621 - varanus - INFO - (23, 0.004273891448974609)
+2020-06-11 16:47:59,621 - varanus - INFO - (24, 0.00442194938659668)
+2020-06-11 16:47:59,621 - varanus - INFO - (25, 0.004581928253173828)
+2020-06-11 16:47:59,621 - varanus - INFO - (26, 0.0047299861907958984)
+2020-06-11 16:47:59,621 - varanus - INFO - (27, 0.004871845245361328)
+2020-06-11 16:47:59,621 - varanus - INFO - (28, 0.005033969879150391)
+2020-06-11 16:47:59,622 - varanus - INFO - (29, 0.005181789398193359)
+2020-06-11 16:47:59,622 - varanus - INFO - (30, 0.005327939987182617)
+2020-06-11 16:47:59,622 - varanus - INFO - (31, 0.005471944808959961)
+2020-06-11 16:47:59,622 - varanus - INFO - (32, 0.005616903305053711)
+2020-06-11 16:47:59,622 - varanus - INFO - (33, 0.005759000778198242)
+2020-06-11 16:47:59,622 - varanus - INFO - (34, 0.005903959274291992)
+2020-06-11 16:47:59,622 - varanus - INFO - (35, 0.006044864654541016)
+2020-06-11 16:47:59,622 - varanus - INFO - (36, 0.006187915802001953)
+2020-06-11 16:47:59,622 - varanus - INFO - (37, 0.006330013275146484)
+2020-06-11 16:47:59,622 - varanus - INFO - (38, 0.0064737796783447266)
+2020-06-11 16:47:59,622 - varanus - INFO - (39, 0.006619930267333984)
+2020-06-11 16:47:59,622 - varanus - INFO - (40, 0.006876945495605469)
+2020-06-11 16:47:59,622 - varanus - INFO - (41, 0.007022857666015625)
+2020-06-11 16:47:59,622 - varanus - INFO - (42, 0.007180929183959961)
+2020-06-11 16:47:59,622 - varanus - INFO - (43, 0.0073299407958984375)
+2020-06-11 16:47:59,622 - varanus - INFO - (44, 0.007483959197998047)
+2020-06-11 16:47:59,622 - varanus - INFO - (45, 0.007630825042724609)
+2020-06-11 16:47:59,623 - varanus - INFO - (46, 0.007775783538818359)
+2020-06-11 16:47:59,623 - varanus - INFO - (47, 0.007920980453491211)
+2020-06-11 16:47:59,623 - varanus - INFO - (48, 0.008065938949584961)
+2020-06-11 16:47:59,623 - varanus - INFO - (49, 0.008208990097045898)
+2020-06-11 16:47:59,623 - varanus - INFO - (50, 0.008350849151611328)
+2020-06-11 16:47:59,623 - varanus - INFO - (51, 0.008498907089233398)
+2020-06-11 16:47:59,623 - varanus - INFO - (52, 0.008643865585327148)
+2020-06-11 16:47:59,623 - varanus - INFO - (53, 0.008781909942626953)
+2020-06-11 16:47:59,623 - varanus - INFO - (54, 0.00892496109008789)
+2020-06-11 16:47:59,623 - varanus - INFO - (55, 0.009065866470336914)
+2020-06-11 16:47:59,623 - varanus - INFO - (56, 0.009207963943481445)
+2020-06-11 16:47:59,623 - varanus - INFO - (57, 0.009351968765258789)
+2020-06-11 16:47:59,623 - varanus - INFO - (58, 0.009503841400146484)
+2020-06-11 16:47:59,623 - varanus - INFO - (59, 0.009643793106079102)
+2020-06-11 16:47:59,623 - varanus - INFO - (60, 0.009786844253540039)
+2020-06-11 16:47:59,623 - varanus - INFO - (61, 0.009924888610839844)
+2020-06-11 16:47:59,623 - varanus - INFO - (62, 0.010069847106933594)
+2020-06-11 16:47:59,624 - varanus - INFO - (63, 0.010207891464233398)
+2020-06-11 16:47:59,624 - varanus - INFO - (64, 0.010345935821533203)
+2020-06-11 16:47:59,624 - varanus - INFO - (65, 0.010483980178833008)
+2020-06-11 16:47:59,624 - varanus - INFO - (66, 0.010622978210449219)
+2020-06-11 16:47:59,624 - varanus - INFO - (67, 0.010763883590698242)
+2020-06-11 16:47:59,624 - varanus - INFO - (68, 0.010905981063842773)
+2020-06-11 16:47:59,624 - varanus - INFO - (69, 0.011046886444091797)
+2020-06-11 16:47:59,624 - varanus - INFO - (70, 0.011188983917236328)
+2020-06-11 16:47:59,624 - varanus - INFO - (71, 0.011332988739013672)
+2020-06-11 16:47:59,624 - varanus - INFO - (72, 0.011494874954223633)
+2020-06-11 16:47:59,624 - varanus - INFO - (73, 0.011638879776000977)
+2020-06-11 16:47:59,624 - varanus - INFO - (74, 0.011786937713623047)
+2020-06-11 16:47:59,624 - varanus - INFO - (75, 0.011926889419555664)
+2020-06-11 16:47:59,624 - varanus - INFO - (76, 0.012068986892700195)
+2020-06-11 16:47:59,624 - varanus - INFO - (77, 0.012216806411743164)
+2020-06-11 16:47:59,624 - varanus - INFO - (78, 0.012360811233520508)
+2020-06-11 16:47:59,624 - varanus - INFO - (79, 0.012497901916503906)
+2020-06-11 16:47:59,625 - varanus - INFO - (80, 0.015172958374023438)
+2020-06-11 16:47:59,625 - varanus - INFO - (81, 0.015335798263549805)
+2020-06-11 16:47:59,625 - varanus - INFO - (82, 0.015542984008789062)
+2020-06-11 16:47:59,625 - varanus - INFO - (83, 0.015695810317993164)
+2020-06-11 16:47:59,625 - varanus - INFO - (84, 0.01584482192993164)
+2020-06-11 16:47:59,625 - varanus - INFO - (85, 0.01599597930908203)
+2020-06-11 16:47:59,625 - varanus - INFO - (86, 0.016145944595336914)
+2020-06-11 16:47:59,625 - varanus - INFO - (87, 0.016290903091430664)
+2020-06-11 16:47:59,625 - varanus - INFO - (88, 0.01644587516784668)
+2020-06-11 16:47:59,625 - varanus - INFO - (89, 0.016586780548095703)
+2020-06-11 16:47:59,625 - varanus - INFO - (90, 0.016731977462768555)
+2020-06-11 16:47:59,625 - varanus - INFO - (91, 0.016871929168701172)
+2020-06-11 16:47:59,625 - varanus - INFO - (92, 0.0170137882232666)
+2020-06-11 16:47:59,625 - varanus - INFO - (93, 0.017164945602416992)
+2020-06-11 16:47:59,625 - varanus - INFO - (94, 0.017308950424194336)
+2020-06-11 16:47:59,625 - varanus - INFO - (95, 0.017448902130126953)
+2020-06-11 16:47:59,625 - varanus - INFO - (96, 0.017590999603271484)
+2020-06-11 16:47:59,625 - varanus - INFO - (97, 0.0177309513092041)
+2020-06-11 16:47:59,626 - varanus - INFO - (98, 0.01787281036376953)
+2020-06-11 16:47:59,626 - varanus - INFO - (99, 0.01801586151123047)
+2020-06-11 16:47:59,626 - varanus - INFO - (100, 0.018157958984375)
+2020-06-11 16:47:59,626 - varanus - INFO - (101, 0.01829695701599121)
+2020-06-11 16:47:59,626 - varanus - INFO - (102, 0.01844000816345215)
+2020-06-11 16:47:59,626 - varanus - INFO - (103, 0.01857900619506836)
+2020-06-11 16:47:59,626 - varanus - INFO - (104, 0.01872086524963379)
+2020-06-11 16:47:59,626 - varanus - INFO - (105, 0.01885986328125)
+2020-06-11 16:47:59,626 - varanus - INFO - (106, 0.019006967544555664)
+2020-06-11 16:47:59,626 - varanus - INFO - (107, 0.019148826599121094)
+2020-06-11 16:47:59,626 - varanus - INFO - (108, 0.019295930862426758)
+2020-06-11 16:47:59,626 - varanus - INFO - (109, 0.0194399356842041)
+2020-06-11 16:47:59,626 - varanus - INFO - (110, 0.019594907760620117)
+2020-06-11 16:47:59,626 - varanus - INFO - (111, 0.01973891258239746)
+2020-06-11 16:47:59,626 - varanus - INFO - (112, 0.019905805587768555)
+2020-06-11 16:47:59,626 - varanus - INFO - (113, 0.02005290985107422)
+2020-06-11 16:47:59,627 - varanus - INFO - (114, 0.020200014114379883)
+2020-06-11 16:47:59,627 - varanus - INFO - (115, 0.02034282684326172)
+2020-06-11 16:47:59,627 - varanus - INFO - (116, 0.020908832550048828)
+2020-06-11 16:47:59,627 - varanus - INFO - (117, 0.02106785774230957)
+2020-06-11 16:47:59,627 - varanus - INFO - (118, 0.02122187614440918)
+2020-06-11 16:47:59,627 - varanus - INFO - (119, 0.02136683464050293)
+2020-06-11 16:47:59,627 - varanus - INFO - (120, 0.021509885787963867)
+2020-06-11 16:47:59,627 - varanus - INFO - (121, 0.021647930145263672)
+2020-06-11 16:47:59,627 - varanus - INFO - (122, 0.021788835525512695)
+2020-06-11 16:47:59,627 - varanus - INFO - (123, 0.021928787231445312)
+2020-06-11 16:47:59,627 - varanus - INFO - (124, 0.022069931030273438)
+2020-06-11 16:47:59,627 - varanus - INFO - (125, 0.022209882736206055)
+2020-06-11 16:47:59,627 - varanus - INFO - (126, 0.02244400978088379)
+2020-06-11 16:47:59,627 - varanus - INFO - (127, 0.022592782974243164)
+2020-06-11 16:47:59,627 - varanus - INFO - (128, 0.02274179458618164)
+2020-06-11 16:47:59,627 - varanus - INFO - (129, 0.022885799407958984)
+2020-06-11 16:47:59,627 - varanus - INFO - (130, 0.023028850555419922)
+2020-06-11 16:47:59,628 - varanus - INFO - (131, 0.02316880226135254)
+2020-06-11 16:47:59,628 - varanus - INFO - (132, 0.023309946060180664)
+2020-06-11 16:47:59,628 - varanus - INFO - (133, 0.023450851440429688)
+2020-06-11 16:47:59,628 - varanus - INFO - (134, 0.023604869842529297)
+2020-06-11 16:47:59,628 - varanus - INFO - (135, 0.023744821548461914)
+2020-06-11 16:47:59,628 - varanus - INFO - (136, 0.023886919021606445)
+2020-06-11 16:47:59,628 - varanus - INFO - (137, 0.024025917053222656)
+2020-06-11 16:47:59,628 - varanus - INFO - (138, 0.024165868759155273)
+2020-06-11 16:47:59,628 - varanus - INFO - (139, 0.02430582046508789)
+2020-06-11 16:47:59,628 - varanus - INFO - (140, 0.02445197105407715)
+2020-06-11 16:47:59,628 - varanus - INFO - (141, 0.024595975875854492)
+2020-06-11 16:47:59,628 - varanus - INFO - (142, 0.024739980697631836)
+2020-06-11 16:47:59,628 - varanus - INFO - (143, 0.024878978729248047)
+2020-06-11 16:47:59,628 - varanus - INFO - (144, 0.025018930435180664)
+2020-06-11 16:47:59,628 - varanus - INFO - (145, 0.02515697479248047)
+2020-06-11 16:47:59,628 - varanus - INFO - (146, 0.0252988338470459)
+2020-06-11 16:47:59,628 - varanus - INFO - (147, 0.025435924530029297)
+2020-06-11 16:47:59,628 - varanus - INFO - (148, 0.025581836700439453)
+2020-06-11 16:47:59,629 - varanus - INFO - (149, 0.02572178840637207)
+2020-06-11 16:47:59,629 - varanus - INFO - (150, 0.025865793228149414)
+2020-06-11 16:47:59,629 - varanus - INFO - (151, 0.026002883911132812)
+2020-06-11 16:47:59,629 - varanus - INFO - (152, 0.02614593505859375)
+2020-06-11 16:47:59,629 - varanus - INFO - (153, 0.026283979415893555)
+2020-06-11 16:47:59,629 - varanus - INFO - (154, 0.026423931121826172)
+2020-06-11 16:47:59,629 - varanus - INFO - (155, 0.02656698226928711)
+2020-06-11 16:47:59,629 - varanus - INFO - (156, 0.02670884132385254)
+2020-06-11 16:47:59,629 - varanus - INFO - (157, 0.02684783935546875)
+2020-06-11 16:47:59,629 - varanus - INFO - (158, 0.02698993682861328)
+2020-06-11 16:47:59,629 - varanus - INFO - (159, 0.02713799476623535)
+2020-06-11 16:47:59,629 - varanus - INFO - (160, 0.02727794647216797)
+2020-06-11 16:47:59,629 - varanus - INFO - (161, 0.02742290496826172)
+2020-06-11 16:47:59,629 - varanus - INFO - (162, 0.027575016021728516)
+2020-06-11 16:47:59,629 - varanus - INFO - (163, 0.027716875076293945)
+2020-06-11 16:47:59,629 - varanus - INFO - (164, 0.02786087989807129)
+2020-06-11 16:47:59,629 - varanus - INFO - (165, 0.028003931045532227)
+2020-06-11 16:47:59,629 - varanus - INFO - (166, 0.02814793586730957)
+2020-06-11 16:47:59,630 - varanus - INFO - (167, 0.028289794921875)
+2020-06-11 16:47:59,630 - varanus - INFO - (168, 0.028433799743652344)
+2020-06-11 16:47:59,630 - varanus - INFO - (169, 0.0285799503326416)
+2020-06-11 16:47:59,630 - varanus - INFO - (170, 0.02872490882873535)
+2020-06-11 16:47:59,630 - varanus - INFO - (171, 0.028867006301879883)
+2020-06-11 16:47:59,630 - varanus - INFO - (172, 0.02900981903076172)
+2020-06-11 16:47:59,630 - varanus - INFO - (173, 0.029152870178222656)
+2020-06-11 16:47:59,630 - varanus - INFO - (174, 0.029297828674316406)
+2020-06-11 16:47:59,630 - varanus - INFO - (175, 0.029440879821777344)
+2020-06-11 16:47:59,630 - varanus - INFO - (176, 0.029585838317871094)
+2020-06-11 16:47:59,630 - varanus - INFO - (177, 0.029727935791015625)
+2020-06-11 16:47:59,630 - varanus - INFO - (178, 0.029877901077270508)
+2020-06-11 16:47:59,630 - varanus - INFO - (179, 0.030020952224731445)
+2020-06-11 16:47:59,630 - varanus - INFO - (180, 0.030164003372192383)
+2020-06-11 16:47:59,630 - varanus - INFO - (181, 0.030304908752441406)
+2020-06-11 16:47:59,630 - varanus - INFO - (182, 0.030447959899902344)
+2020-06-11 16:47:59,630 - varanus - INFO - (183, 0.030591964721679688)
+2020-06-11 16:47:59,630 - varanus - INFO - (184, 0.030736923217773438)
+2020-06-11 16:47:59,631 - varanus - INFO - (185, 0.030878782272338867)
+2020-06-11 16:47:59,631 - varanus - INFO - (186, 0.03102397918701172)
+2020-06-11 16:47:59,631 - varanus - INFO - (187, 0.03116297721862793)
+2020-06-11 16:47:59,631 - varanus - INFO - (188, 0.03130388259887695)
+2020-06-11 16:47:59,631 - varanus - INFO - (189, 0.031442880630493164)
+2020-06-11 16:47:59,631 - varanus - INFO - (190, 0.03159189224243164)
+2020-06-11 16:47:59,631 - varanus - INFO - (191, 0.03173089027404785)
+2020-06-11 16:47:59,631 - varanus - INFO - (192, 0.03187084197998047)
+2020-06-11 16:47:59,631 - varanus - INFO - (193, 0.032012939453125)
+2020-06-11 16:47:59,631 - varanus - INFO - +++ Time: 0.136718034744s +++
+2020-06-11 16:47:59,631 - varanus - DEBUG - Varanus Finished
