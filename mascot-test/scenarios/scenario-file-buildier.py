@@ -73,6 +73,14 @@ def build_scenario_0(traceLength):
         newFSEvent = Event(fsEvent, fsParam)
         trace.add_event(newFSEvent)
 
+        if footswitch_bool:
+            fs_reply_event = Event("enter_hands_on_mode", None)
+        else:
+            fs_reply_event = Event("enter_autonomous_mode", None)
+
+        trace.add_event(fs_reply_event)
+
+
         velocity = velocity_events[velocity_num]
 
         f.write("{"+ velocity +" , "+ footswitch +"}\n")
@@ -91,13 +99,7 @@ def build_scenario_0(traceLength):
             f.write("{"+ velocity +" , "+ footswitch +"}\n")
             f.write("{"+ velocity +" , "+ footswitch +"}\n")
 
-        footswitch_bool = not footswitch_bool
-        footswitch = footswitch_events[footswitch_bool]
-
-        fsEvent, fsParam = _split_and_convert_event(footswitch_events[footswitch_bool])
-        newFSEvent = Event(fsEvent, fsParam)
-        trace.add_event(newFSEvent)
-
+        
         velocity = velocity_events[velocity_num]
 
         f.write("{"+ velocity +" , "+ footswitch +"}\n")
@@ -568,16 +570,16 @@ if __name__ == '__main__':
 
     footswitch_events = ['"footswitch": false', '"footswitch": true']
 
-    print("+++ You Commented Them All Out, Dufus +++")
+    #print("+++ You Commented Them All Out, Dufus +++")
 
     #Parameter is the trace length
     #build_scenario_0(10)
 
-    #build_scenario_0(10)
-    #build_scenario_0(100)
-    #build_scenario_0(1000)
-    #build_scenario_0(10000)
-    #build_scenario_0(100000)
+    build_scenario_0(10)
+    build_scenario_0(100)
+    build_scenario_0(1000)
+    build_scenario_0(10000)
+    build_scenario_0(100000)
 
     #build_scenario_1()
 

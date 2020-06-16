@@ -204,6 +204,7 @@ class Monitor(object):
                 time_tuple = (trace.get_length(), total)
                 time_list.append(time_tuple)
 
+        conn.close()
         if timeRun:
             varanus_logger.info("Times:")
             for t in time_list:
