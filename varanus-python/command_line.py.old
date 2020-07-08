@@ -2,7 +2,9 @@ import os
 import platform
 import sys
 
-""" Another bit of FDR API that I've resued."""
+""" FDR API Usage Example file that I've reused and edited. 
+Original file available at: https://cocotec.io/fdr/manual/_downloads/ffcc2113bd60df5a33677f5bbe5193da/command_line.py
+"""
 
 if platform.system() == "Linux":
     for bin_dir in os.environ.get("PATH", "").split(":"):
@@ -20,7 +22,7 @@ if platform.system() == "Linux":
 
             #... join with lib and append to path
             sys.path.append(os.path.join(uptwo[0], "lib"))
-            #hasta lasanga don't get any on ya
+            #hasta lasagne, don't get any on ya
             break
 elif platform.system() == "Darwin":
     for app_dir in ["/Applications", os.path.join("~", "Applications")]:

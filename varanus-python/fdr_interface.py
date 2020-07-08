@@ -4,7 +4,10 @@ import sys
 import logging
 varanus_logger = logging.getLogger("varanus")
 
-""" Interface to FDR. Based on: https://www.cs.ox.ac.uk/projects/fdr/manual/api/api.html#getting-started-with-python"""
+""" Interface to FDR.
+ FDR API Usage Example file that I've reused and edited.
+Original file available at: https://cocotec.io/fdr/manual/_downloads/ffcc2113bd60df5a33677f5bbe5193da/command_line.py
+"""
 
 if platform.system() == "Linux":
     for bin_dir in os.environ.get("PATH", "").split(":"):
