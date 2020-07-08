@@ -1,14 +1,13 @@
 import socket
 import json
 
-""" Reads the json file supplied in FILE, converts it to a list, and accumulates a trace.
-    After each event, it sends the new Trace to Varanus """
+""" Reads the json file supplied in FILE, converts it to a list, and sends
+    each event (one-by-one) to Varanus """
 
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5088
 BUFFER_SIZE = 1024
-MESSAGE = "Hello, World!"
-FILE = "scenario-traces/scenario7-trace.json"
+FILE = "scenario-traces/scenario1-trace.json"
 
 #Open socket to Varanus
 mascot_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

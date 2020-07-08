@@ -1,29 +1,80 @@
-# Varanus
+# Varanus 0.88
+### Matt Luckcuck
+### Runtime Verification Toolchain using CSP and FDR
 
-This is a Runtime Monitoring application for checking programs against CSP specifications. It uses FDR in the back end to check that the incoming events are valid traces of the model
+Varanus is a Runtime Verification (RV) toolchain for checking a program is obeying its specification. The specification must be written in Communicating Sequential Processes (CSP) and is assumed to parse correctly. Varanus listens to the events produced by a System Under Analysis (SUA), and checks that these events are a valid trace of the CSP model using [FDR](https://cocotec.io/fdr/) (the CSP model checker).
+
+### Papers
+
+Varanus is an academic tool and therefore has been described in papers, which are also available in the 'papers' directory.
+
+* _Monitoring Robotic Systems using CSP: From Safety Designs to Safety Monitors_, Matt Luckcuck, (Under Review) [arXiv](https://arxiv.org/abs/2007.03522)
+ - Information about how to run the MASCOT example presented in the paper can be found in `varanus/mascot-test/README.md`
 
 ## The Name
 
-Varanus is the genus of Monitor Lizards
+Varanus is the genus of [Monitor Lizards](https://en.wikipedia.org/wiki/Monitor_lizard)
 
+## Prerequisites
+
+Varanus has been built and (only) tested on Ubuntu 19.10 using Python 2.7.17
+
+### Python
+
+Varanus is written using Python 2.7 (but capatability with Python should only involve fixing some small syntax errors).
+
+### FDR
+
+Varanus assumes a pre-existing installation of [FDR4](https://cocotec.io/fdr/).
+
+From the [FDR](https://cocotec.io/fdr/) website (accessed: 2020-07-08), install using:
+```bash
+sudo sh -c 'echo "deb http://dl.cocotec.io/fdr/debian/ fdr release\n" > /etc/apt/sources.list.d/fdr.list'
+wget -qO - http://dl.cocotec.io/fdr/linux_deploy.key | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install fdr
+```
+
+#### FDR License
+
+To quote from the FDR website
+"All use of FDR require a license, however, you do **not** need to purchase a license if you are engaged in normal academic activity."
+
+An free academic license is available from the license dialogue, when starting FDR. License details can be found on the [FDR Licensing Webpage](https://cocotec.io/fdr/licensing.html)
+
+
+## Usage
+
+Varanus 0.88 is a terminal program that can be run thus:
+``` bash
+python varanus.py
+```
+from within the `varanus/varanus-python` directory.
+
+Varanus 0.88 requires that parameters for its operation be set from within `varanus.py`.
+
+* `logFileName` is the name of the file to which Varanus will log its run
+* The parameters passed to the `Monitor()` constructor are the location of the model's main file and a JSON file containing a map of events in the SUA to events in the model (if these are different)
+* `_run_offline_traces_single()` performs offline RV, it takes the file path to a JSON file containing the trace to be checked. This method checks the whole trace in one go.
+* `run_online_traces_accumulate()`performs online RV, it takes the IP address and port number of a socket connection as parameters. This method checks traces incrementally, adding each event it receives to the trace and checking it. This method assumes there is a socket connection for it communicate with (in the MASCOT example, this is `varanus/mascot-test/dummy_mascot_socket.py`)
+ - Adding the `timeRun=True` parameter to this method will collect timing information for each run.
 
 ## Generic Components
 
-* `command_line.py`
- - Part of the FDR API, runs FDR
 * `event_converter.py`
- - Reads the event_map.json file to convert incoming system events to model events
+ - Reads the event map JSON file, passed to the `Monitor()` constructor, to convert incoming SUA events to model events.
 * `fdr_interface.py`
- - Part of the FDR API, slightly modified from the original version to connect the monitor to FDR
+ - Connects Varanus to FDR. Based on FDR example file from https://cocotec.io/fdr/manual/_downloads/ffcc2113bd60df5a33677f5bbe5193da/command_line.py and modified.
 * `system_interface.py`
- - Connects the monitor to the system being monitored
-* `monitor.py` (again, should be but needs tweaking)
- - Controls the monitoring program
+ - Connects the monitor to the system being monitored.
+* `monitor.py`
+ - Controls the monitoring program.
+ - Should be generic, but the methods it currently provides may be a little specific.
 
 ## Specific Components
 
 * `mascot_event_abstractor.py`
-  - Implements EventConverter for Mascot
+  - Implements `EventConverter` for the MASCOT example
 
 * `event_map.json`
-  - Provide a map from the events the monitor will read from the system to the events inside the model.
+  - Provide a map from the events in the MASCOT example to the events in the model
