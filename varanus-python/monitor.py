@@ -36,7 +36,7 @@ class Monitor(object):
         event_list =json.loads(trace_line)
         varanus_logger.debug("event_list:" + str(event_list))
 
-        # built trace from list
+        # build trace from list
         for event in event_list:
             event = str(event)
             if event.find(".") == -1:
@@ -193,8 +193,8 @@ class Monitor(object):
 
 
             #Send to FDR
-            #result = self.fdr.check_trace(trace)
-            result = True
+            result = self.fdr.check_trace(trace)
+            #result = True
 
             varanus_logger.debug("result: "+ str(result))
 
