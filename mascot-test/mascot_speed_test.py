@@ -43,18 +43,12 @@ def _make_assertion(trace):
 
     return assert_check
 
-def write_csv(scenario_name, times_list, check_type):
+def write_csv(scenario_name, times_list, output_dir):
     """ Output the times_list to a csv (with a name containing the scenario_name)
     with a mean average of the times """
 
     print(scenario_name, times_list)
-    if check_type == "api":
-        output_file = open(API_OUTPUT_DIR+scenario_name+".csv", "w")
-    elif check_type == "online":
-        output_file = open(ONLINE_OUTPUT_DIR+scenario_name+".csv", "w")
-    elif check_type == "offline":
-        output_file = open(OFFLINE_OUTPUT_DIR+scenario_name+".csv", "w")
-
+    output_file = open(output_dir+scenario_name+".csv", "w")
 
     csv_write = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
@@ -114,7 +108,7 @@ def api_time_check():
             print(total)
 
 
-        write_csv(scenario_name, times, "api")
+        write_csv(scenario_name, times, API_OUTPUT_DIR)
 
     fdr.library_exit()
 
