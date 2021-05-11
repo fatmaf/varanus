@@ -1,4 +1,4 @@
-# Varanus 0.88
+# Varanus 0.88.1
 ### Matt Luckcuck
 ### Runtime Verification Toolchain using CSP and FDR
 
@@ -45,11 +45,25 @@ An free academic license is available from the license dialogue, when starting F
 
 ## Usage
 
-Varanus 0.88 is a terminal program that can be run thus:
-``` bash
-python varanus.py
+Varanus 0.88 is a terminal program within the `varanus/varanus-python` directory.
+
+```bash
+usage: varanus.py [-h] [-s S] model map {offline,online}
+
+positional arguments:
+  model             The location of the model used as the oracle.
+  map               The location of the event map
+  {offline,online}  The type of check to be performed
+
+optional arguments:
+  -h, --help        show this help message and exit
+  -n NAME,
+    --name NAME     The name of the check and therefore name of the log file
+  -t TRACE_FILE,
+    --trace_file TRACE_FILE  
+                    The location of the trace file. Only used if type='offline'
+  -s SPEED, --speed SPEED Run 10 timed run and produce the times and mean.).
 ```
-from within the `varanus/varanus-python` directory.
 
 Varanus 0.88 requires that parameters for its operation be set from within `varanus.py`.
 
