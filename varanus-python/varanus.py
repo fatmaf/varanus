@@ -3,6 +3,7 @@ from monitor import *
 import logging
 import argparse
 import os
+import sys
 
 ################
 ###CONSTANTS###
@@ -28,6 +29,10 @@ MAP = args.map
 TYPE = args.type
 SPEED_CHECK = args.speed
 TRACE_FILE = args.trace_file
+if args.name:
+    CHECK_NAME = args.name
+else:
+    CHECK_NAME = "scenario x"
 #TODO check and warn for incompatible params
 
 ################
@@ -49,11 +54,11 @@ fileHandler.setFormatter(formatter)
 
 varanus_logger.addHandler(fileHandler)
 
-print("+++++++++++++++++++++")
-print("++++++ VARANUS ++++++")
-print("++++ version " + str(VERSION_NUM) + " ++++")
-print("+++ Matt Luckcuck +++")
-print("+++++++++++++++++++++")
+print("+++++++++++++++++++++++")
+print("+++++++ VARANUS +++++++")
+print("++++ version " + str(VERSION_NUM) + " +++")
+print("++++ Matt Luckcuck ++++")
+print("+++++++++++++++++++++++")
 print("")
 
 
@@ -64,15 +69,18 @@ varanus_logger.info("+++ Testing " + logFileName + " +++")
 
 if SPEED_CHECK == False:
 # NORMAL USAGE
-    t0 = time.time()
-    mon = Monitor(MODEL, MAP)
+
     #mon.run_offline_rosmon("../rosmon-test/rosmon-mascot-pass.json")
     #mon._run_offline_traces("trace.json")
 
     if TYPE == "offline":
+        t0 = time.time()
+        mon = Monitor(MODEL, MAP)
         mon._run_offline_traces_single(TRACE_FILE)
     elif TYPE == "online":
-        mon.run_online_traces_accumulate(IP, PORT, timeRun=True)
+        t0 = time.time()
+        mon = Monitor(MODEL, MAP)
+        mon.run_online_traces_accumulate(IP, PORT, timeRun=False)
 
     #mon.run_online('127.0.0.1', 5044)
     #mon.run_online_websocket('127.0.0.1', 8080)
@@ -87,28 +95,45 @@ if SPEED_CHECK == False:
 elif SPEED_CHECK == True:
 # SPEED CHECK USAGE
 # Like mascot-speed-test.py but inside Varanus
+    varanus_logger.info("+++ SPEED CHECK +++")
+    sys.path.append("../mascot-test/")
+    from mascot_speed_test import write_csv
+
     SOURCE_LIST = ["scenario1-trace", "scenario2-trace", "scenario2a-trace", "scenario2b-trace",
     "scenario3-trace", "scenario4-trace", "scenario4a-trace", "scenario4b-trace", "scenario5-trace",
     "scenario6-trace", "scenario7-trace", "scenario0-10-trace", "scenario0-100-trace", "scenario0-1000-trace",
     "scenario0-10000-trace", "scenario0-100000-trace"]
 
-    fdr.library_init()
+    times = []
 
     if TYPE == "offline":
         OUTPUT_DIR = "../mascot-test/offline-times/"
 
-        mon._run_offline_traces_single("../mascot-test/scenario-traces/scenario1-trace.json")
+        #for scenario_name in SOURCE_LIST[0:2]:
+
+        varanus_logger.info("+++ SCENARIO:" + CHECK_NAME + " +++")
+
+        for i in range(10):
+            t0 = time.time()
+
+            mon = Monitor(MODEL, MAP)
+            mon._run_offline_traces_single(TRACE_FILE)
+            mon.close()
+
+            t1 = time.time()
+            total = t1-t0
+            times.append(total)
+
+
+
+        write_csv(CHECK_NAME, times, OUTPUT_DIR)
+
+
     elif TYPE == "online":
         OUTPUT_DIR = "../mascot-test/online-times/"
 
-
-        mon.run_online_traces_accumulate(IP, PORT, timeRun=True)
-
-
-
-
-
         for scenario_name in SOURCE_LIST[0:2]:
-            pass
+            print ("SCENARIO:" + scenario_name)
 
-        fdr.library_exit()
+            for i in range(10):
+                mon.run_online_traces_accumulate(IP, PORT, timeRun=True)
