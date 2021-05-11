@@ -120,16 +120,6 @@ def api_time_check():
 
     fdr.library_exit()
 
-def offline_check():
-
-    fdr.library_init()
-
-    for scenario_name in SOURCE_LIST[0:2]:
-        pass
-
-    fdr.library_exit()
-
-
 
 if __name__ == '__main__':
     api_time_check()
