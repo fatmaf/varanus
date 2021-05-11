@@ -21,6 +21,13 @@ class Monitor(object):
         self.fdr.load_model(self.model_path)
         self.eventMapper = MascotEventAbstractor(event_map_path)
 
+    def new_fdr_session(self):
+        assert(self.fdr != None)
+        self.fdr.new_session()
+
+    def load_fdr_model(self, model_path):
+        self.fdr.load_model(self.model_path)
+
     def _run_offline_traces_single(self, trace_path):
         """ Runs Varanus Offline, taking a single trace and sending it to FDR"""
 
@@ -51,6 +58,7 @@ class Monitor(object):
         varanus_logger.debug("trace: " + str(trace))
 
         # throw at FDR
+        print("before check_trace")
         result = self.fdr.check_trace(trace)
         varanus_logger.debug("result: " + str(result))
 

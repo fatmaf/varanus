@@ -108,6 +108,9 @@ class FDRInterface(object):
 
             return False
 
+    def new_session(self):
+        self.session = fdr.Session()
+
 
     def close(self):
         fdr.library_exit()
