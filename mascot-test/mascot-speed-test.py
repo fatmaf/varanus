@@ -13,8 +13,6 @@ import csv
 MODEL = "../varanus-python/model/mascot-safety-system.csp"
 TRACES_DIR = "scenario-traces/"
 API_OUTPUT_DIR = "api-times/"
-ONLINE_OUTPUT_DIR = "online-times/"
-OFFLINE_OUTPUT_DIR = "offline-times/"
 SOURCE_LIST = ["scenario1-trace", "scenario2-trace", "scenario2a-trace", "scenario2b-trace",
 "scenario3-trace", "scenario4-trace", "scenario4a-trace", "scenario4b-trace", "scenario5-trace",
 "scenario6-trace", "scenario7-trace", "scenario0-10-trace", "scenario0-100-trace", "scenario0-1000-trace",
