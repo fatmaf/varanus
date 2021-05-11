@@ -17,11 +17,11 @@ Varanus is the genus of [Monitor Lizards](https://en.wikipedia.org/wiki/Monitor_
 
 ## Prerequisites
 
-Varanus has been built and (only) tested on Ubuntu 19.10 using Python 2.7.17
+Varanus has been built and (only) tested on Ubuntu 19.10/20.04 using Python 2.7.17/18
 
 ### Python
 
-Varanus is written using Python 2.7 (but capatability with Python should only involve fixing some small syntax errors).
+Varanus is written using Python 2.7 (but compatibility with Python should only involve fixing some small syntax errors).
 
 ### FDR
 
@@ -78,3 +78,20 @@ Varanus 0.88 requires that parameters for its operation be set from within `vara
 
 * `event_map.json`
   - Provide a map from the events in the MASCOT example to the events in the model
+
+## Troubleshooting
+
+## ImportError: libpython2.6.so.1.0: cannot open shared object file: No such file or directory
+
+**Found with Python 2.7.18 and FDR 4.2.7**
+
+If you try to run `Varanus` and get `ImportError: libpython2.6.so.1.0: cannot open shared object file: No such file or directory` this is because FDR's API is trying to use Python 2.6 and the library isn't available.
+
+With Python 2.7.18 I have used the following workaround
+
+```bash
+ln -s /usr/lib/x86_64-linux-gnu/libpython2.7.so.1.0 \
+/usr/lib/x86_64-linux-gnu/libpython2.6.so.1.0
+
+```
+modified from [Stack Exchange](https://askubuntu.com/questions/427884/libpython2-6-so-1-0-doesnt-exist), which adds a link from the missing `libpython2.6.so.1.0` to the existing `libpython2.7.so.1.0` file.
