@@ -23,10 +23,10 @@ Varanus should connect to the Dummy MASCOT script and receive events, which you 
 
 ### Running Other Scenarios
 
-To run the other scenarios, you need to alter some of the parameters in the two files we used in **Basic Usage**.
+To run the other scenarios, you need to alter some of the parameters in `dummy_mascot_socket_test.py` we used in **Basic Usage**.
 
-* In `python mascot-test/dummy_mascot_socket_test.py` edit the `FILE` constant to point at the scenario trace you want to use (they can be found in the `mascot-test/scenario-traces` directory).
-* In `python varanus-python/varanus.py` edit the `logFileName` to match the scenario you've picked (this is more so that the logs match rather than for any functional reason).
+* In `python mascot-test/dummy_mascot_socket_test.py` edit the `FILE` constant to point at the scenario trace file you want to use (they can be found in the `mascot-test/scenario-traces` directory).
+* Call `python varanus.py model/mascot-safety-system.csp event_map.json online -n <name>` replacing `<name>` to match the scenario you've picked (this is more so that the logs match rather than for any functional reason).
 
 ### Running Varanus for Offline RV
 
