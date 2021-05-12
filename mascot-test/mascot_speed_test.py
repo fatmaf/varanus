@@ -1,18 +1,24 @@
-import sys
-sys.path.append("../varanus-python/")
-import fdr_interface
-import time
-import fdr
-import trace_representation
 import json
 import time
 import csv
+import os
+import sys
+import time
+import subprocess
+sys.path.append("../varanus-python/")
+import fdr_interface
+import trace_representation
+import fdr
+
+
 
 
 ##CONSTANTS###
 MODEL = "../varanus-python/model/mascot-safety-system.csp"
 TRACES_DIR = "scenario-traces/"
 API_OUTPUT_DIR = "api-times/"
+OFFLINE_OUTPUT_DIR = "offline-times/"
+ONLINE_OUTPUT_DIR =  "online-times/"
 SOURCE_LIST = ["scenario1-trace", "scenario2-trace", "scenario2a-trace", "scenario2b-trace",
 "scenario3-trace", "scenario4-trace", "scenario4a-trace", "scenario4b-trace", "scenario5-trace",
 "scenario6-trace", "scenario7-trace", "scenario0-10-trace", "scenario0-100-trace", "scenario0-1000-trace",
@@ -112,6 +118,36 @@ def api_time_check():
 
     fdr.library_exit()
 
+def offline_time_check():
+
+    for scenario_name in SOURCE_LIST[0:1]:
+        print("+++ SCENARIO " + scenario_name + " +++")
+        print("")
+        for i in range(10):
+            print("+++ RUN NUMBER " + str(i+1) + " +++")
+            print("")
+            os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json offline -n" + scenario_name + " --log_path='../mascot-test/offline-times' -t ../mascot-test/scenario-traces/" + scenario_name + ".json" )
+            time.sleep(1)
+
+def online_time_check():
+
+
+
+    for scenario_name in SOURCE_LIST[0:1]:
+        subprocess.call("python dummy_mascot_speed_check.py scenario-traces/" + scenario_name + ".json")
+        print("+++ SCENARIO " + scenario_name + " +++")
+        print("")
+        for i in range(2):
+            print("+++ RUN NUMBER " + str(i+1) + " +++")
+            print("")
+
+
+            os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json online -n" + scenario_name + " --log_path='../mascot-test/online-times' ")
+            time.sleep(1)
+        time.sleep(1)
+
 
 if __name__ == '__main__':
-    api_time_check()
+    #api_time_check()
+    #offline_time_check()
+    online_time_check()
