@@ -9,6 +9,7 @@ import json
 def start(tcp_tp, tcp_port):
     #Open socket to Varanus
     mascot_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    mascot_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     #varanus_socket.connect((TCP_IP, TCP_PORT))
     mascot_socket.bind((tcp_tp, tcp_port))
     mascot_socket.listen(1)

@@ -79,7 +79,7 @@ def api_time_check():
 
     fdr.library_init()
 
-    for scenario_name in SOURCE_LIST[0:1]:
+    for scenario_name in SOURCE_LIST[0:2]:
         print ("SCENARIO:" + scenario_name)
         times = []
 
@@ -121,13 +121,13 @@ def api_time_check():
 
 def offline_time_check():
 
-    for scenario_name in SOURCE_LIST[0:1]:
+    for scenario_name in SOURCE_LIST[0:2]:
         print("+++ SCENARIO " + scenario_name + " +++")
         print("")
         for i in range(2):
             print("+++ RUN NUMBER " + str(i+1) + " +++")
             print("")
-            os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json offline -n" + scenario_name + " --log_path='../mascot-test/offline-times' -t ../mascot-test/scenario-traces/" + scenario_name + ".json" )
+            os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json offline -n" + scenario_name + " --log_path='../mascot-test/offline-times' -t ../mascot-test/scenario-traces/" + scenario_name + ".json -s=True" )
             time.sleep(1)
 
 def online_time_check():
@@ -137,14 +137,17 @@ def online_time_check():
     #(the number is controlled by dummy_mascot_speed_checy.py)
     scenario_name = "scenario1-trace"
 
-    #Start the dummy mascoy
-    subprocess.Popen(["./dummy_mascot_speed_check.py", "./scenario-traces/" + scenario_name + ".json"])
+    for i in range(2):
+        print("+++ RUN NUMBER " + str(i+1) + " +++")
+        print("")
+        #Start the dummy mascoy
+        subprocess.Popen(["./dummy_mascot_speed_check.py", "./scenario-traces/" + scenario_name + ".json"])
 
-    print("+++ SCENARIO " + scenario_name + " +++")
-    print("")
-    #Start varanus
-    os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json online -n" + scenario_name + " --log_path='../mascot-test/online-times' ")
-
+        print("+++ SCENARIO " + scenario_name + " +++")
+        print("")
+        #Start varanus
+        os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json online -n" + scenario_name + " --log_path='../mascot-test/online-times' -s=True ")
+        time.sleep(2)
 
 if __name__ == '__main__':
     print("+++ VARANUS SPEED TEST +++ ")

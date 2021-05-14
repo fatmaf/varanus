@@ -82,9 +82,9 @@ def run(check_type):
 
         return total
 
-def log_speed(name, time):
+def log_speed(name, time, type):
 
-    file_name = "log/speed-check-"+name+".csv"
+    file_name = LOG_PATH +"varanus-"+ TYPE +"-speed-check-"+name+".csv"
 
     #If the file doesn't exist, open and close it -_-
     if not exists(file_name):
@@ -148,4 +148,4 @@ varanus_logger.debug("Varanus Finished")
 
 if SPEED_CHECK == True:
 
-    log_speed(CHECK_NAME, total)
+    log_speed(CHECK_NAME, total, TYPE)
