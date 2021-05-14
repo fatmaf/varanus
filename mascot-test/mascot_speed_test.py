@@ -79,7 +79,7 @@ def api_time_check():
 
     fdr.library_init()
 
-    for scenario_name in SOURCE_LIST[0:2]:
+    for scenario_name in SOURCE_LIST:
         print ("SCENARIO:" + scenario_name)
         times = []
 
@@ -92,7 +92,7 @@ def api_time_check():
         assertion_text = _make_assertion(event_list)
 
         # do the check ten times
-        for i in range(2):
+        for i in range(10):
             #Prep
             print("before library_init()")
 
@@ -121,10 +121,10 @@ def api_time_check():
 
 def offline_time_check():
 
-    for scenario_name in SOURCE_LIST[0:2]:
+    for scenario_name in SOURCE_LIST:
         print("+++ SCENARIO " + scenario_name + " +++")
         print("")
-        for i in range(2):
+        for i in range(10):
             print("+++ RUN NUMBER " + str(i+1) + " +++")
             print("")
             os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json offline -n" + scenario_name + " --log_path='../mascot-test/offline-times' -t ../mascot-test/scenario-traces/" + scenario_name + ".json -s=True" )
@@ -137,7 +137,7 @@ def online_time_check():
     #(the number is controlled by dummy_mascot_speed_checy.py)
     scenario_name = "scenario1-trace"
 
-    for i in range(2):
+    for i in range(10):
         print("+++ RUN NUMBER " + str(i+1) + " +++")
         print("")
         #Start the dummy mascoy
