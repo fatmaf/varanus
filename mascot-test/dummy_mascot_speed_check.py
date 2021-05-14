@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import argparse
 import time
 
@@ -17,8 +18,10 @@ BUFFER_SIZE = 1024
 
 mascot_socket, varanus_socket = dummy_mascot_socket_test.start(IP, PORT)
 
-for i in range(2):
+for i in range(1):
+    print("+++ RUN NUMBER " + str(i+1) + " +++")
+    print("")
     dummy_mascot_socket_test.read_and_send(varanus_socket, FILE, BUFFER_SIZE)
-    time.sleep(1)
+    time.sleep(2)
 
 dummy_mascot_socket_test.end(mascot_socket, varanus_socket)

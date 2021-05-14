@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import subprocess
+from subprocess import Popen, PIPE
 sys.path.append("../varanus-python/")
 import fdr_interface
 import trace_representation
@@ -78,7 +79,7 @@ def api_time_check():
 
     fdr.library_init()
 
-    for scenario_name in SOURCE_LIST[0:2]:
+    for scenario_name in SOURCE_LIST[0:1]:
         print ("SCENARIO:" + scenario_name)
         times = []
 
@@ -91,7 +92,7 @@ def api_time_check():
         assertion_text = _make_assertion(event_list)
 
         # do the check ten times
-        for i in range(10):
+        for i in range(2):
             #Prep
             print("before library_init()")
 
@@ -123,7 +124,7 @@ def offline_time_check():
     for scenario_name in SOURCE_LIST[0:1]:
         print("+++ SCENARIO " + scenario_name + " +++")
         print("")
-        for i in range(10):
+        for i in range(2):
             print("+++ RUN NUMBER " + str(i+1) + " +++")
             print("")
             os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json offline -n" + scenario_name + " --log_path='../mascot-test/offline-times' -t ../mascot-test/scenario-traces/" + scenario_name + ".json" )
@@ -132,22 +133,30 @@ def offline_time_check():
 def online_time_check():
 
 
+	#Receives does 10 runs of Scenario 1
+    #(the number is controlled by dummy_mascot_speed_checy.py)
+    scenario_name = "scenario1-trace"
 
-    for scenario_name in SOURCE_LIST[0:1]:
-        subprocess.call("python dummy_mascot_speed_check.py scenario-traces/" + scenario_name + ".json")
-        print("+++ SCENARIO " + scenario_name + " +++")
-        print("")
-        for i in range(2):
-            print("+++ RUN NUMBER " + str(i+1) + " +++")
-            print("")
+    #Start the dummy mascoy
+    subprocess.Popen(["./dummy_mascot_speed_check.py", "./scenario-traces/" + scenario_name + ".json"])
 
-
-            os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json online -n" + scenario_name + " --log_path='../mascot-test/online-times' ")
-            time.sleep(1)
-        time.sleep(1)
+    print("+++ SCENARIO " + scenario_name + " +++")
+    print("")
+    #Start varanus
+    os.system("python ../varanus-python/varanus.py ../varanus-python/model/mascot-safety-system.csp ../varanus-python/event_map.json online -n" + scenario_name + " --log_path='../mascot-test/online-times' ")
 
 
 if __name__ == '__main__':
-    #api_time_check()
-    #offline_time_check()
+    print("+++ VARANUS SPEED TEST +++ ")
+    print("")
+    print("+++ API TIME CHECK START +++ ")
+    api_time_check()
+    print("+++ API TIME CHECK DONE +++ ")
+    time.sleep(2)
+    print("+++ OFFLINE TIME CHECK START +++")
+    offline_time_check()
+    print("+++ OFFLINE TIME CHECK DONE +++")
+    time.sleep(2)
+    print("+++ ONLINE TIME CHECK START +++")
     online_time_check()
+    print("+++ ONLINE TIME CHECK DONE +++ ")
