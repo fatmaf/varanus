@@ -108,3 +108,13 @@ class FDRInterface(object):
 
     def close(self):
         fdr.library_exit()
+
+
+if __name__ == '__main__':
+    test_process = "a -> b -> SKIP"
+
+    fdr = FDRInterface()
+
+    LTS = fdr.session.evaluate_process(test_process)
+
+    print(LTS)
