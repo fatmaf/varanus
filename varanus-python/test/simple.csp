@@ -1,0 +1,6 @@
+channel a, b, c
+channel d : {1,0}
+
+A = a -> SKIP
+
+D(num) =  d.num -> SKIP

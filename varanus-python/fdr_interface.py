@@ -119,8 +119,38 @@ class FDRInterface(object):
 if __name__ == '__main__':
     test_process = "a -> b -> SKIP"
 
-    fdr = FDRInterface()
+    fdr_interface = FDRInterface()
+    fdr_interface.load_model("test/simple.csp")
 
-    LTS = fdr.session.evaluate_process(test_process)
+    # evaluate_process runs the process given, in the semantic model given, within the session
+    LTS = fdr_interface.session.evaluate_process(test_process, fdr.SemanticModel_Traces, None)
+    # Here is an example of calling a process deinfed in simple.csp
+    # LTS = fdr_interface.session.evaluate_process("D(0)", fdr.SemanticModel_Traces, None)
 
-    print(LTS)
+    #The result of the evaluate_process call is a state machine
+    machine = LTS.result()
+
+    #We can get the root node of a state machine...
+    root =  machine.root_node()
+
+    # ... and print it's name (if it has one) ...
+    print(fdr_interface.session.machine_node_name(machine, root))
+
+    # ...and get the initial events out of the root node...
+    initials_root = machine.initials(root)
+
+    # but we have to uncompile them first.
+    #Be careful, lots of methods return tuples, not just compiled events
+    print(fdr_interface.session.uncompile_events(initials_root))
+
+    alphabet = machine.alphabet(True)
+
+    print(fdr_interface.session.uncompile_events(alphabet))
+
+    #Transitions from the root node
+    transitions_root = machine.transitions(root) # tuple
+    for t in transitions_root:
+        print(fdr_interface.session.uncompile_event(t.event())) #the event the transition represents
+        dest = t.destination() # the node the transition goes to
+        initials_dest =  machine.initials(dest) # and the events out of the destination
+        print(fdr_interface.session.uncompile_events(initials_dest))
