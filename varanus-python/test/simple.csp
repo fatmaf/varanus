@@ -3,4 +3,8 @@ channel d : {1,0}
 
 A = a -> SKIP
 
+B = b -> SKIP
+
 D(num) =  d.num -> SKIP
+
+Choice = A [] B

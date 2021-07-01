@@ -108,6 +108,33 @@ class FDRInterface(object):
 
             return False
 
+    def compile_process(self, process, semantic_model):
+        """ Loads the given process, using evaluate_process(), for the given semantic model
+        into the current session. Returns the resulting state machine in this object. """
+
+        assert(self.session != None)
+
+        #fdr.SemanticModel_Traces
+        # evaluate_process runs the process given, in the semantic model given, within the session
+        # The None is for the 'Canceller'
+        return self.session.evaluate_process(process,semantic_model, None).result()
+
+    def check_event(self, node, event):
+        """ Checks the given event is possible from the given node """
+        pass
+
+    def uncompile_events(self, events):
+        """ Uncompiles an event or a tuple of events"""
+        #Apparently the alphabet is a tuple of ints, not fdr.Event objects
+        assert(isinstance(events, (tuple, int) ) )
+
+        #If the parameter is a single event
+        if isinstance(events, int):
+            return self.session.uncompile_event(events)
+        elif isinstance(events, tuple):
+            return self.session.uncompile_events(events)
+
+
     def new_session(self):
         self.session = fdr.Session()
 
@@ -118,34 +145,79 @@ class FDRInterface(object):
 
 if __name__ == '__main__':
     test_process = "a -> b -> SKIP"
+    test_sua_good = ["a", "b"]
+    test_sua_bad = ["a", "a"]
+    #Interestingly, the current setup fails if I use "c" (e.g.) before the "FAIL" print
 
     fdr_interface = FDRInterface()
     fdr_interface.load_model("test/simple.csp")
 
-    # evaluate_process runs the process given, in the semantic model given, within the session
-    LTS = fdr_interface.session.evaluate_process(test_process, fdr.SemanticModel_Traces, None)
-    # Here is an example of calling a process deinfed in simple.csp
-    # LTS = fdr_interface.session.evaluate_process("D(0)", fdr.SemanticModel_Traces, None)
+    machine = fdr_interface.compile_process(test_process, fdr.SemanticModel_Traces)
 
-    #The result of the evaluate_process call is a state machine
-    machine = LTS.result()
+    #Build alphabet map (name:(compiled)event)
+    events = {}
+
+    alphabet = machine.alphabet(True)
+    print(alphabet)
+    print(type(alphabet))
+    print(type(alphabet[0]))
+
+    uncompiled_alpha = fdr_interface.uncompile_events(alphabet)
+    print(uncompiled_alpha)
+
+    for event in alphabet:
+        uncompiled = fdr_interface.uncompile_events(event)
+        name = uncompiled.to_string()
+
+        #the string of the event name points at the compiled event
+        events[name] = event
 
     #We can get the root node of a state machine...
     root =  machine.root_node()
-
     # ... and print it's name (if it has one) ...
     print(fdr_interface.session.machine_node_name(machine, root))
-
     # ...and get the initial events out of the root node...
     initials_root = machine.initials(root)
+    raw_initials = fdr_interface.uncompile_events(initials_root)
 
     # but we have to uncompile them first.
-    #Be careful, lots of methods return tuples, not just compiled events
-    print(fdr_interface.session.uncompile_events(initials_root))
+    print(raw_initials)
 
-    alphabet = machine.alphabet(True)
+    current_node = root
+    check_set = raw_initials
 
-    print(fdr_interface.session.uncompile_events(alphabet))
+    print(type(check_set))
+    print(type(check_set[0]))
+
+    for e in test_sua_bad:
+        # print(e)
+        # print(type(e))
+        # print(events[e])
+        # print(type(events[e]))
+
+        if fdr_interface.uncompile_events(events[e]) not in check_set:
+            print("FAIL")
+            break
+        elif fdr_interface.uncompile_events(events[e]) in check_set:
+            print("PASS")
+
+            sua_event_compiled = events[e]
+            transitions = machine.transitions(current_node)
+            print(transitions)
+            print(type(transitions))
+
+            for t in transitions:
+                print(t)
+                if t.event() == sua_event_compiled:
+                    current_node = t.destination()
+                    break
+                assert(False)
+
+            initials_new = machine.initials(current_node)
+
+            check_set = fdr_interface.uncompile_events(initials_new)
+
+
 
     #Transitions from the root node
     transitions_root = machine.transitions(root) # tuple

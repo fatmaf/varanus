@@ -84,7 +84,7 @@ assert EPS2B [T= MASCOT_SAFETY_SYSTEM\(diff(Events, {|system_init, speed, protec
 
 -- 5.2.1(4),(5), (6)
 -- (4) Remain Active until reset
--- (5) On reset by a manual action that does not cayuse a resstart after resetting, but shall only permis a restart to occurr...
+-- (5) On reset by a manual action that does not cause a restart after resetting, but shall only permis a restart to occurr...
 -- (6) Provide and output signal to indicate when the system is in the Safe State
 EPS3 =
   safe_stop_cat1 ->
