@@ -1,3 +1,5 @@
+from command_line import *
+import fdr
 import os
 import platform
 import sys
@@ -30,10 +32,9 @@ if platform.system() == "Linux":
 elif platform.system() == "Darwin":
     for app_dir in ["/Applications", os.path.join("~", "Applications")]:
         if os.path.exists(os.path.join(app_dir, "FDR4.app")):
-            sys.path.append(os.path.join(app_dir, "FDR4.app", "Contents", "Frameworks"))
+            sys.path.append(os.path.join(
+                app_dir, "FDR4.app", "Contents", "Frameworks"))
             break
-import fdr
-from command_line import *
 
 
 class FDRInterface(object):
@@ -80,7 +81,6 @@ class FDRInterface(object):
 
         return assert_check
 
-
     def check_trace(self, trace):
         """ parses the trace and executes it in the current session.
             returns True if the assertion passed or
@@ -89,7 +89,7 @@ class FDRInterface(object):
         assert(self.session != None)
 
         assertionString = self._make_assertion(trace)
-        varanus_logger.debug("assertionString: "+ assertionString)
+        varanus_logger.debug("assertionString: " + assertionString)
 
         parsedAssert = self.session.parse_assertion(assertionString)
 
@@ -101,56 +101,16 @@ class FDRInterface(object):
             varanus_logger.info("+++ " + assertion.to_string() + " Passed +++")
             return True
         else:
-            varanus_logger.info("+++ " +  assertion.to_string() + " Failed +++")
+            varanus_logger.info("+++ " + assertion.to_string() + " Failed +++")
 
             for counterexample in assertion.counterexamples():
-                describe_counterexample(self.session, counterexample, children=False)
+                describe_counterexample(
+                    self.session, counterexample, children=False)
 
             return False
 
     def new_session(self):
         self.session = fdr.Session()
 
-
     def close(self):
         fdr.library_exit()
-
-
-if __name__ == '__main__':
-    test_process = "a -> b -> SKIP"
-
-    fdr_interface = FDRInterface()
-    fdr_interface.load_model("test/simple.csp")
-
-    # evaluate_process runs the process given, in the semantic model given, within the session
-    LTS = fdr_interface.session.evaluate_process(test_process, fdr.SemanticModel_Traces, None)
-    # Here is an example of calling a process deinfed in simple.csp
-    # LTS = fdr_interface.session.evaluate_process("D(0)", fdr.SemanticModel_Traces, None)
-
-    #The result of the evaluate_process call is a state machine
-    machine = LTS.result()
-
-    #We can get the root node of a state machine...
-    root =  machine.root_node()
-
-    # ... and print it's name (if it has one) ...
-    print(fdr_interface.session.machine_node_name(machine, root))
-
-    # ...and get the initial events out of the root node...
-    initials_root = machine.initials(root)
-
-    # but we have to uncompile them first.
-    #Be careful, lots of methods return tuples, not just compiled events
-    print(fdr_interface.session.uncompile_events(initials_root))
-
-    alphabet = machine.alphabet(True)
-
-    print(fdr_interface.session.uncompile_events(alphabet))
-
-    #Transitions from the root node
-    transitions_root = machine.transitions(root) # tuple
-    for t in transitions_root:
-        print(fdr_interface.session.uncompile_event(t.event())) #the event the transition represents
-        dest = t.destination() # the node the transition goes to
-        initials_dest =  machine.initials(dest) # and the events out of the destination
-        print(fdr_interface.session.uncompile_events(initials_dest))
