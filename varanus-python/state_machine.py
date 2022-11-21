@@ -21,7 +21,12 @@ def make_simple_state_machine(process):
     machine = LTS.result()
     root = machine.root_node()
 
-    return get_events(fdr_interface, machine, root)
+    #process_map = get_events(fdr_interface, machine, root)
+    process_map = get_process_map(fdr_interface, machine, root)
+
+    fdr_interface.close()
+
+    return process_map
 
 #    transitions_root = machine.transitions(root)  # tuple
 #    for t in transitions_root:
@@ -33,6 +38,34 @@ def make_simple_state_machine(process):
 #        print(fdr_interface.session.uncompile_events(initials_dest))
 
 
+# Currently just doing strings
+def get_process_map(fdr_interface, machine, this_node):
+
+    transitions = machine.transitions(this_node)
+    machine_map = {}
+
+    for t in transitions:
+        label_next_pairs = []
+
+        next_state = str(t.destination().hash_code())
+        event = str(fdr_interface.session.uncompile_event(t.event()))
+        next_events = fdr_interface.session.uncompile_events(
+            this_node.initials())
+
+        this_node_num = str(this_node.hash_code())
+
+        if (this_node_num in machine_map.keys()):
+            current_list = machine_map[this_node_num]
+            update_list = current_list.append((event, next_state))
+            machine_map.update({this_node_num: update_list})
+        else:
+            machine_map.update({this_node_num: [(event, next_state)]})
+
+# recurse with the next nodes
+
+    return machine_map
+
+
 def get_events(fdr_interface, machine, this_node):
 
     transitions = machine.transitions(this_node)
@@ -40,8 +73,10 @@ def get_events(fdr_interface, machine, this_node):
     for t in transitions:
         # the event the transition represents
         trans_event = fdr_interface.session.uncompile_event(t.event())
+
         print(trans_event)
         dest = t.destination()  # the node the transition goes to
+        print("hash code = " + str(dest.hash_code()))
         # and the events out of the destination
         initials_dest = machine.initials(dest)
         next_events = fdr_interface.session.uncompile_events(
@@ -59,7 +94,8 @@ def get_events(fdr_interface, machine, this_node):
 
 if __name__ == '__main__':
     test_process = "a -> b -> SKIP"
-    test_process_sm = [("a", "b"), ("b", '\xe2\x9c\x93')]
+    # test_process_sm = [("a", "b"), ("b", '\xe2\x9c\x93')]
+    test_process_sm = {'0': [('a', '1')]}
 
     test_process2 = "a -> (b -> SKIP [] c -> SKIP)"
     test_process2_sm = [("a", "b"), ("a", "c"),
@@ -70,10 +106,10 @@ if __name__ == '__main__':
     print(result)
     assert (result == test_process_sm)
 
-    result2 = (make_simple_state_machine(test_process2))
-    print("result...")
-    print(result)
-    assert(result2 == test_process2_sm)
+    #result2 = (make_simple_state_machine(test_process2))
+#    print("result...")
+#    print(result2)
+#    assert(result2 == test_process2_sm)
 
     #fdr_interface = FDRInterface()
     #fdr_interface.load_model("test/simple.csp")
