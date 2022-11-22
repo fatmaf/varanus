@@ -1,71 +1,82 @@
-from fdr_interface import *
+"""
+Utilities for turning CSPm into useful State Machines
 
-""" Utilities for machine CSP into useful State Machines
 Matt Luckcuck 2022
 """
+from fdr_interface import *
 
 
 def make_simple_state_machine(process):
-
-    state_machine = []
+    """
+    Makes a state machine from the process
+    """
 
     fdr_interface = FDRInterface()
-    #This loads the whole model (channels and all)
+    # This loads the whole model (channels and all)
     fdr_interface.load_model("test/simple.csp")
 
-    #This evaluates a process (say, the trace)
+    # This evaluates a process (say, the trace)
     LTS = fdr_interface.session.evaluate_process(
         process, fdr.SemanticModel_Traces, None)
 
-    #The result of the evaluate_process call is a state machine
+    # The result of the evaluate_process call is a state machine
     machine = LTS.result()
     root = machine.root_node()
 
-    #process_map = get_events(fdr_interface, machine, root)
+    # process_map = get_events(fdr_interface, machine, root)
     process_map = get_process_map(fdr_interface, machine, root)
 
     fdr_interface.close()
 
     return process_map
 
-#    transitions_root = machine.transitions(root)  # tuple
-#    for t in transitions_root:
-    # the event the transition represents
-#        print(fdr_interface.session.uncompile_event(t.event()))
-#        dest = t.destination()  # the node the transition goes to
-    # and the events out of the destination
-#        initials_dest = machine.initials(dest)
-#        print(fdr_interface.session.uncompile_events(initials_dest))
-
 
 # Currently just doing strings
 def get_process_map(fdr_interface, machine, this_node):
+    """
+    Gets, what I've called a process map for the CSP process (the machine).
+    It starts with the this_node, gets the events and destinations, then recurses.
+    """
 
     transitions = machine.transitions(this_node)
     machine_map = {}
+    destinations = []
 
     for t in transitions:
-        label_next_pairs = []
+        # Get the destination (node) of this transition and
+        # if it's not already in the list of destination, add it.
+        # destinations is the list we use to recurse on.
+        destination = t.destination()
+        if destination not in destinations:
+            destinations.append(destination)
 
-        next_state = str(t.destination().hash_code())
+        # String name of the next state (will be an integer)
+        next_state = str(destination.hash_code())
+        # String name of the event
         event = str(fdr_interface.session.uncompile_event(t.event()))
-        next_events = fdr_interface.session.uncompile_events(
-            this_node.initials())
 
+        # String name of this state (again, will be an integer)
         this_node_num = str(this_node.hash_code())
+        print("In node " + this_node_num)
 
+        # Add the (event, destination) pair to the map
         if (this_node_num in machine_map.keys()):
             current_list = machine_map[this_node_num]
-            update_list = current_list.append((event, next_state))
-            machine_map.update({this_node_num: update_list})
+            current_list.append((event, next_state))
+            machine_map.update({this_node_num: current_list})
         else:
             machine_map.update({this_node_num: [(event, next_state)]})
 
-# recurse with the next nodes
+    # Recurse for each destination of this_node
+    for d in destinations:
+        print("Checking " + next_state)
+        machine_map.update(get_process_map(
+            fdr_interface, machine, d))
 
     return machine_map
 
 
+# This is the old method I wrote before
 def get_events(fdr_interface, machine, this_node):
 
     transitions = machine.transitions(this_node)
@@ -93,59 +104,37 @@ def get_events(fdr_interface, machine, this_node):
 
 
 if __name__ == '__main__':
+
+    # Make some test processes
     test_process = "a -> b -> SKIP"
-    # test_process_sm = [("a", "b"), ("b", '\xe2\x9c\x93')]
-    test_process_sm = {'0': [('a', '1')]}
+    test_process_sm = {'0': [('a', '1')], '1': [('b', '2')], '2': [
+                              ('\xe2\x9c\x93', '3')]}
 
     test_process2 = "a -> (b -> SKIP [] c -> SKIP)"
-    test_process2_sm = [("a", "b"), ("a", "c"),
-                        ("b", '\xe2\x9c\x93'), ("c", '\xe2\x9c\x93')]
+    test_process2_sm = {'0': [('a', '1')], '1': [("b", '2'), ("c", "2")], '2': [
+                               ('\xe2\x9c\x93', '3')]}
 
-    result = make_simple_state_machine(test_process)
-    print("result...")
-    print(result)
-    assert (result == test_process_sm)
+    test_process3 = "(b -> SKIP [] c -> SKIP)"
+    test_process3_sm = {'1': [('\xe2\x9c\x93', '2')], '0': [
+                               ('b', '1'), ('c', '1')]}
 
-    #result2 = (make_simple_state_machine(test_process2))
+# Run some tests. I've only been able to test one process at a time, becasue
+# after one it segfaults...
+
+#    print(test_process)
+#    result = make_simple_state_machine(test_process)
 #    print("result...")
-#    print(result2)
-#    assert(result2 == test_process2_sm)
+#    print(result)
+#    assert (result == test_process_sm)
 
-    #fdr_interface = FDRInterface()
-    #fdr_interface.load_model("test/simple.csp")
+    print(test_process2)
+    result2 = (make_simple_state_machine(test_process2))
+    print("result...")
+    print(result2)
+    assert(result2 == test_process2_sm)
 
-    # evaluate_process runs the process given, in the semantic model given, within the session
-    #LTS = fdr_interface.session.evaluate_process(
-    #    test_process, fdr.SemanticModel_Traces, None)
-    # Here is an example of calling a process deinfed in simple.csp
-    # LTS = fdr_interface.session.evaluate_process("D(0)", fdr.SemanticModel_Traces, None)
-
-    #The result of the evaluate_process call is a state machine
-    #machine = LTS.result()
-
-    #We can get the root node of a state machine...
-    #root = machine.root_node()
-
-    # ... and print it's name (if it has one) ...
-    #print(fdr_interface.session.machine_node_name(machine, root))
-
-    # ...and get the initial events out of the root node...
-    #initials_root = machine.initials(root)
-
-    # but we have to uncompile them first.
-    #Be careful, lots of methods return tuples, not just compiled events
-    #print(fdr_interface.session.uncompile_events(initials_root))
-
-    #alphabet = machine.alphabet(True)
-
-    #print(fdr_interface.session.uncompile_events(alphabet))
-
-    #Transitions from the root node
-    #transitions_root = machine.transitions(root)  # tuple
-    #for t in transitions_root:
-    # the event the transition represents
-    #    print(fdr_interface.session.uncompile_event(t.event()))
-    #    dest = t.destination()  # the node the transition goes to
-    # and the events out of the destination
-    #    initials_dest = machine.initials(dest)
-    #    print(fdr_interface.session.uncompile_events(initials_dest))
+    # print(test_process3)
+    # result3 = (make_simple_state_machine(test_process3))
+    # print("result...")
+    # print(result3)
+    # assert(result3 == test_process3_sm)
