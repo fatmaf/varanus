@@ -9,13 +9,19 @@ class CSPStateMachine(object):
         def __init__(self, name):
             self.name = name
             self.transitions = None
+            # the alphabet is not given in a yaml file
+            # so we assume that only the letters in the obj
+            # are the alphabet
+
 
         def add_transition(self, transition):
             if self.transitions is None:
                 self.transitions = {}
+
             self.transitions[transition.name] = transition
 
         def transit(self, tranname):
+
             if tranname in self.transitions:
                 return self.transitions[tranname]
             else:
@@ -49,11 +55,11 @@ class CSPStateMachine(object):
         self.states = None
         self.current_state = None
         self.initial_state = None
+        self.explicit_alphabet = False
+        self.alphabet = None
 
-    def __init__(self,sm_dictionary):
-        self.states = None
-        self.current_state = None
-        self.initial_state = None
+
+    def create_from_dictionary(self,sm_dictionary):
         # so this is a state machine dictionary
         # all the keys are states
         # all the tuples are transitions
@@ -65,9 +71,28 @@ class CSPStateMachine(object):
         for key in sm_dictionary:
             for tran in sm_dictionary[key]:
                 tranname = tran[0]
+                self.add_letter_to_alphabet(tranname)
                 trandest = tran[1]
                 self.add_state(trandest)
                 self.add_transition_by_name(key,tranname,trandest)
+
+    def load_alphabet_from_config(self,config_fn):
+        import yaml
+        with open(config_fn,'r') as data:
+            config = yaml.safe_load(data)
+
+            if 'alphabet' in config:
+                self.explicit_alphabet = True
+                self.alphabet = set(config['alphabet'])
+    def __init__(self,sm_dictionary,config_fn=None):
+        self.states = None
+        self.current_state = None
+        self.initial_state = None
+        self.explicit_alphabet = False
+        self.alphabet = None
+        if config_fn is not None:
+            self.load_alphabet_from_config(config_fn)
+        self.create_from_dictionary(sm_dictionary)
 
 
 
@@ -81,7 +106,17 @@ class CSPStateMachine(object):
         if statename not in self.states:
             self.states[statename] = CSPStateMachine.State(statename)
 
+    def add_letter_to_alphabet(self,letter):
+        if self.alphabet is None:
+            self.alphabet = set()
+        if self.explicit_alphabet:
+            if letter not in self.alphabet:
+                print('Alphabet defined explicitly but new alphabet found')
+        self.alphabet.add(letter)
+
     def add_transition_by_name(self,srcname,tranname,destname):
+        self.add_letter_to_alphabet(tranname)
+
         tran = CSPStateMachine.Transition(tranname)
 
         if self.states is None:
@@ -101,8 +136,15 @@ class CSPStateMachine(object):
         if transition is not None:
             self.current_state = transition.get_first_state()
         else:
-            print("Invalid transition")
-            return None
+            # if the alphabet is explicit
+            # we will assume that anything we have seen in the alphabet
+            # just means we stay in the same state
+            if self.explicit_alphabet:
+                if tranname in self.alphabet:
+                    return self.current_state
+            else:
+                print("Invalid transition")
+                return None
 
         return self.current_state
 
