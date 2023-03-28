@@ -33,6 +33,25 @@ This file has 3 classes:State,Transition and CSPStateMachine
 * `get_first_state` returns the first state of a transtion 
 * Also has a class variable `_ACCEPTINGSTATE` of type `State` with the name accepting 
 
+##### Config file 
+> This is not a class but can be fed to the CSPStateMachine class. 
+The contents of the config file are simple. 
+* alphabet: a list of the alphabet/events in the CSPStateMachine 
+
+
 ##### CSPStateMachine 
-* constructor -> empty where everything is set to None or False / takes a dictionary object and iterates over it's keys adding each state/ transition-state list. 
-* 
+This class uses a config file to configure the state machine. 
+* constructor -> empty where everything is set to None or False / calls `create_from_dictionary` (additional optional argument, a config file )
+* The constructor also creates a list of the _alphabet_. This is either input from the config file or derived from the transitions in the dictionary. 
+
+* The object assumes the following (see `transit` function):
+  * If the config file has an alphabet, `explicit_alphabet` is `True` 
+  * Therefore when a state-transition pair does not exist AND the transition seen is part of the alphabet, the object returns `None` in order to signal a bad event 
+  * If the config file does not have an alphabet then when a state-transition pair does not exist AND the transition is part of the inferred alphabet, then too we return `None` to signal a bad event i.e we know this event will happen but we did not expect it to happen right now 
+  * In the case the transition is not part of the inferred alphabet the current state is returned
+
+> Usage: see `test_machine` in CSPStateMachine for usage 
+
+## TODO
+* add a function that returns a dictionary from a CSPStateMachine object (so we can create from a dictionary and generate one too if needed) 
+
